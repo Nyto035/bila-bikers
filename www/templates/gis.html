@@ -1,0 +1,19 @@
+<ion-view view-title="GIS">
+        <div class="bar bar-subheader bar-default">
+          </div>
+    <ion-content class="has-subheader">
+        <div class="col-12">
+            <div style="width: 100%;margin-top:0;"></div>
+            <div map-lazy-load="https://maps.google.com/maps/api/js"
+			  	map-lazy-load-params="{{googleMapsUrl}}">
+			  <ng-map center='current-position' zoom="16" style="height:85vh;"
+			  geo-fallback-center="[40.74, -74.18]"
+			  geo-callback="callbackFunc('you')"
+			  >
+			  	<marker position="current" animation="Animation.BOUNCE" centered="true"></marker>
+			  </ng-map>
+			</div>
+        </div>
+    </ion-content>
+
+</ion-view>

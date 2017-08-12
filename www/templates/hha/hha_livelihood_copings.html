@@ -1,0 +1,245 @@
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">8/10 - Livelihood Based Coping Strategies</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form>
+                <div class="col-xs-12 pad-h-20 margin-b-10" style="margin-bottom: 20px;">
+                    During the past 4 Weeks, did anyone in your household have to engage in any following due to a lack of food or a lack of money to buy food?
+                </div>
+                <div class="form-cont pad-t-30">
+                    <div class="group">
+                        <br><br>
+                        <select class="no-border" ng-model="section.csi_sold_household_assets">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_sold_household_assets == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_sold_household_assets == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_sold_household_assets == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_sold_household_assets == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--45">Sold household assets/goods (radio, furniture, television, jewellery etc..) </label>
+                        <validation-errors field="csi_sold_household_assets" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont pad-t-20">
+                    <div class="group">
+                        <br><br>
+                        <select class="no-border" ng-model="section.csi_reduced_nonfood_expenses">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_reduced_nonfood_expenses == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_reduced_nonfood_expenses == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_reduced_nonfood_expenses == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_reduced_nonfood_expenses == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--45">
+                            Reduced nonfood expenses on health (including drugs) and education
+                        </label>
+                        <validation-errors field="csi_reduced_nonfood_expenses" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont pad-t-30">
+                    <div class="group">
+                        <br><br><br>
+                        <select class="no-border" ng-model="section.csi_sold_productive_assets">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_sold_productive_assets == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_sold_productive_assets == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_sold_productive_assets == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_sold_productive_assets == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--55">
+                            Sold productive assets or means of transport (sewing machine, wheel barrow, bicycle, car, etc..)
+                        </label>
+                        <validation-errors field="csi_sold_productive_assets" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border" ng-model="section.csi_spent_savings">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_spent_savings == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_spent_savings == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_spent_savings == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_spent_savings == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>
+                            Spent savings
+                        </label>
+                        <validation-errors field="csi_spent_savings" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont pad-t-10">
+                    <div class="group">
+                        <br><br>
+                        <select class="no-border" ng-model="section.csi_borrowed_money">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_borrowed_money == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_borrowed_money == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_borrowed_money == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_borrowed_money == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">
+                            Borrowed money/food from a formal lender/bank
+                        </label>
+                        <validation-errors field="csi_borrowed_money" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont pad-t-10">
+                    <div class="group">
+                        <select class="no-border" ng-model="section.csi_sold_house_land">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_sold_house_land == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_sold_house_land == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_sold_house_land == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_sold_house_land == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>
+                            Sold house or land
+                        </label>
+                        <validation-errors field="csi_sold_house_land" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border" ng-model="section.csi_withdrew_children_school">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_withdrew_children_school == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_withdrew_children_school == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_withdrew_children_school == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_withdrew_children_school == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>
+                            Withdrew children from school
+                        </label>
+                        <validation-errors field="csi_withdrew_children_school" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border" ng-model="section.csi_sold_last_female_animal">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_sold_last_female_animal == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_sold_last_female_animal == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_sold_last_female_animal == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_sold_last_female_animal == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>
+                            Sold last female animals
+                        </label>
+                        <validation-errors field="csi_sold_last_female_animal" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border" ng-model="section.csi_begging">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_begging == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_begging == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_begging == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_begging == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>
+                            Begging
+                        </label>
+                        <validation-errors field="csi_begging" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont pad-t-10">
+                    <div class="group">
+                        <br><br>
+                        <select class="no-border" ng-model="section.csi_sold_more_animals">
+                            <option value="" disabled selected hidden>
+                                --Select whether you engaged in activity mentioned--
+                            </option>
+                            <option ng-value='1' ng-selected="section.csi_sold_more_animals == 1" >No</option>
+                            <option ng-value='2' ng-selected="section.csi_sold_more_animals == 2">No, because I already sold those assets or
+                                have engaged in this activity within the last 12 months and cannot continue to do it</option>
+                            <option ng-value='3' ng-selected="section.csi_sold_more_animals == 3">Yes</option>
+                            <option ng-value='4' ng-selected="section.csi_sold_more_animals == 4">Not Applicable</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">
+                            Sold more animals (non-productive) than usual
+                        </label>
+                        <validation-errors field="csi_sold_more_animals" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <!-- End of section -->
+                <!-- Buttons container -->
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Livelihood Coping')">
+                            <i class="icon ion-chevron-left"></i> BACK
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Livelihood Coping')">
+                            NEXT <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

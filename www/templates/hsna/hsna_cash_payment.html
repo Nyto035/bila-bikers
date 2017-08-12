@@ -1,0 +1,91 @@
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">3/5 - Cash Payments</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form name="bg_form">
+
+                <!-- Cash payment -->
+                <div class="col-xs-12 pad-h-20 margin-b-5" style="font-size: 1.15rem;">
+                    Indicate the amount and dates payment(s) were received. <i>(Put zero in months where no payment was received and confirm the total amount where multipe payments were received)</i>
+                </div>
+                <!-- Months -->
+                <div class="form-cont pad-b-0 margin-b-0 pad-t-20"
+                ng-repeat="month in months">
+                    <div class="group">
+                        <input type="number" placeholder="Amount in Ksh"
+                               ng-model="survey[month.value]"
+                               ng-change="totalReceived()">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label >Amount collected in {{month.name}}</label>
+                        <validation-errors field="month.value" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <!-- Total amount received -->
+                <div class="form-cont pad-b-0 margin-b-0 pad-t-20">
+                    <div class="group">
+                        <input type="number" placeholder="0.00"
+                               ng-model="survey.total_received">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label style="top: -15px;">Total Amount Received</label>
+                        <validation-errors field="total_received" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <!-- Discovery of payment into account -->
+                <!-- Cash payment -->
+                <div class="col-xs-12 pad-h-20 margin-b-5" style="font-size: 1.15rem;">
+                    How did your household find out that a payment has been made into your account?
+                </div>
+                <!-- Discovery options -->
+                 <div class="form-cont">
+                    <ul class="checklist">
+                        <li class="full-width" ng-repeat="source in infoSources">
+                             <span class="block margin-t-0">
+                                 <input name="{{source.value}}" id="cb1" type="checkbox" class="lg-checker"
+                                 style="width:18px;height:18px;margin-bottom: 8px;"
+-                                 ng-true-value="1" ng-false-value="0" ng-model="survey[source.value]"/>
+                             </span>
+                             <span class="block" style="font-size: 1.1rem;">{{source.name}}</span>
+                             <validation-errors field="source.value" valerrors="validation_errors">
+                        </validation-errors>
+                         </li>
+                    </ul>
+                </div>
+
+                <div class="form-cont pad-t-10 margin-b-0" ng-if="survey.other_sources === 1">
+                    <div class="group">
+                        <input type="text" required="" ng-model="survey.other_specified_sources" placeholder="Specify other source" class="ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-required">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Specify Other Source</label>
+                        <validation-errors field="other_specified_sources" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Cash Payments')">
+                            <i class="icon ion-chevron-left"></i> BACK
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Cash Payments')">
+                            NEXT <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

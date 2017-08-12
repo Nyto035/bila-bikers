@@ -1,0 +1,7 @@
+<ul>
+    <li ng-repeat="error in valerrors track by $index">
+      <div ng-if="error.field == field" style="background: #ee0101; color: #fff; border: 2px solid #ddd; padding: 4px 10px 4px 10px;">
+        <span style="font-size: 0.9em;">{{error.message}}</span>
+      </div>
+    </li>
+</ul>

@@ -1,0 +1,187 @@
+
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">10/10 - Rainfed Crop Production</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form>
+                <div class="col-xs-12">
+                    <div class="form-cont">
+                        <div class="group">
+                            <div class="col-xs-12">
+                                <span class="toggle-label">Are there crops grown in this community?</span>
+                                <label class="toggle toggle-balanced">
+                                    <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.crops_grown_in_community">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                                <validation-errors field="crops_grown_in_community" valerrors="validation_errors">
+                                </validation-errors>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div ng-if="survey.crops_grown_in_community">
+                    <div class="col-xs-12 pad-h-20">
+                        What are the three main food crops grown by the community?
+                    </div>
+                    <div class="form-cont pad-t-15">
+                        <div class="group">      
+                            <select class="no-border" ng-model="survey.main_food_crop_grown1">
+                                <option value="" disabled selected hidden>
+                                    --Select an option below--
+                                </option>
+                                <option value="Maize" ng-selected="survey.main_food_crop_grown1 === 'Maize'">Maize</option>
+                                <option value="Millet" ng-selected="survey.main_food_crop_grown1 === 'Millet'">Millet</option>
+                                <option value="Sorghum" ng-selected="survey.main_food_crop_grown1 === 'Sorghum'">Sorghum</option>
+                                <option value="Beans" ng-selected="survey.main_food_crop_grown1 === 'Beans'">Beans</option>
+                                <option value="Cowpeas" ng-selected="survey.main_food_crop_grown1 === 'Cowpeas'">Cowpeas</option>
+                                <option value="Pigeon Peas" ng-selected="survey.main_food_crop_grown1 === 'Pigeon Peas'">Pigeon Peas</option>
+                                <option value="Green grams" ng-selected="survey.main_food_crop_grown1 === 'Green grams'">Green grams</option>
+                                <option value="Others" ng-selected="survey.main_food_crop_grown1 === 'Others'">Others</option>
+
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Food crop 1</label>
+                            <validation-errors field="main_food_crop_grown1" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                    <div class="form-cont pad-t-15">
+                        <div class="group">      
+                            <select class="no-border" ng-model="survey.main_food_crop_grown2">
+                                <option value="" disabled selected hidden>
+                                    --Select an option below--
+                                </option>
+                                <option value="" ng-selected="survey.main_food_crop_grown1 === ''">N/A</option>
+                                <option value="Maize" ng-selected="survey.main_food_crop_grown2 === 'Maize'">Maize</option>
+                                <option value="Millet" ng-selected="survey.main_food_crop_grown2 === 'Millet'">Millet</option>
+                                <option value="Sorghum" ng-selected="survey.main_food_crop_grown2 === 'Sorghum'">Sorghum</option>
+                                <option value="Beans" ng-selected="survey.main_food_crop_grown2 === 'Beans'">Beans</option>
+                                <option value="Cowpeas" ng-selected="survey.main_food_crop_grown2 === 'Cowpeas'">Cowpeas</option>
+                                <option value="Pigeon Peas" ng-selected="survey.main_food_crop_grown2 === 'Pigeon Peas'">Pigeon Peas</option>
+                                <option value="Green grams" ng-selected="survey.main_food_crop_grown2 === 'Green grams'">Green grams</option>
+                                <option value="Others" ng-selected="survey.main_food_crop_grown2 === 'Others'">Others</option>
+
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Food crop 2</label>
+                            <validation-errors field="main_food_crop_grown2" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div><div class="form-cont pad-t-15">
+                        <div class="group">      
+                            <select class="no-border" ng-model="survey.main_food_crop_grown3">
+                                <option value="" disabled selected hidden>
+                                    --Select an option below--
+                                </option>
+                                <option value="" ng-selected="survey.main_food_crop_grown3 === ''">N/A</option>
+                                <option value="Maize" ng-selected="survey.main_food_crop_grown3 === 'Maize'">Maize</option>
+                                <option value="Millet" ng-selected="survey.main_food_crop_grown3 === 'Millet'">Millet</option>
+                                <option value="Sorghum" ng-selected="survey.main_food_crop_grown3 === 'Sorghum'">Sorghum</option>
+                                <option value="Beans" ng-selected="survey.main_food_crop_grown3 === 'Beans'">Beans</option>
+                                <option value="Cowpeas" ng-selected="survey.main_food_crop_grown3 === 'Cowpeas'">Cowpeas</option>
+                                <option value="Pigeon Peas" ng-selected="survey.main_food_crop_grown3 === 'Pigeon Peas'">Pigeon Peas</option>
+                                <option value="Green grams" ng-selected="survey.main_food_crop_grown3 === 'Green grams'">Green grams</option>
+                                <option value="Others" ng-selected="survey.main_food_crop_grown3 === 'Others'">Others</option>
+
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Food crop 3</label>
+                            <validation-errors field="main_food_crop_grown3" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-cont" ng-if="survey.crops_grown_in_community">
+                    <div class="group"> 
+                        <br><br>
+                        <select class="no-border" ng-model="survey.crops_current_development_stage">
+                            <option value="" disabled selected hidden>
+                                --Select current stage below--
+                            </option>
+                            <option value="Land Preparation" ng-selected="survey.crops_current_development_stage === 'Land Preparation'">Land Preparation</option>
+                            <option value="Germination" ng-selected="survey.crops_current_development_stage === 'Germination'">Germination</option>
+                            <option value="Knee High/Flowering" ng-selected="survey.crops_current_development_stage === 'Knee High/Flowering'">Knee High/Flowering</option>
+                            <option value="Poding/Tussling" ng-selected="survey.crops_current_development_stage === 'Poding/Tussling'">Poding/Tussling</option>
+                            <option value="Grain Filling" ng-selected="survey.crops_current_development_stage === 'Grain Filling'">Grain Filling</option>
+                            <option value="Harvesting" ng-selected="survey.crops_current_development_stage === 'Harvesting'">Harvesting</option>
+
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>What is the current stage of development of main crops grown?</label>
+                        <validation-errors field="crops_current_development_stage" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <div class="form-cont" ng-if="survey.crops_grown_in_community">
+                    <div class="group">      
+                        <select class="no-border" ng-model="survey.main_crops_current_condition">
+                            <option value="" disabled selected hidden>
+                                --Select current condition taken below--
+                            </option>
+                            <option value="Good" ng-selected="survey.main_crops_current_condition === 'Good'">Good</option>
+                            <option value="Fair" ng-selected="survey.main_crops_current_condition === 'Fair'">Fair</option>
+                            <option value="Poor" ng-selected="survey.main_crops_current_condition === 'Poor'">Poor</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>What is the current condition of the main crops?</label>
+                        <validation-errors field="main_crops_current_condition" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <div class="col-xs-12" ng-if="survey.crops_grown_in_community">
+
+                    <div class="form-cont">
+                        <div class="group">
+                            <div class="col-xs-12">
+                                <span class="toggle-label">Are there any major pest and diseases affecting crops?</span>
+                                <label class="toggle toggle-balanced">
+                                    <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.pests_affecting_crop">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                                <validation-errors field="pests_affecting_crop" valerrors="validation_errors">
+                                </validation-errors>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Buttons container -->
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Crop Production')">
+                            <i class="icon ion-chevron-left"></i> BACK
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Crop Production')">
+                            FINISH <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+
+</ion-view>

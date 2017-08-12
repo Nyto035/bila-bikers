@@ -1,0 +1,156 @@
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">6/10 - Prices of Livestock</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form>
+                <div class="form-cont pad-t-20">
+                    <div class="group">
+                        <br><br>
+                        <select class="no-border" ng-model="survey.livestock_market_name">
+                            <option value="" disabled selected hidden>
+                                --Select Market--
+                            </option>
+                            <option ng-repeat="market in markets">{{market.wording}}</option>
+                        </select>                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Name of the market (Enumerator to write name of the market data collected from)</label>
+                        <validation-errors field="livestock_market_name" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+
+                <div class="form-cont">
+                    <div class="group">
+                        <div class="col-xs-12">
+                            <span class="toggle-label">Has the market been operating normally?</span>
+                            <label class="toggle toggle-balanced">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.is_market_normal_operation">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <validation-errors field="is_market_normal_operation" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-cont" ng-if="!survey.is_market_normal_operation">
+                    <div class="group">
+                        <select class="no-border" ng-model="survey.market_abnormal_operation_reason">
+                            <option value="" disabled selected hidden>
+                                --Select a reason below--
+                            </option>
+                            <option value="Conflicts/Insecurity" ng-selected="survey.market_abnormal_operation_reason === 'Conflicts/Insecurity'">Conflicts/Insecurity</option>
+                            <option value="Poor Infrastructure" ng-selected="survey.market_abnormal_operation_reason === 'Poor Infrastructure'">Poor Infrastructure</option>
+                            <option value="Trader numbers" ng-selected="survey.market_abnormal_operation_reason === 'Trader numbers'">Trader numbers</option>
+                            <option value="Quarantine" ng-selected="survey.market_abnormal_operation_reason === 'Quarantine'">Quarantine</option>
+                            <option value="Livestock not readily available" ng-selected="survey.market_abnormal_operation_reason === 'Livestock not readily available'">Livestock not readily available</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>If No, what is the main reason?</label>
+                        <validation-errors field="market_abnormal_operation_reason" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+
+                <div class="form-cont">
+                    <div class="group">
+                        <div class="col-xs-12">
+                            <span class="toggle-label">Were livestock readily available in the market?</span>
+                            <label class="toggle toggle-balanced">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.livestock_readily_available_in_market">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <validation-errors field="livestock_readily_available_in_market" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-xs-12 pad-h-20 top--35">
+                    Indicate current price of the livestock being sold below(Kshs)?
+                </div>
+                <div class="form-cont top--15">
+                    <div class="group">
+                        <input type="number" step="any" string-to-float ng-model="survey.cattle_price">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Cattle (Mature bull/Steer approximately 4 years)</label>
+                        <validation-errors field="cattle_price" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <input type="number" step="any" string-to-float ng-model="survey.goat_price">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Goat (approximately 2 years)</label>
+                        <validation-errors field="goat_price" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <input type="number" step="any" string-to-float ng-model="survey.sheep_price">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Sheep (Mature approximately 2 years)</label>
+                        <validation-errors field="sheep_price" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <input type="number" step="any" string-to-float ng-model="survey.camel_price">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Camel (Mature approximately 4 years)</label>
+                        <validation-errors field="camel_price" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <input type="number" step="any" string-to-float ng-model="survey.chicken_price">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Poultry (Mature chicken)</label>
+                        <validation-errors field="chicken_price" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <!-- Buttons container -->
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Prices of Livestock')">
+                            <i class="icon ion-chevron-left"></i> BACK
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Prices of Livestock')">
+                            NEXT <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,7 +1,6 @@
-
 {
-  "name": "My Ionic App",
-  "short_name": "My Ionic App",
+  "name": "NDMA-v2",
+  "short_name": "NDMA-v2",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

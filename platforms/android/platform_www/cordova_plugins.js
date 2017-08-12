@@ -9,6 +9,20 @@ module.exports = [
         ]
     },
     {
+        "id": "cordova-plugin-geolocation.geolocation",
+        "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.PositionError",
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "runs": true
+    },
+    {
         "id": "cordova-plugin-splashscreen.SplashScreen",
         "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
         "pluginId": "cordova-plugin-splashscreen",
@@ -25,6 +39,14 @@ module.exports = [
         ]
     },
     {
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
+    },
+    {
         "id": "ionic-plugin-keyboard.keyboard",
         "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
         "pluginId": "ionic-plugin-keyboard",
@@ -32,34 +54,20 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
-    },
-    {
-        "id": "cordova-sqlite-plugin.SQLite",
-        "file": "plugins/cordova-sqlite-plugin/www/sqlite.js",
-        "pluginId": "cordova-sqlite-plugin"
-    },
-    {
-        "id": "cordova-plugin-sqlite.SQLitePlugin",
-        "file": "plugins/cordova-plugin-sqlite/www/SQLitePlugin.js",
-        "pluginId": "cordova-plugin-sqlite",
-        "clobbers": [
-            "window.sqlitePlugin",
-            "cordova.plugins.sqlitePlugin"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-console": "1.0.5",
-    "cordova-plugin-device": "1.1.4",
+    "cordova-plugin-console": "1.0.7",
+    "cordova-plugin-device": "1.1.6",
+    "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-geolocation": "2.4.3",
     "cordova-plugin-splashscreen": "4.0.3",
-    "cordova-plugin-statusbar": "2.2.1",
-    "cordova-plugin-whitelist": "1.3.1",
-    "ionic-plugin-keyboard": "2.2.1",
-    "cordova-sqlite-plugin": "3.1.1",
-    "cordova-plugin-sqlite": "1.0.3",
-    "cordova-plugin-crosswalk-webview": "2.3.0"
+    "cordova-plugin-statusbar": "2.2.3",
+    "cordova-plugin-whitelist": "1.3.2",
+    "cordova-sqlite-storage": "2.0.4",
+    "ionic-plugin-keyboard": "2.2.1"
 };
 // BOTTOM OF METADATA
 });

@@ -2,18 +2,18 @@
   "_args": [
     [
       {
-        "raw": "ionic-plugin-keyboard@~2.2.1",
+        "raw": "ionic-plugin-keyboard@2.2.1",
         "scope": null,
         "escapedName": "ionic-plugin-keyboard",
         "name": "ionic-plugin-keyboard",
-        "rawSpec": "~2.2.1",
-        "spec": ">=2.2.1 <2.3.0",
-        "type": "range"
+        "rawSpec": "2.2.1",
+        "spec": "2.2.1",
+        "type": "version"
       },
-      "C:\\Users\\NOVA\\Documents\\GitHub\\app\\node_modules"
+      "C:\\Users\\NOVA\\Documents\\GitHub\\bila-bikers\\node_modules"
     ]
   ],
-  "_from": "ionic-plugin-keyboard@>=2.2.1 <2.3.0",
+  "_from": "ionic-plugin-keyboard@2.2.1",
   "_id": "ionic-plugin-keyboard@2.2.1",
   "_inCache": true,
   "_location": "/ionic-plugin-keyboard",
@@ -29,13 +29,13 @@
   "_npmVersion": "3.8.6",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "ionic-plugin-keyboard@~2.2.1",
+    "raw": "ionic-plugin-keyboard@2.2.1",
     "scope": null,
     "escapedName": "ionic-plugin-keyboard",
     "name": "ionic-plugin-keyboard",
-    "rawSpec": "~2.2.1",
-    "spec": ">=2.2.1 <2.3.0",
-    "type": "range"
+    "rawSpec": "2.2.1",
+    "spec": "2.2.1",
+    "type": "version"
   },
   "_requiredBy": [
     "#USER",
@@ -44,8 +44,8 @@
   "_resolved": "https://registry.npmjs.org/ionic-plugin-keyboard/-/ionic-plugin-keyboard-2.2.1.tgz",
   "_shasum": "f2a9e169bbe9b5522400347c9fd6d3467ee3fa12",
   "_shrinkwrap": null,
-  "_spec": "ionic-plugin-keyboard@~2.2.1",
-  "_where": "C:\\Users\\NOVA\\Documents\\GitHub\\app\\node_modules",
+  "_spec": "ionic-plugin-keyboard@2.2.1",
+  "_where": "C:\\Users\\NOVA\\Documents\\GitHub\\bila-bikers\\node_modules",
   "author": {
     "name": "Ionic"
   },

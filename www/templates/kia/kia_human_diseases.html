@@ -1,0 +1,100 @@
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">8/10 - Security & Diseases</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form>
+
+                <div class="form-cont">
+                    <div class="group">
+                        <div class="col-xs-12">
+                            <span class="toggle-label">Were there any insecurity incidents?</span>
+                            <label class="toggle toggle-balanced">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.insecurity_incidents">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <validation-errors field="insecurity_incidents" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-cont">
+                    <div class="group">
+                        <div class="col-xs-12">
+                            <span class="toggle-label">Has there been any epidemic disease outbreak in the past 4 weeks?</span>
+                            <label class="toggle toggle-balanced">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.epidemic_diseases_outbreak">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <validation-errors field="epidemic_diseases_outbreak" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-cont" ng-if="survey.epidemic_diseases_outbreak">
+                    <div class="group">
+                        <select class="no-border" ng-model="survey.major_disease_reported">
+                            <option value="" disabled selected hidden>
+                                --Select disease below--
+                            </option>
+                            <option value="Cholera" ng-selected="survey.major_disease_reported === 'Cholera'">Cholera</option>
+                            <option value="Measles" ng-selected="survey.major_disease_reported === 'Measles'">Measles</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>If Yes, what major disease was reported?</label>
+                        <validation-errors field="major_disease_reported" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <div class="form-cont" ng-if="survey.epidemic_diseases_outbreak">
+                    <div class="group">
+                        <select class="no-border" ng-model="survey.action_to_control_disease">
+                            <option value="" disabled selected hidden>
+                                --Select an action taken below--
+                            </option>
+                            <option value="Treatment" ng-selected="survey.action_to_control_disease === 'Treatment'">Treatment</option>
+                            <option value="Vaccination" ng-selected="survey.action_to_control_disease === 'Vaccination'">Vaccination</option>
+                            <option value="Traditional Healing" ng-selected="survey.action_to_control_disease === 'Traditional Healing'">Traditional Healing</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>What action was taken to control the disease?</label>
+                        <validation-errors field="action_to_control_disease" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <!-- Buttons container -->
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Human Diseases')">
+                            <i class="icon ion-chevron-left"></i> BACK
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Human Diseases')">
+                            NEXT <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+
+</ion-view>

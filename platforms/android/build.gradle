@@ -88,7 +88,6 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "cordova-plugin-crosswalk-webview/starter-xwalk.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -196,7 +195,7 @@ android {
             }
             all {
                 ndk {
-                    abiFilters "all", "x86" , "armeabi-v7a"
+                    abiFilters "all", ""
                 }
             }
         }

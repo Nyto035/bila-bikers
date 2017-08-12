@@ -8,37 +8,33 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "com.palvac.ndma"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "com.palvac.ndma"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.palvac.ndma"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "com.palvac.ndma"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "com.palvac.ndma"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "com.palvac.ndma"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.palvac.ndma"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "cordova-sqlite-plugin": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "cordova-plugin-sqlite": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "cordova-plugin-crosswalk-webview": {
-            "XWALK_VERSION": "23+",
-            "XWALK_LITEVERSION": "xwalk_core_library_canary:17+",
-            "XWALK_COMMANDLINE": "--disable-pull-to-refresh-effect",
-            "XWALK_MODE": "embedded",
-            "XWALK_MULTIPLEAPK": "true",
-            "PACKAGE_NAME": "io.ionic.starter"
+            "PACKAGE_NAME": "com.palvac.ndma"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.palvac.ndma"
+        }
+    }
 }

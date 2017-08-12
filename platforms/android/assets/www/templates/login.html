@@ -1,9 +1,9 @@
-<ion-header-bar class="bar-stable" style="height: 60px">
+<ion-header-bar class="bar-stable bar-danger" style="height: 60px">
     <div class="col-12 login-title-cont">  
       <div class="col-12 login-title"> 
-          EKO BIASHARA BOOK KEEPING
+          BILA-BIKERS
       </div>
-    </div>
+    </div> 
 </ion-header-bar>
 <ion-content style="background-color: #edecec;display: inline-block;">
     <div class="list padding pad-t-30 login-cont">
@@ -16,7 +16,7 @@
               <small><i class="icon ion-help-circled"></i> {{errorMessage}}</small>
             </div>
         </div>
-        <form class="padding" ng-submit="submitUser(login)">
+        <form class="padding" ng-submit="login()">
             <div class="form-cont">
                 <div class="group">
                     <input type="email" name="login_email_session" ng-model="login.login_email_session"
@@ -35,17 +35,22 @@
                     <label><i class="icon ion-locked"></i> Password</label>
                 </div>
             </div>
-            <div class="form-cont">
-                <button  class="button button-block button-balanced" ng-disabled="isDisabled">
+            <div class="form-cont margin-b-0">
+                <button  class="button button-block button-primary" ng-disabled="isDisabled">
                     <i class="icon ion-android-exit">  SIGN IN</i>
                     <ion-spinner icon="spiral" ng-if="loader"></ion-spinner>
                 </button>
+            </div>
+            <div class="form-cont">
+                <a class="button button-outline col-12" ui-sref="registration">
+                    CREATE A NEW USER ACCOUNT
+                </a>
             </div>
         </form>
         </div>
     </div>
 </ion-content>
-<div class="bar bar-footer bar-stable">
-  <div class="title"><small>© Ecko Biashara 2017. By Yitchouse</small></div>
+<div class="bar bar-footer bar-default">
+  <div class="title"><small><small>© Bila Bikers 2017. By Yitchouse</small></small></div>
 </div>
 

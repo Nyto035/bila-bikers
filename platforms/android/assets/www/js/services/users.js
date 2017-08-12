@@ -1,29 +1,35 @@
 (function (angular) {
     angular.module("app.services.users", [])
-        .service("UserService", ["$cordovaSQLite",
-            function ($cordovaSQLite) {
-                this.getByEmail = function (email) {
-                    return $cordovaSQLite.execute(DB, "SELECT * FROM users WHERE email = ?", [email]);
-                };
+            .service("UserService", ["$cordovaSQLite",
+                function ($cordovaSQLite) {
+                    this.getByEmail = function (email) {
+                        return $cordovaSQLite.execute(DB, "SELECT * FROM users WHERE email = ?", [email]);
+                    };
 
-                this.getLoggedInUsers = function () {
-                    return $cordovaSQLite.execute(DB, "SELECT * FROM users WHERE logged_in = 1");
-                };
+                    this.getLoggedInUsers = function () {
+                        return $cordovaSQLite.execute(DB, "SELECT * FROM users WHERE logged_in = 1");
+                    };
 
-                this.logoutUser = function () {
-                    return $cordovaSQLite.execute(DB, "UPDATE users SET logged_in = 0 WHERE logged_in = 1");
-                };
+                    this.logoutUser = function () {
+                        return $cordovaSQLite.execute(DB, "UPDATE users SET logged_in = 0 WHERE logged_in = 1");
+                    };
 
-                this.createUser = function (user) {
-                    user.businesses = JSON.stringify(user.businesses);
-                    var query = "INSERT INTO users (userid, email, businesses, names, phone, token, session, logged_in) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-                    return $cordovaSQLite.execute(DB, query, [user.userid, user.email, user.businesses, user.names, user.phone, user.token, user.session, 1])
-                };
+                    this.createUser = function (user) {
+                        var query = "INSERT INTO users (id, email, password, county, token, logged_in) VALUES(?, ?, ?, ?, ?, ?)";
+                        return $cordovaSQLite.execute(DB, query, [user.UserId, user.LoweredEmail, user.Password, user.County, user.Token, 1])
+                    };
 
-                this.updateUser = function (user) {
-                    user.businesses = JSON.stringify(user.businesses);
-                    var query = "UPDATE users set email=?, businesses=?, names=?, phone=?, token=?, session=?, logged_in=? WHERE userid = ?";
-                    return $cordovaSQLite.execute(DB, query, [user.email, user.businesses, user.names, user.phone, user.token, user.session, 1, user.userid])
-                };
-            }]);
+                    this.registerUser = function (user) {
+                        var query = "INSERT INTO users (first_name, last_name, phone_number, email, password, is_courier) VALUES(?, ?, ?, ?, ?, ?)";
+                        return $cordovaSQLite.execute(DB, query, 
+                            [user.first_name, user.last_name, user.phone_number, user.email, user.password, user.is_courier])
+                    };
+
+                    this.updateUser = function (user) {
+                        var query = "UPDATE users set email=?, password=?, county=?, token=?, logged_in=? WHERE id = ?";
+                        return $cordovaSQLite.execute(DB, query, [user.LoweredEmail, user.Password, user.County, user.Token, 1, user.UserId])
+                    };
+                }]);
 })(window.angular);
+
+

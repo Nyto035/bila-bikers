@@ -1,109 +1,120 @@
-var DB = null;
-var DB_NAME = "ecko_db";
+// Ionic Starter App
 
-angular.module('starter', [
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+var DB = null;
+var DB_NAME = "ndma.db";
+
+
+angular.module('NDMA', [
     'ionic',
     'ngCordova',
-    // 'starter.controllers',
-    'starter.routes',
-    // 'starter.services',
-    'sil.auth.backend',
-    'sil.datalayer',
-    'providerPortal.auth',
-    'app.services',
+    'ngMaterial',
+    'ngMap',
     'app.controllers',
-    'app.database',
-    ])
+    "app.services",
+    "app.database",
+    "app.hsna_database",
+    "app.states",
+    "app.directives"
+])
 
-    .run(["ionicReady", "$cordovaSQLite", "DBService", "$rootScope",
-        "UserService", "$state", "$cordovaDevice", "$timeout",
-        function (ionicReady, $cordovaSQLite, DBService, $rootScope,
-            UserService, $state, cordovaDevice, $timeout) {
-        var dbCreate = function dbFxn() {
-            if (window.cordova && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                cordova.plugins.Keyboard.disableScroll(true);
-            }
-            if (window.StatusBar) {
-                StatusBar.styleDefault();
-            }
-            if (window.cordova) {
-                DB = $cordovaSQLite.openDB({
-                    name: DB_NAME,
-                    location: 2
-                });
-                console.log('Is cordova', DB);
-            } else { // "my.db", '1', 'my', 1024 * 1024 * 100
-                DB = window.openDatabase(DB_NAME, '1.0', 'my', 1024 * 1024 * 100);
-                console.log('Is not cordova', DB);
-            }
-            DBService.initialize();
-        }
-        ionicReady.ready().then(function () {
-            dbCreate();
-        });
-        $timeout(function(){
-            dbCreate();
-        },5000);
-    }])
+        .constant("SERVER_URL", "http://96.31.88.33:8001/api/v1/")
 
-    /*.config(['DBProvider', function(dbProvider) {
-        dbProvider.createDB();
-    }])*/
+        .constant("DEBUG", false)
 
-    .run(['app.services.redirectTo', (r) => {
-        r.redirectTo();
-    }])
+        .constant("GPS_OPTIONS", {
+            maximumAge: 0,
+            timeout: 1000 * 60 * 3, // 10 mins
+            enableHighAccuracy: true
+        })
 
-    .run(["silDataStoreFactory", "silDataLayerUtils", "SETTINGS", function (silDataStoreFactory, utils, SETTINGS) {
-         silDataStoreFactory("ecko", {
-            "url": utils.urlJoin(
-                SETTINGS.EDI_SERVER, ""
-            ),
-            cache: false
-        });
-    }])
 
-    .run(["$state", "$rootScope", "UserService", "ionicReady", "$timeout",
-        function ($state, $rootScope, UserService, ionicReady, $timeout) {
-        var redirectFxn = function loadFxn(toState, evt) {
-            if(toState.name === 'businesses.list'){
-                UserService.getLoggedInUsers()
-                .then(function(resp){
-                    if(!_.isUndefined(resp.rows) && resp.rows.length <= 0){
-                        evt.preventDefault();
-                        $state.go('login');
-                    } else if(_.isUndefined(resp) || _.isNull(resp)){
-                        evt.preventDefault();
-                        $state.go('login');
-                    } else {
-                        $state.go(toState.name);
+
+        .run(["$ionicPlatform", "$cordovaSQLite", "DBService", "HSNADBService", function ($ionicPlatform, $cordovaSQLite, DBService, HSNADBService) {
+                $ionicPlatform.ready(function () {
+                    if (window.cordova && window.cordova.plugins.Keyboard) {
+                        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+                        // for form inputs)
+                        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+                        // Don't remove this line unless you know what you are doing. It stops the viewport
+                        // from snapping when text inputs are focused. Ionic handles this internally for
+                        // a much nicer keyboard experience.
+                        cordova.plugins.Keyboard.disableScroll(true);
                     }
-                })
-                .catch(function(err){
-                    console.log(err);
+                    if (window.StatusBar) {
+                        StatusBar.styleDefault();
+                    }
+
+
+                    if (window.cordova) {
+                        DB = $cordovaSQLite.openDB({
+                            name: DB_NAME,
+                            location: 2
+                        });
+                    } else {
+                        DB = window.openDatabase(DB_NAME, "1.0", "NDMA", -1);
+                    }
+
+                    DBService.initialize();
+                    HSNADBService.initialize();
+
+                });
+            }])
+
+        //Authentication related run block
+
+        .run(["$state", "$rootScope", "AuthService", "UserService", "NotificationService",
+            "$ionicPlatform",
+            function ($state, $rootScope, AuthService, UserService, NotificationService,
+                $ionicPlatform) {
+                $rootScope.$on("$stateChangeStart", function (evt, next) {
+                    /*if (!AuthService.isAuthenticated()) {
+                        if (next.name !== "login") {
+                            evt.preventDefault();
+                            $state.go("login");
+                        }
+                    }*/
+                    $ionicPlatform.ready(function () {
+                        UserService.getLoggedInUsers()
+                        .then(function(results){
+                            if(results.rows.length <= 0){
+                                evt.preventDefault();
+                                $state.go("login");
+                            }
+                        })
+                        .catch(function(errror){
+                            NotificationService.showError(error);
+                        });
+                    });
                 });
             }
-        };
-        $rootScope.$on("$stateChangeStart",
-            function (evt, toState, toParams, fromState, fromParams) {
-                ionicReady.ready().then(function () {
-                    redirectFxn(toState, evt);          
-                });
-                $timeout(function(){
-                    redirectFxn(toState, evt);
-                },5000);
+        ])
+
+        .config(["$httpProvider", function ($httpProvider) {
+                $httpProvider.interceptors.push("AuthInterceptor");
+                $httpProvider.defaults.headers.common = {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                };
+            }
+        ])
+
+        .config(function($mdThemingProvider) {
+          $mdThemingProvider.theme('default')
+          .accentPalette('light-green');
+          $mdThemingProvider.theme('default')
+          .accentPalette('light-green', {
+            'default': '800' // use shade 200 for default, and keep all other shades the same
+          });
+        })
+
+
+        .config(function ($urlRouterProvider, $ionicConfigProvider) {
+            $ionicConfigProvider.views.maxCache(0);
+            // if none of the above states are matched, use this as the fallback
+            $urlRouterProvider.otherwise("/gis");
         });
-    }])
 
-    /*.config(['$httpProvider', function($httpProvider) {
-        $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-        $httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-    }])*/
-
-    .config(['$urlRouterProvider', '$ionicConfigProvider', function ($urlRouterProvider, $ionicConfigProvider) {
-        $ionicConfigProvider.views.maxCache(0);
-        // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise("/business");
-    }]);
- 

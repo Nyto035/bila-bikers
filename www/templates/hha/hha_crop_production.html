@@ -1,0 +1,196 @@
+<ion-view view-title="{{ title}}">
+  <div class="bar bar-subheader bar-stable">
+    <h2 class="title">3/10 - Crop Production</h2>
+  </div>
+  <ion-content class="has-subheader">
+    <div class="list padding pad-t-30">
+      <form>
+
+        <div class="form-cont">
+          <div class="group">
+            <div class="col-xs-12">
+              <span class="toggle-label">Does the household grow any food crops?</span>
+              <label class="toggle toggle-balanced">
+                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="section.harvested_in_last_weeks">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+              <validation-errors field="harvested_in_last_weeks" valerrors="validation_errors">
+              </validation-errors>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-cont" ng-if="section.harvested_in_last_weeks === 1">
+          <div class="group">
+            <div class="col-xs-12">
+
+              <div class="card">
+                <div class="item item-divider">
+                  Crop production
+                </div>
+                <div class="item item-text-wrap" style="padding: 0px">
+
+
+                  <div class="col-xs-12" ng-if="section.harvested_in_last_weeks === 1">
+                    <div class="col-xs-12">
+
+
+                      <div ng-repeat="cereal in cereals">
+
+                        <md-card>
+
+                          <md-card-header>
+                            <md-card-header-text>
+                          <span class="md-title">
+                            <md-checkbox ng-model="section['grow_' + cereal.field_name]" ng-true-value="1"
+                                         ng-false-value="0">Did the household grow {{cereal.verbose_name}}?
+                            </md-checkbox>
+                            <validation-errors field="grow_{{cereal.field_name}}" valerrors="validation_errors">
+                              </validation-errors>
+                          </span>
+                            </md-card-header-text>
+                          </md-card-header>
+
+                          <md-card-content ng-if="section['grow_' + cereal.field_name]">
+
+
+                            <div class="form-cont pad-t-20" ng-if="section['grow_' + cereal.field_name]">
+                              <div class="group">
+                                <input type="number"
+                                       placeholder="Area Planted (Acres)"
+                                       ng-model="section[cereal.field_name + '_area_planted']">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Area Planted (Acres)</label>
+                                <validation-errors field="{{cereal.field_name}}_area_planted"
+                                                   valerrors="validation_errors">
+                                </validation-errors>
+                              </div>
+                            </div>
+                            <div class="form-cont pad-t-20" ng-if="section['grow_' + cereal.field_name]">
+                              <div class="group">
+                                <input type="number"
+                                       placeholder="Area Harvested (Acres)"
+                                       ng-model="section[cereal.field_name + '_area_harvested']">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="top--35">
+                                  Area Harvested (Acres)
+                                </label>
+                                <validation-errors field="{{cereal.field_name}}_area_harvested"
+                                                   valerrors="validation_errors">
+                                </validation-errors>
+                              </div>
+                            </div>
+                            <div class="form-cont pad-t-20" ng-if="section['grow_' + cereal.field_name]">
+                              <div class="group">
+                                <input type="number"
+                                       placeholder=" Bags Harvested (90 kg)"
+                                       ng-model="section[cereal.field_name + '_bags_harvested']">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="top--35">
+                                  <div class="col-xs-12">
+                                    Bags Harvested (90 kg)
+                                  </div>
+                                </label>
+                                <validation-errors field="{{cereal.field_name}}_bags_harvested"
+                                                   valerrors="validation_errors">
+                                </validation-errors>
+                              </div>
+                            </div>
+                            <div class="form-cont pad-t-20" ng-if="section['grow_' + cereal.field_name]">
+                              <div class="group">
+                                <input type="number"
+                                       placeholder="Bags From previous Season"
+                                       ng-model="section[cereal.field_name + '_bags_harvested_previous']">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="top--35">
+                                  <div class="col-xs-12 margin-b-5">
+                                    Bags From previous Season
+                                  </div>
+                                </label>
+                                <validation-errors field="{{cereal.field_name}}_bags_harvested_previous"
+                                                   valerrors="validation_errors">
+                                </validation-errors>
+                              </div>
+                            </div>
+                            <div class="form-cont pad-t-20" ng-if="section['grow_' + cereal.field_name]">
+                              <div class="group">
+                                <input type="number"
+                                       placeholder="Bags Sold (90 Kg)"
+                                       ng-model="section[cereal.field_name + '_bags_sold']">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>
+                                  <div class="col-xs-12 margin-b-5">
+                                    Bags Sold (90 Kg)
+                                  </div>
+                                </label>
+                                <validation-errors field="{{cereal.field_name}}_bags_sold"
+                                                   valerrors="validation_errors">
+                                </validation-errors>
+                              </div>
+                            </div>
+                            <div class="form-cont pad-t-20" ng-if="section['grow_' + cereal.field_name]">
+                              <div class="group">
+                                <br><br>
+                                <input type="number"
+                                       placeholder="What was the average price per Kg (in Kshs) "
+                                       ng-model="section[cereal.field_name + '_avg_kg_price']">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label class="top--35">
+                                  <div class="col-xs-12 margin-b-5">
+                                    What was the average price per Kg (in Kshs)
+                                  </div>
+                                </label>
+                                <validation-errors field="{{cereal.field_name}}_avg_kg_price"
+                                                   valerrors="validation_errors">
+                                </validation-errors>
+                              </div>
+                            </div>
+                          </md-card-content>
+                        </md-card>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+
+
+    <!-- End of checkboxes -->
+    <!-- Buttons container -->
+    <div class="form-cont">
+      <div class="col-xs-4">
+        <a class="button button-stable button-block"
+           ng-click="onPrevious('Crop Production')">
+          <i class="icon ion-chevron-left"></i> BACK
+        </a>
+      </div>
+      <div class="col-xs-4">
+      </div>
+      <div class="col-xs-4">
+        <a class="button button-balanced button-block"
+           ng-click="onSubmit('Crop Production')">
+          NEXT <i class="icon ion-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

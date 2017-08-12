@@ -1,0 +1,253 @@
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">5/10 - Migration</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form>
+                <div class="form-cont pad-t-20">
+                    <div class="group">
+                        <br><br>
+                        <select class="no-border" ng-model="survey.livestock_migration_presence">
+                            <option value="" disabled selected hidden>
+                                --Select an option below--
+                            </option>
+                            <option ng-value=1 ng-selected="survey.livestock_migration_presence === 1">Out Migration</option>
+                            <option ng-value=2 ng-selected="survey.livestock_migration_presence === 2">In Migration</option>
+                            <option ng-value=3 ng-selected="survey.livestock_migration_presence === 3">No Migration</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Has there been any livestock migration in the last 4 weeks?</label>
+                        <validation-errors field="livestock_migration_presence" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont" ng-if="survey.livestock_migration_presence == 1">
+                    <div class="group">
+                        <input type="number" step="any" placeholder="Distance animals migrated in Kms" ng-model="survey.migration_distance">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>How far have the animals migrated in Kms</label>
+                        <validation-errors field="migration_distance" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="col-xs-12" ng-if="survey.livestock_migration_presence != 3">
+                    <div class="col-xs-12 pad-h-20 pad-b-20">
+                        What proportion of each of the following livestock migrated?
+                    </div>
+                    <div class="form-cont pad-t-20">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.cattle_migration_proportion">
+                                <option value="" disabled selected hidden>
+                                    --Select a proportion--
+                                </option>
+                                <option value="1" ng-selected="survey.cattle_migration_proportion === 1">0-25%</option>
+                                <option value="2" ng-selected="survey.cattle_migration_proportion === 2">26-50%</option>
+                                <option value="3" ng-selected="survey.cattle_migration_proportion === 3">51-75%</option>
+                                <option value="4" ng-selected="survey.cattle_migration_proportion === 4">76-100%</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Proportion of cattle</label>
+                            <validation-errors field="cattle_migration_proportion" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                    <div class="form-cont">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.camel_migration_proportion">
+                                <option value="" disabled selected hidden>
+                                    --Select a proportion--
+                                </option>
+                                <option value="1" ng-selected="survey.camel_migration_proportion === 1">0-25%</option>
+                                <option value="2" ng-selected="survey.camel_migration_proportion === 2">26-50%</option>
+                                <option value="3" ng-selected="survey.camel_migration_proportion === 3">51-75%</option>
+                                <option value="4" ng-selected="survey.camel_migration_proportion === 4">76-100%</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Proportion of camels</label>
+                            <validation-errors field="camel_migration_proportion" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                    <div class="form-cont">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.goats_migration_proportion">
+                                <option value="" disabled selected hidden>
+                                    --Select a proportion--
+                                </option>
+                                <option value="1" ng-selected="survey.goats_migration_proportion === 1">0-25%</option>
+                                <option value="2" ng-selected="survey.goats_migration_proportion === 2">26-50%</option>
+                                <option value="3" ng-selected="survey.goats_migration_proportion === 3">51-75%</option>
+                                <option value="4" ng-selected="survey.goats_migration_proportion === 4">76-100%</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Proportion of goats</label>
+                            <validation-errors field="goats_migration_proportion" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                    <div class="form-cont">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.sheep_migration_proportion">
+                                <option value="" disabled selected hidden>
+                                    --Select a proportion--
+                                </option>
+                                <option value="1" ng-selected="survey.sheep_migration_proportion === 1">0-25%</option>
+                                <option value="2" ng-selected="survey.sheep_migration_proportion === 2">26-50%</option>
+                                <option value="3" ng-selected="survey.sheep_migration_proportion === 3">51-75%</option>
+                                <option value="4" ng-selected="survey.sheep_migration_proportion === 4">76-100%</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Proportion of sheep</label>
+                            <validation-errors field="sheep_migration_proportion" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                    <div class="form-cont">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.donkeys_migration_proportion">
+                                <option value="" disabled selected hidden>
+                                    --Select a proportion--
+                                </option>
+                                <option value="1" ng-selected="survey.donkeys_migration_proportion === 1">0-25%</option>
+                                <option value="2" ng-selected="survey.donkeys_migration_proportion === 2">26-50%</option>
+                                <option value="3" ng-selected="survey.donkeys_migration_proportion === 3">51-75%</option>
+                                <option value="4" ng-selected="survey.donkeys_migration_proportion === 4">76-100%</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Proportion of donkeys</label>
+                            <validation-errors field="donkeys_migration_proportion" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12" ng-if="survey.livestock_migration_presence && (survey.livestock_migration_presence !== 3)">
+                    <div class="col-xs-12 pad-h-20 pad-b-20">
+                        What was the main reason for the migration. If more than one select <b>the top 3 reasons</b>
+                    </div>
+                    <div class="form-cont pad-t-20">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.migration_reason1">
+                                <option value="" disabled selected hidden>
+                                    --Select a reason--
+                                </option>
+                                <option value="Pasture" ng-selected="survey.migration_reason1 === 'Pasture'">Pasture</option>
+                                <option value="Water" ng-selected="survey.migration_reason1 === 'Water'">Water</option>
+                                <option value="Conflict/Insecurity" ng-selected="survey.migration_reason1 === 'Conflict/Insecurity'">Conflict/Insecurity</option>
+                                <option value="Diseases" ng-selected="survey.migration_reason1 === 'Diseases'">Diseases</option>
+                                <option value="Other(specify)" ng-selected="survey.migration_reason1 === 'Other(specify)'">Other(specify)</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Main reason 1</label>
+                            <validation-errors field="migration_reason1" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                    <div class="form-cont">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.migration_reason2">
+                                <option value="" disabled selected hidden>
+                                    --Select a reason--
+                                </option>
+                                <option value="" ng-selected="survey.migration_reason2 === ''">N/A</option>
+                                <option value="Pasture" ng-selected="survey.migration_reason2 === 'Pasture'">Pasture</option>
+                                <option value="Water" ng-selected="survey.migration_reason2 === 'Water'">Water</option>
+                                <option value="Conflict/Insecurity" ng-selected="survey.migration_reason2 === 'Conflict/Insecurity'">Conflict/Insecurity</option>
+                                <option value="Diseases" ng-selected="survey.migration_reason2 === 'Diseases'">Diseases</option>
+                                <option value="Other(specify)" ng-selected="survey.migration_reason2 === 'Other(specify)'">Other(specify)</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Main reason 2</label>
+                            <validation-errors field="migration_reason2" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div><div class="form-cont">
+                        <div class="group">
+                            <select class="no-border" ng-model="survey.migration_reason3">
+                                <option value="" disabled selected hidden>
+                                    --Select a reason--
+                                </option>
+                                <option value="" ng-selected="survey.migration_reason3 === ''">N/A</option>
+                                <option value="Pasture" ng-selected="survey.migration_reason3 === 'Pasture'">Pasture</option>
+                                <option value="Water" ng-selected="survey.migration_reason3 === 'Water'">Water</option>
+                                <option value="Conflict/Insecurity" ng-selected="survey.migration_reason3 === 'Conflict/Insecurity'">Conflict/Insecurity</option>
+                                <option value="Diseases" ng-selected="survey.migration_reason3 === 'Diseases'">Diseases</option>
+                                <option value="Other(specify)" ng-selected="survey.migration_reason3 === 'Other(specify)'">Other(specify)</option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Main reason 3</label>
+                            <validation-errors field="migration_reason3" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-xs-12"
+                     ng-if="survey.livestock_migration_presence && survey.livestock_migration_presence.migration !== 3">
+
+
+                    <div class="form-cont">
+                        <div class="group">
+                            <div class="col-xs-12">
+                                <span class="toggle-label">Is the migration normal at this time of the year?</span>
+                                <label class="toggle toggle-balanced">
+                                    <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.is_migration_normal">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                                <validation-errors field="is_migration_normal" valerrors="validation_errors">
+                                </validation-errors>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-cont pad-t-20" ng-if="survey.is_migration_normal">
+                    <div class="group">
+                        <input type="number" step="any" placeholder="When the animals are expected to be back" ng-model="survey.animals_expected_back_period_in_months">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">When are the animals expected to be back (in months)?</label>
+                        <validation-errors field="animals_expected_back_period_in_months" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <!-- Buttons container -->
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Migration')">
+                            <i class="icon ion-chevron-left"></i> BACK
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Migration')">
+                            NEXT <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+
+</ion-view>

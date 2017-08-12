@@ -1,167 +1,5 @@
 /* Empty. Add your own CSS if you like */
 
-
-h3{
-    font-weight:lighter;
-    color:white;
-    margin:10px;
-    font-family: Roboto, sans-serif;
-}
-body{
-    font-family: Roboto, sans-serif;
-}   
-
- .ico{
-     text-align: center;
-     margin: 0px auto;
- }
- .center {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width:100px;
-     height:40px;
-}
-.scroll-content{
-align-content: center ;
-display: flex;
-flex-direction: column;
-justify-content: center;
-    }
-.menunav a {
-    border: none;
-    margin: 0px;
-}
-.menunav
-{
-    margin-bottom: 300px;
-  
-}
-.list-card{
-  
-    margin-bottom:50px;
-}
-.hb{
-    border:none;
-     background-color:#52B788;
-}
-.item item-avatar{
-    border:none;
-}
-.bslogo{
-    width:50px;
-    height:50px;
-     margin-left: auto;
-    margin-right: auto;
-    display: block;
-    
-}
-.mstart{
-    border-top: 2px solid lightgrey;
-}
-h2{
-    margin:0px;
-    padding: 0px;
-
-}
-.menunav ion-item{
-    padding: 0px;
-}
-.bsname{
-    text-align: center;
-}
-.slogan{
-    text-align: center;
-}
-.custom-icon{
-    font-size: x-small;
-   
-}
-.bar-green{
-    background-color: #52B788;
-    border:none;
-    
-}
-.head{
-    color: white;
-     
-}
-
-.navi{
-    color: white;
-}
-.bat{
-    color: white;
-}
-.newnan{
-    margin-bottom:180px;
-}
-.rest ion-item{
-    border:none;
-   
-}
-.rest ion-item i{
-    text-align: left;
-}
-.bar-balanced{
- background-color: #52B788;   
-}
-.custom-green{
-    color: #ffffff !important;
-   background-color: rgb(0,150,136) !important; 
-    
-}
-.signupbtn{
-   margin:5px;
-   box-shadow:0px 5px 5px !important; 
-   border:none; 
-   padding: 5px !important;
-   background-color: #52B788 !important;
-   margin-left:90px;
-}
-.signupbt{
-   margin:5px;
-   box-shadow:0px 5px 5px !important; 
-   border:none; 
-   padding: 5px !important;
-   background-color: #52B788 !important;
-    
-}
-.or{
-    text-align: center;
-    font-size: 1.5em;
-}
-.signin{
-   margin:5px;
-   box-shadow:0px 5px 5px !important; 
-   border:none; 
-   padding: 5px !important;
-}
-a{
-    color: #000;
- 
-
-}
- .headline{
-    margin-top:15px !important;
-    color: rgb(255,87,34);
-  
-    text-align: center;
-    font-size: 1.5em;
-}
-.intem{
-   margin:0px;
-   padding:0px;
-}
-.signinhead{
-    margin-left:auto;
-    margin-right:auto;
-    font-size:1.5em;
-text-align: center;
-margin-top: 15px;
-}
-/* Empty. Add your own CSS if you like */
-
 .header .col {
     background-color: #ddd;
     font-weight: bolder;
@@ -223,6 +61,46 @@ input{
     /*box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);*/
     font-size: inherit;
     padding-left: 5px;
+}
+/* For desktop: */
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+/*@media only screen and (max-width: 768px) {
+    [class*="col-"] {
+        width: 100%;
+    }
+}*/
+
+.spinner svg {
+    width: 19% !important;
+    height: 30px !important;
+}
+
+.toggle-label{
+    font-size: 1.2em;
+    color: #2196F3;
+    padding-left: 3px;
+}
+
+.lg-checker{
+  /*-ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2); */
+   height:12px;
+   width:12px;
+   padding: 10px;
 }
 /* For desktop: */
 .login-title-cont{
@@ -296,35 +174,6 @@ input{
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 
         0 1px 1px 0 rgba(0,0,0,.14), 
         0 2px 1px -1px rgba(0,0,0,.12);
-}
-.col-1 {width: 8.33%;display: inline-block;}
-.col-2 {width: 16.66%;display: inline-block;}
-.col-3 {width: 25%;display: inline-block;}
-.col-4 {width: 33.33%;display: inline-block;}
-.col-5 {width: 41.66%;display: inline-block;}
-.col-6 {width: 50%;display: inline-block;}
-.col-7 {width: 58.33%;display: inline-block;}
-.col-8 {width: 66.66%;display: inline-block;}
-.col-9 {width: 75%;display: inline-block;}
-.col-10 {width: 83.33%;display: inline-block;}
-.col-11 {width: 91.66%;display: inline-block;}
-.col-12 {width: 100%;}
-
-/*@media only screen and (max-width: 768px) {
-    [class*="col-"] {
-        width: 100%;
-    }
-}*/
-
-.spinner svg {
-    width: 19% !important;
-    height: 30px !important;
-}
-
-.toggle-label{
-    font-size: 1.2em;
-    color: #2196F3;
-    padding-left: 3px;
 }
 .button.button-balanced,.bar.bar-balanced{
     background-color: rgb(0,150,136);
@@ -532,4 +381,20 @@ ion-popover-view.pop-modal{
 }
 .scroll-content{
     display: inline-block;
+}
+.bar-danger{
+    background-color: #f44336 !important;
+    color: #FFF !important;
+}
+.button-primary{
+    background-color: #2196F3;
+    color: #FFF;
+}
+.button-default{
+    background-color: #FFFFFF;
+    color: #666;
+}
+.button-outline{
+    border:2px solid #2196F3 !important;
+    color: #2196F3 !important;
 }

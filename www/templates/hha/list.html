@@ -1,0 +1,63 @@
+<ion-view view-title="HHA Surveys">
+        <div class="bar bar-subheader bar-stable">
+                <button ng-click="createHHA()"  class="button button-balanced button-small">
+                    <i class="icon ion-android-add-circle"> New HHA</i>
+                </button>
+          </div>
+    <ion-content class="has-subheader">
+        <div class="padding">
+
+            <div style="width: 100%;margin-top:10px;"></div>
+            <div class="col-xs-12 bordered" ng-repeat="survey in surveys">
+                <div class="col-xs-9">
+                    <div class="cont">
+                        <span class="label">Date:</span> {{survey.interview_date| date : 'mediumDate'}}
+                        <span ng-if="!survey.interview_date">
+                            <b>Not provided</b>
+                        </span>
+                    </div>
+                    <div class="cont">
+                        <span class="label">Household Code:</span> {{survey.household_code|| '-'}}
+                    </div>
+                    <div class="cont">
+                        <span class="label">QID:</span> {{survey.qid|| '-'}}&nbsp;
+                        <span class="label">|</span>
+                        <span class="label">ID:</span> {{survey.id|| '-'}}
+                    </div>
+                    <div class="cont">
+                        <span class="status-label" ng-class="{'status-label-warning': survey.status === 'Draft', 'status-label-balanced': survey.status === 'Synchronized', 'status-label-calm': survey.status === 'Completed', 'status-label-error': survey.status === 'Sync Failed', 'status-label-energized': survey.status === 'Synchronizing ...'}">
+                            {{survey.status| uppercase}}
+
+                          <span ng-if="survey.sync_failed_status_text && survey.status !== 'Synchronizing ...'"> | {{survey.sync_failed_status_text}}</span>
+                        </span>
+
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-xs-3">
+                    <div class="cont">
+                        <a class="button button-calm"
+                           ui-sref="app.hha.new_hha({id: survey.id})" class="list-group-item">
+                            <i class="icon ion-edit"></i>
+                        </a>
+                        &nbsp;
+                        <a class="button button-assertive"
+                           ng-click="onDelete(survey)">
+                            <i class="icon ion-trash-b"></i>
+                        </a>
+                        <ion-spinner icon="android" ng-if="survey.status === 'Synchronizing ...'" class="spinner-energized">
+                        </ion-spinner>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 alert alert-info" ng-if="surveys.length < 1">
+                <i class="icon ion-android-alert" style="font-size: 1.3rem;"></i> No HHA Surveys
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,97 @@
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">1/10 - Background Information</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border  pad-t-30" disabled ng-model="survey.county" ng-change="onCountySelected()">
+                            <option value="" disabled selected hidden>
+                                --Select County--
+                            </option>
+                            <option ng-repeat="county in counties">{{county.wording}}</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>County</label>
+                        <validation-errors field="county" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border" ng-model="survey.sub_county" ng-change="onSubCountySelected()">
+                            <option value="" disabled selected hidden>
+                                --Select Sub County--
+                            </option>
+                            <option ng-repeat="subCounty in subCounties">{{subCounty.wording}}</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Sub County</label>
+                        <validation-errors field="sub_county" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border" ng-model="survey.site" ng-change="onSentinelSiteSelected()" ng-options="sentinelSite.id as sentinelSite.wording for sentinelSite in sentinelSites">
+                            <option value="" disabled selected hidden>--Select sentinel site--</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Sentinel Site/Ward</label>
+                        <validation-errors field="site" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <select class="no-border" ng-model="survey.community_name">
+                            <option value="" disabled selected hidden>
+                                --Select Community--
+                            </option>
+                            <option ng-repeat="community in communities">{{community.wording}}</option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Community</label>
+                        <validation-errors field="community_name" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <div class="group">
+                        <input type="date" ng-model="survey.interview_date">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Date of Interview</label>
+                        <validation-errors field="interview_date" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <!-- Buttons container -->
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Background')">
+                            <i class="icon ion-chevron-left"></i> CANCEL
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Background')">
+                            NEXT <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,94 @@
+<ion-view view-title="{{ title}}">
+    <div class="bar bar-subheader bar-stable">
+        <h2 class="title">4/5 - Payment Utilization</h2>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="list padding pad-t-30">
+            <form name="bg_form">
+
+                <div class="form-cont">
+                    <div class="group">
+                        <div class="col-xs-12">
+                            <span class="toggle-label">Has your household spent all the money received from cash transfer?</span>
+                            <label class="toggle toggle-balanced">
+                                <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="survey.spent_money">
+                                <div class="track">
+                                    <div class="handle"></div>
+                                </div>
+                            </label>
+                            <validation-errors field="spent_money" valerrors="validation_errors">
+                            </validation-errors>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-cont pad-b-0 margin-b-0 pad-t-20"
+                ng-if="!survey.spent_money || survey.spent_money === undefined || survey.spent_money === 'false'">
+                    <div class="group">
+                        <input type="number" placeholder="Percentage of money spent"
+                               ng-model="survey.percentage_spent">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--35">Percentage of Amount received that was spent (%)</label>
+                        <validation-errors field="survey.percentage_spent" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <!-- Cash payment -->
+                <div class="col-xs-12 pad-h-20 margin-b-5" style="font-size: 1.15rem;" ng-if="survey.spent_money === 1">
+                    Please indicate how you spent your cash payment(s). Estimate expenditure on the different items listed below:
+                </div>
+                <div class="col-xs-12 pad-h-20 margin-b-5" style="font-size: 1.15rem;" ng-if="survey.spent_money === 1">
+                    FOOD ITEMS</i>
+                </div>
+                <!-- Months -->
+                <div class="form-cont pad-b-0 margin-b-0 pad-t-20"
+                ng-repeat="food in foodItems" ng-if="survey.spent_money === 1">
+                    <div class="group">
+                        <input type="number" placeholder="Amount in Ksh"
+                               ng-model="survey[food.value]">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label >Amount spent on {{food.name}}</label>
+                        <validation-errors field="food.value" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+                <!-- Non food expenditures -->
+                <div class="col-xs-12 pad-h-20 margin-b-15" style="font-size: 1.15rem;" ng-if="survey.spent_money === 1">
+                    NON-FOOD ITEMS</i>
+                </div>
+                <div class="form-cont pad-b-0 margin-b-0 pad-t-20"
+                ng-repeat="item in nonFoodItems" ng-class="{ 'margin-t-10': item.overlap}" ng-if="survey.spent_money === 1">
+                    <div class="group">
+                        <input type="number" placeholder="Amount in Ksh"
+                               ng-model="survey[item.value]">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label ng-class="{'top--37': item.overlap}">Amount spent on {{item.name}}</label>
+                        <validation-errors field="item.value" valerrors="validation_errors">
+                        </validation-errors>
+                    </div>
+                </div>
+
+                <div class="form-cont">
+                    <div class="col-xs-4">
+                        <a class="button button-stable button-block"
+                           ng-click="onPrevious('Payment Utilization')">
+                            <i class="icon ion-chevron-left"></i> BACK
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="button button-balanced button-block"
+                           ng-click="onSubmit('Payment Utilization')">
+                            NEXT <i class="icon ion-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

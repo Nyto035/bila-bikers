@@ -1,67 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>BILA_BIKERS</title>
 
-    <link rel="manifest" href="manifest.json">
+        <link rel="manifest" href="manifest.json">
 
-    <!-- un-comment this code to enable service worker
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(() => console.log('service worker installed'))
-          .catch(err => console.log('Error', err));
-      }
-    </script>-->
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/input.css" rel="stylesheet">
+        <!-- un-comment this code to enable service worker
+        <script>
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+              .then(() => console.log('service worker installed'))
+              .catch(err => console.log('Error', err));
+          }
+        </script>-->
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+        <link href="css/checkbox.css" rel="stylesheet">
+        <link href="css/inputs.css" rel="stylesheet">
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <link href="css/ionic.app.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/radiobuttons.css" rel="stylesheet">
 
-    <!-- ionic/angularjs js -->
-    <!-- <script>window.phonegap = {}</script> -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="lib/underscore/underscore.js"></script>
+        <link rel="stylesheet" href="lib/angular-material/angular-material.css">
 
 
-    <!-- your app's js -->
-    <script src="lib/moment/moment.js"></script>
-    <script src="lib/ng-idle/angular-idle.js"></script>
-    <script src="js/auth/sil-datalayer.js"></script>
-    <script src="js/auth/sil-auth-backend.js"></script>
-    <script src="js/auth/module.js"></script>
-    <script src="js/auth/oauth.js"></script>
-    <script src="js/auth/states.js"></script>
-    <script src="js/auth/controllers.js"></script>
-    <script src="js/app.js"></script>
-    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
-    <script src="js/custom.js"></script>
-  
-    <script src="js/services.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/routes.js"></script>
-    <script src="js/services/module.js"></script>
-    <script src="js/services/redirect_to.js"></script>
-    <script src="js/services/business_form.js"></script>
-    <script src="js/services/call_api.js"></script>
-    <script src="js/services/users.js"></script>
-    <script src="js/controllers/module.js"></script>
-    <script src="js/controllers/business.js"></script>
-    <script src="js/database/database.js"></script>
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
-  </head>
+        <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+        <link href="css/ionic.app.css" rel="stylesheet">
+        -->
 
-  <body ng-app="starter" class="platform-android platform-cordova platform-webview">
-    <ion-nav-view name="content">
-      
-    </ion-nav-view>
-  </body>
+        <!-- ionic/angularjs js -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+        <script src="js/lib/ng-cordova.min.js"></script>
+        <script src="lib/underscore/underscore-min.js"></script>
+
+        <script src="lib/angular-aria/angular-aria.js"></script>
+        <script src="lib/angular-animate/angular-animate.js"></script>
+        <script src="lib/angular-material/angular-material.js"></script>
+
+
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+
+        <!-- your app's js -->
+        <script src="js/app.js"></script>
+        <script src="js/database/database.js"></script>
+        <script src="js/database/hsna_database.js"></script>
+
+        <script src="js/services/content.js"></script>
+        <script src="js/services/kia.js"></script>
+        <script src="js/services/hha.js"></script>
+        <script src="js/services/hsna.js"></script>
+
+        <script src="js/services/auth.js"></script>
+        <script src="js/services/common.js"></script>
+        <script src="js/services/users.js"></script>
+        <script src="js/services/user_forms.js"></script>
+        <script src="js/services.js"></script>
+
+        <script src="js/states/kia.js"></script>
+        <script src="js/states/hha.js"></script>
+        <script src="js/states.js"></script>
+        <script src="js/states/hsna.js"></script>
+
+
+        <script src="js/directives/directives.js"></script>
+        
+        <script src="js/controllers.js"></script>
+        <script src="js/controllers/hha.js"></script>
+        <script src="js/controllers/kia.js"></script>
+        <script src="js/controllers/hsna.js"></script>
+        <script src="js/controllers/auth.js"></script>
+    </head>
+    <body ng-app="NDMA"  class="platform-android platform-cordova platform-webview">
+    <ion-pane>
+        <ion-nav-view name="content"></ion-nav-view>
+    </ion-pane>
+    
+
+
+</body>
 </html>
