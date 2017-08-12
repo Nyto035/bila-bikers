@@ -2,6 +2,7 @@ angular.module("app.controllers", [
     "hha.controllers",
     "kia.controllers",
     "hsna.controllers",
+    "app.controllers.gis",
     "app.controllers.auth"
 ])
 
@@ -9,8 +10,10 @@ angular.module("app.controllers", [
             on_sync_response: "on-sync-response"
         })
 
-        .controller("AppCtrl", ["$rootScope", "$scope", "ContentSync", "SurveySync", "UserService", "NotificationService", "AUTH_EVENTS", "SYNC_EVENTS",
-            function ($rootScope, $scope, ContentSync, SurveySync, UserService, NotificationService, AUTH_EVENTS, SYNC_EVENTS) {
+        .controller("AppCtrl", ["$rootScope", "$scope", "ContentSync", "SurveySync", "UserService", "NotificationService", 
+            "AUTH_EVENTS", "SYNC_EVENTS", "$state", "$ionicPlatform",
+            function ($rootScope, $scope, ContentSync, SurveySync, UserService, NotificationService, AUTH_EVENTS,
+                SYNC_EVENTS, $state, $ionicPlatform) {
 
                 $scope.update = function () {
                     ContentSync.synchronize();
@@ -27,7 +30,20 @@ angular.module("app.controllers", [
                         $rootScope.$broadcast(SYNC_EVENTS.on_sync_response);
                     });
                 };
-
+                $scope.currentUser = function() {
+                    $ionicPlatform.ready(function() {
+                        UserService.getLoggedInUsers()
+                        .then(function(results){
+                            if(results.rows.length > 0){
+                                $scope.user = results.rows.item(0);
+                            }
+                        })
+                        .catch(function(error){
+                            NotificationService.showError(error);
+                        })
+                    })
+                };
+                $scope.currentUser();
                 $scope.logout = function () {
                     UserService.logoutUser().then(function () {
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);

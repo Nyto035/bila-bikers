@@ -11,6 +11,7 @@ angular.module('NDMA', [
     'ionic',
     'ngCordova',
     'ngMaterial',
+    'ngMap',
     'app.controllers',
     "app.services",
     "app.database",
@@ -65,7 +66,10 @@ angular.module('NDMA', [
 
         //Authentication related run block
 
-        .run(["$state", "$rootScope", "AuthService", function ($state, $rootScope, AuthService) {
+        .run(["$state", "$rootScope", "AuthService", "UserService", "NotificationService",
+            "$ionicPlatform",
+            function ($state, $rootScope, AuthService, UserService, NotificationService,
+                $ionicPlatform) {
                 $rootScope.$on("$stateChangeStart", function (evt, next) {
                     /*if (!AuthService.isAuthenticated()) {
                         if (next.name !== "login") {
@@ -73,6 +77,18 @@ angular.module('NDMA', [
                             $state.go("login");
                         }
                     }*/
+                    $ionicPlatform.ready(function () {
+                        UserService.getLoggedInUsers()
+                        .then(function(results){
+                            if(results.rows.length <= 0){
+                                evt.preventDefault();
+                                $state.go("login");
+                            }
+                        })
+                        .catch(function(errror){
+                            NotificationService.showError(error);
+                        });
+                    });
                 });
             }
         ])
@@ -99,6 +115,6 @@ angular.module('NDMA', [
         .config(function ($urlRouterProvider, $ionicConfigProvider) {
             $ionicConfigProvider.views.maxCache(0);
             // if none of the above states are matched, use this as the fallback
-            $urlRouterProvider.otherwise("/hha/");
+            $urlRouterProvider.otherwise("/gis");
         });
 

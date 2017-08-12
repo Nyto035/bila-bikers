@@ -25,6 +25,11 @@
                             [user.first_name, user.last_name, user.phone_number, user.email, user.password, user.is_courier])
                     };
 
+                    this.loginUser = function (user) {
+                        var query = "UPDATE users set logged_in=? WHERE email = ?";
+                        return $cordovaSQLite.execute(DB, query, [ 1, user.email])
+                    };
+
                     this.updateUser = function (user) {
                         var query = "UPDATE users set email=?, password=?, county=?, token=?, logged_in=? WHERE id = ?";
                         return $cordovaSQLite.execute(DB, query, [user.LoweredEmail, user.Password, user.County, user.Token, 1, user.UserId])

@@ -46,7 +46,8 @@ angular.module("app.controllers", [
                 $scope.currentUser();
                 $scope.logout = function () {
                     UserService.logoutUser().then(function () {
-                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                        $state.go('login');
+                        //$rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
                     }, function (error) {
                         NotificationService.showError(error);
                     });

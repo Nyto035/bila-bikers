@@ -53,8 +53,14 @@
                                 .catch(function(error){
                                     NotificationService.showError(error);
                                 });
+                            } else {
+                                $scope.errorMessage = "Invalid username or password";
                             }
                         })
+                        .catch(function(error){
+                            console.log(error);
+                            NotificationService.showError(error);
+                        });
                         /*$ionicLoading.show();
                         AuthService.login($scope.user)
                         .then(function (response) {

@@ -8,16 +8,16 @@
 <ion-content style="background-color: #edecec;display: inline-block;">
     <div class="list padding pad-t-30 login-cont">
       <div style="">
-        <div class="form-logo">
+        <!-- <div class="form-logo">
            <img src="img/logo.png">
-        </div>
+        </div> -->
         <div class="col-xs-12 margin-t--10 margin-b-20 pad-h-20" ng-if="errorMessage">
             <div class="alert alert-danger col-12">
               <small><i class="icon ion-help-circled"></i> {{errorMessage}}</small>
             </div>
         </div>
         <form class="padding" ng-submit="login()">
-            <div class="form-cont">
+            <div class="form-cont margin-t-20">
                 <div class="group">
                     <input type="email" name="email" ng-model="user.email"
                            placeholder="john.doe@domain.com">

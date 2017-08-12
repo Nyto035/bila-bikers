@@ -249,7 +249,8 @@ button {
     align-items: left;
     text-align: center;
     padding: 10px 0 10px 5px;
-    background-color: rgb(0,150,136);
+    /*background-color: rgb(0,150,136);*/
+    background-color: #2196F3;
 }
 .sidebar-back{
     vertical-align: middle;
@@ -260,9 +261,10 @@ button {
 .sidebar-logout{
     vertical-align: middle;
     color: #f2f2f2;
-    font-size: 1.5rem;
-    padding-top:8px;
-    float: right;
+    font-size: 1.3rem;
+    text-align: left;
+    padding-left:8px;
+    float: left;
 }
 .sidebar-logout>i{
     float: right;
@@ -272,7 +274,8 @@ button {
     width: 100%;
     color: #FFF;
     border-top: 1px solid #e0e0e0;
-    background-color: rgb(0,150,136);    
+    /*background-color: rgb(0,150,136);*/
+    background-color: #2196F3;    
 }
 .sidebar-icon>.icon-cont{
     height: 40px;
@@ -383,7 +386,8 @@ ion-popover-view.pop-modal{
     display: inline-block;
 }
 .bar-danger{
-    background-color: #f44336 !important;
+    /*background-color: #f44336 !important;*/
+    background-color: #2196F3 !important;
     color: #FFF !important;
 }
 .button-primary{
@@ -397,4 +401,10 @@ ion-popover-view.pop-modal{
 .button-outline{
     border:2px solid #2196F3 !important;
     color: #2196F3 !important;
+}
+.bar-default{
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 
+        0 1px 1px 0 rgba(0,0,0,.14), 
+        0 2px 1px -1px rgba(0,0,0,.12);
 }

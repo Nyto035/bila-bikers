@@ -1,40 +1,55 @@
 <ion-side-menus enable-menu-with-back-views="true">
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-balanced">
+        <ion-nav-bar class="bar-balanced bar-danger">
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
                 </button>
             </ion-nav-buttons>
             <ion-nav-buttons side="right">
-                <button class="button button-positive button-small" ng-click="synchronize()" ng-if="syncButtonEnabled">
+                <!-- <button class="button button-positive button-small" ng-click="synchronize()" ng-if="syncButtonEnabled">
                     <i class="icon ion-android-sync"> {{syncButtonText}}</i>
-                </button>
+                </button> -->
             </ion-nav-buttons>
         </ion-nav-bar>
         <ion-nav-view name="survey-content"></ion-nav-view>
     </ion-side-menu-content>
 
     <ion-side-menu side="left">
-        <ion-header-bar class="bar-balanced" >
-            <h1 class="title" menu-close ui-sref="app"> <i class="icon ion-android-home"></i> Home</h1>
+        <ion-header-bar class="bar-green side-bar-header">
+            <div class="col-12">
+              <div class="logo-icon col-12 sidebar-icon">
+                  <div class="icon-cont col-4 pad-l-3">
+                      <i class="icon ion-person"></i>
+                  </div>
+                  <div class="col-8 sidebar-logout">
+                        <div class="col-12">
+                            <span><small>{{user.first_name}} {{user.last_name}}</small></span>
+                        </div>
+                        <div class="col-12" style="font-size: 0.9rem;">
+                            <small>
+                                {{user.email}}
+                            </small>
+                        </div>
+                  </div>
+              </div>
+              <div class="sidebar-details col-11 inline-block">
+                  <div class="col-xs-12"><small>MENU</small></div>
+              </div>
+            </div>
         </ion-header-bar>
-        <ion-content>
+        <ion-content style="position:relative;top:55px;display: flex;" class="col-x-12">
             <ion-list>
-                <ion-item menu-close ui-sref="app.hha">
-                    <i class="icon ion-briefcase"> HHA</i>
-                </ion-item>
-                <ion-item menu-close ui-sref="app.kia">
-                    <i class="icon ion-stats-bars"> KIA</i>
-                </ion-item>
-                <ion-item menu-close ui-sref="app.hsna">
-                    <i class="icon ion-android-clipboard"> HSNA</i>
-                </ion-item>
-                <ion-item menu-close ng-click="logout()">
-                    <i class="icon ion-log-out"> Sign Out</i>
-                </ion-item>
-                <ion-item menu-close ng-click="update()">
-                    <i class="icon ion-android-sync"> Update</i>
-                </ion-item>
+                <div class="menunav">
+                    <div class="rest">
+                        <ion-item ui-sref-active="active" menu-close ui-sref="app.gis" class="list-grow-animation" >
+                            <i class="icon ion-speedometer ion-left text-success"></i>
+                            &nbsp;GIS
+                        </ion-item>
+                        <ion-item menu-close ng-click="update()">
+                            <i class="icon ion-android-sync text-warning"> </i> Update
+                        </ion-item>
+                    </div>
+                </div>
             </ion-list>
         </ion-content>
     </ion-side-menu>

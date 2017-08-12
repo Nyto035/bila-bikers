@@ -273,6 +273,9 @@ span.block-xs-10 {
 .margin-t-10{
     margin-top: 10px !important;
 }
+.margin-t-20{
+    margin-top: 20px !important;
+}
 .margin-t-40{
     margin-top: 40px;
 }
@@ -432,6 +435,9 @@ span.block-xs-10 {
 }
 .alert-info{
     background-color:#2196F3;
+}
+.alert-danger{
+    background-color:#f44336;
 }
 body{
     font-size: 1.2rem;
