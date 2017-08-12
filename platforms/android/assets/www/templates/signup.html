@@ -1,0 +1,61 @@
+<ion-view title="  Get started">
+
+
+  <ion-content style="background-image:url('../img/bgimage.jpg')">
+    <ion-card>
+
+      <div>
+        <form id="register" ng-submit="register($event)">
+          <div class="card" style="opacity:0.8;">
+
+
+            <p class="headline">Start your <strong>14-Days</strong> Free Trial!</p>
+
+
+            <div class="list card">
+
+              <div class="list">
+                <label class="item item-input item-floating-label">
+    <span class="ion-android-call">  Phone Number</span>
+    <input type="text" ng-model="user.phone">
+  </label>
+                <label class="item item-input item-floating-label">
+    <span class="ion-email">  Email</span>
+    <input type="email" ng-model="user.register_user_by_email">
+  </label>
+
+                <label class="item item-input item-floating-label">
+    <span class="ion-unlocked">  Password</span>
+    <input type="password" ng-model="user.password">
+  </label>
+                <label class="item item-input item-floating-label">
+  
+    <span class="ion-locked">  Confirm Password</span>
+    <input type="password" ng-model="user.password_confirm">
+  </label>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-50">
+                <a class="button button-small signin" href="#/app/home">
+ <i class="ion-lock-combination"> Sign In</i>
+</a>
+              </div>
+              <div class="col-50">
+                <button type="submit" class="button button-small signupbtn">
+ <i class="ion-person"> Get Started</i>
+</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      </div>
+
+    </ion-card>
+
+  </ion-content>
+
+</ion-view>

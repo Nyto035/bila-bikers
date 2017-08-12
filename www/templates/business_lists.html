@@ -1,0 +1,86 @@
+<ion-view title='My Businesses' animation="fade-in-up">
+
+
+  <ion-content style="background-color: #edecec;">
+    <ion-card>
+
+    <div class="list padding pad-t-30 menu-cont" style="position: relative;">
+        <div class="login-menu">
+            <!-- <div class="form-logo">
+            </div> -->
+           <div class="col-xs-12 pad-h-30 margin-b-25" style="font-size: 1.15rem;" ng-if="user.businesses.length === 0">
+           		<div class="alert alert-info">
+       				<i class="icon ion-help-circled"></i>&nbsp;&nbsp;Kindly create at least one business before you can continue.
+                </div>
+            </div>
+            <form class="padding" ng-submit="login()" ng-if="user.business.length === 0">
+                <div class="form-cont margin-b-10" ng-repeat="field in createFields">
+                    <div class="group" ng-if="(field.type === 'text' || field.type === 'number' || field.type === 'email')">
+                        <input type="{{field.type}}" required
+                               placeholder="Enter the {{field.verbous_name}}"
+                               name="{{field.name}}"
+                               ng-model="business[field.name]">
+                        <span class="highlight"></span>
+                        <label>{{field.verbous_name}}</label>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>{{field.verbous_name}}</label>
+                        <!-- <validation-errors field="sub_location" valerrors="validation_errors">
+                        </validation-errors> -->
+                    </div>
+                    <div class="group" ng-if="field.type === 'select'">
+                        <select class="no-border" ng-model="business[field.name]" ng-options="currency.value as currency.label for currency in currencies">
+                            <option value="" disabled selected hidden>
+                                --Select {{field.verbous_name}}--
+                            </option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label class="top--10">{{field.verbous_name}}</label>
+                        <!-- <validation-errors field="site" valerrors="validation_errors">
+                        </validation-errors> -->
+                    </div>
+                </div>
+                <div class="form-cont">
+                    <button type="submit" class="button button-block button-balanced"><i class="icon ion-clipboard">  CREATE BUSINESS</i></button>
+                </div>
+            </form>
+            <div class="col-12 grid-header" ng-if="user.businesses.length > 0">
+                <div class="col-9 grid-title">
+                    <div class="col-xs-12">
+                        Active Businesses
+                    </div>
+                    <div class="col-xs-12 pad-t-5">
+                        <small>Showing <b>{{user.businesses.length}}</b> Businesses</small>
+                    </div>
+                </div>
+                <div class="col-2 grid-action">
+                    <button class="button button-balanced btn-rnd">
+                        <i class="icon ion-plus-round"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 grid-lines" ng-repeat="biz in user.businesses">
+                <div class="line-icon col-2">
+                    <div class="icon-cont">
+                        <i class="icon ion-clipboard"></i>
+                    </div>
+                </div>
+                <div class="line-details col-9">
+                    {{biz.name}}
+                </div>
+                <div class="line-action col-1">
+                    <a ui-sref="app.dashboard({'id': biz.id})"
+                    ui-sref-opts="{'reload': true}">
+                        <i class="icon ion-more"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </ion-card>
+
+  </ion-content>
+
+</ion-view>
