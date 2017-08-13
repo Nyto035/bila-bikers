@@ -25,12 +25,12 @@
         <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
     </feature>
-    <name>Bila-Bikers</name>
+    <name>Bila Bikers</name>
     <description>
-        Bila Bikers courier services application
+        Bila bikers courier services Application
     </description>
-    <author email="owagaantony@gmail.com" href="http://palvac.co.ke">
-        Antony Owaga
+    <author email="daniel.mbaluka@palvac.co.ke" href="http://palvac.co.ke">
+        Daniel Mbaluka
     </author>
     <content src="index.html" />
     <access origin="*" />

@@ -2,9 +2,13 @@
 (function (angular) {
     angular.module("app.controllers.gis", [])
         .controller("gisController", ["$scope", "NgMap", "$ionicPlatform",
-            function ($scope, NgMap, $ionicPlatform) {
+            "$window",
+            function ($scope, NgMap, $ionicPlatform, $window) {
+                $scope.refresh = function() {
+                    $window.location.reload(true);
+                };
                 $scope.user = {};
-                $scope.map = "";
+                $scope.map = {};
                 $ionicPlatform.ready(function() {
                     NgMap.getMap().then(function(map) {
                         var center = map.getCenter();

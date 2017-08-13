@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.palvac.ndma" version="0.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Bila-Bikers</name>
+    <name>Bila Bikers</name>
     <description>
-        Bila Bikers courier services application
+        Bila bikers courier services Application
     </description>
-    <author email="owagaantony@gmail.com" href="http://palvac.co.ke">
-        Antony Owaga
+    <author email="daniel.mbaluka@palvac.co.ke" href="http://palvac.co.ke">
+        Daniel Mbaluka
     </author>
     <content src="index.html" />
     <access origin="*" />
