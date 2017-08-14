@@ -70,17 +70,17 @@ angular.module('NDMA', [
             "$ionicPlatform",
             function ($state, $rootScope, AuthService, UserService, NotificationService,
                 $ionicPlatform) {
-                $rootScope.$on("$stateChangeStart", function (evt, next) {
+                $ionicPlatform.ready(function () {
+                    $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
                     /*if (!AuthService.isAuthenticated()) {
                         if (next.name !== "login") {
                             evt.preventDefault();
                             $state.go("login");
                         }
                     }*/
-                    $ionicPlatform.ready(function () {
                         UserService.getLoggedInUsers()
                         .then(function(results){
-                            if(results.rows.length <= 0){
+                            if(results.rows.length <= 0 && toState.name !== 'registration'){
                                 evt.preventDefault();
                                 $state.go("login");
                             }

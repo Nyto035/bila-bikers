@@ -70,24 +70,49 @@ angular.module('NDMA', [
             "$ionicPlatform",
             function ($state, $rootScope, AuthService, UserService, NotificationService,
                 $ionicPlatform) {
-                $ionicPlatform.ready(function () {
-                    $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
+                var authLogin = function(evt, toState) {
+                    UserService.getLoggedInUsers()
+                    .then(function(results){
+                        if(results.rows.length <= 0 && toState.name !== 'registration'){
+                            evt.preventDefault();
+                            $state.go("login");
+                        }
+                    })
+                    .catch(function(errror){
+                        NotificationService.showError(error);
+                    });
+                };
+                $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
                     /*if (!AuthService.isAuthenticated()) {
                         if (next.name !== "login") {
                             evt.preventDefault();
                             $state.go("login");
                         }
                     }*/
-                        UserService.getLoggedInUsers()
-                        .then(function(results){
-                            if(results.rows.length <= 0 && toState.name !== 'registration'){
-                                evt.preventDefault();
-                                $state.go("login");
-                            }
-                        })
-                        .catch(function(errror){
-                            NotificationService.showError(error);
-                        });
+                    $ionicPlatform.ready(function () {
+                        if(window.cordova){
+                            authLogin(evt, toState);
+                        } else{
+                            authLogin(evt, toState);
+                        }
+                    });
+                });
+                $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams){
+                    $ionicPlatform.ready(function () {
+                        if (fromState.name === ''){
+                            event.preventDefault();
+                            UserService.getLoggedInUsers()
+                            .then(function(results){
+                                if(results.rows.length <= 0 && toState.name !== 'registration'){
+                                    $state.go("login");
+                                } else {
+                                    $state.go('app.gis');
+                                }
+                            })
+                            .catch(function(errror){
+                                NotificationService.showError(error);
+                            });
+                        }
                     });
                 });
             }
@@ -112,9 +137,11 @@ angular.module('NDMA', [
         })
 
 
-        .config(function ($urlRouterProvider, $ionicConfigProvider) {
-            $ionicConfigProvider.views.maxCache(0);
-            // if none of the above states are matched, use this as the fallback
-            $urlRouterProvider.otherwise("/gis");
-        });
+        .config(["$urlRouterProvider", "$ionicConfigProvider", 
+            function ($urlRouterProvider, $ionicConfigProvider) {
+                $ionicConfigProvider.views.maxCache(0);
+                // if none of the above states are matched, use this as the fallback
+                $urlRouterProvider.otherwise("/gis");
+            }
+        ]);
 
