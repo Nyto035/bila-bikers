@@ -1,11 +1,12 @@
 
 (function (angular) {
-    angular.module("app.controllers.auth", [])
+    angular.module("app.controllers.auth", ['ngCordova',])
             .controller("AuthController", ["$rootScope", "$ionicPlatform", "$ionicLoading",
                 "$scope", "UserService", "AUTH_EVENTS", "NotificationService", "AuthService",
-                "app.services.userInputs.forms", "$state",
+                "app.services.userInputs.forms", "$state", "$cordovaToast",
                 function ($rootScope, $ionicPlatform, $ionicLoading, $scope, UserService,
-                    AUTH_EVENTS, NotificationService, AuthService, userForm, $state) {
+                    AUTH_EVENTS, NotificationService, AuthService, userForm, $state,
+                    $cordovaToast) {
                     $scope.user = {};
                     $ionicPlatform.ready(function () {
                         UserService.getLoggedInUsers().then(function (results) {
@@ -19,6 +20,22 @@
                             NotificationService.showError(error);
                         });
                     });
+                    /*toast function*/
+                    $scope.showToast = function(message, duration, location) {
+                        $ionicPlatform.ready(function () {
+                            $cordovaToast.show(message, duration, location).then(function(success) {
+                                console.log("The toast was shown");
+                            }, function (error) {
+                                console.log("The toast was not shown due to " + error);
+                            });
+                        });
+                    };
+                    /*end of toast*/
+                    $scope.cancelRegistration = function() {
+                        var msg = 'You cancelled registration';
+                        $scope.showToast(msg, 'short', 'bottom');
+                        $state.go('login');
+                    };
                     $scope.register = {};
                     $scope.createFields = userForm.createUser();
                     $scope.registerUser = function() {

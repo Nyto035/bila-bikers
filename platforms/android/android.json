@@ -35,6 +35,10 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"io.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -85,6 +89,9 @@
             "PACKAGE_NAME": "com.palvac.ndma"
         },
         "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.palvac.ndma"
+        },
+        "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "com.palvac.ndma"
         }
     },
@@ -144,6 +151,19 @@
                 "cordova.plugins.Keyboard"
             ],
             "runs": true
+        },
+        {
+            "id": "cordova-plugin-x-toast.Toast",
+            "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+            "pluginId": "cordova-plugin-x-toast",
+            "clobbers": [
+                "window.plugins.toast"
+            ]
+        },
+        {
+            "id": "cordova-plugin-x-toast.tests",
+            "file": "plugins/cordova-plugin-x-toast/test/tests.js",
+            "pluginId": "cordova-plugin-x-toast"
         }
     ],
     "plugin_metadata": {
@@ -155,6 +175,7 @@
         "cordova-plugin-statusbar": "2.2.3",
         "cordova-plugin-whitelist": "1.3.2",
         "cordova-sqlite-storage": "2.0.4",
-        "ionic-plugin-keyboard": "2.2.1"
+        "ionic-plugin-keyboard": "2.2.1",
+        "cordova-plugin-x-toast": "2.6.0"
     }
 }

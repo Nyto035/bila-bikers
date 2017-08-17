@@ -10,7 +10,8 @@
     "angular-cookies": "",
     "angular-busy": "^4.1.4",
     "jquery": "^3.2.1",
-    "ngmap": "^1.18.4"
+    "ngmap": "^1.18.4",
+    "ngCordova": "^0.1.27-alpha"
   },
   "resolutions": {
     "angular": "1.6.4"

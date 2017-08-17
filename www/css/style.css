@@ -120,7 +120,7 @@ input{
     width:100%;
     display: inline-block;
     padding: 15px;
-    top:5rem;
+    top:3.5rem;
 }
 .menu-cont{
     width:100%;
@@ -144,10 +144,10 @@ input{
     width:100%;
     display: inline-block;
     text-align: center;
-    margin-bottom:15px;
+    margin-bottom:-5px;
 }
 .form-logo>img{
-    height:60px;
+    height:90px;
 }
 .login-cont>div{
     position: relative; 
@@ -387,11 +387,13 @@ ion-popover-view.pop-modal{
 }
 .bar-danger{
     /*background-color: #f44336 !important;*/
-    background-color: #2196F3 !important;
+    /*background-color: #2196F3 !important;*/
+    background-color: #e62117 !important;
     color: #FFF !important;
 }
 .button-primary{
-    background-color: #2196F3;
+    /*background-color: #2196F3;*/
+    background-color: #e62117;
     color: #FFF;
 }
 .button-default{
@@ -407,4 +409,14 @@ ion-popover-view.pop-modal{
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 
         0 1px 1px 0 rgba(0,0,0,.14), 
         0 2px 1px -1px rgba(0,0,0,.12);
+}
+}
+.login-content{
+    /*display: inline-block;*/
+    float: none;
+}
+.login-content>.scroll{
+    display: flex;
+    overflow: hidden;
+    height:100%;
 }

@@ -1,5 +1,9 @@
 <ion-view view-title="GIS">
         <div class="bar bar-subheader bar-default">
+            <div class="col-12">
+                <input places-auto-complete types="['geocode']" on-place-changed="placeMarker()" 
+                ng-model="destination"/>
+            </div>
         	<button class="button button-balanced btn-rnd pull-right"
         	ng-click="refresh()" style="padding: 0 6px 0 7.5px !important;">
                 <i class="icon ion-refresh"></i>
@@ -10,12 +14,26 @@
             <div style="width: 100%;margin-top:0;"></div>
             <div map-lazy-load="https://maps.google.com/maps/api/js"
 			  	map-lazy-load-params="{{googleMapsUrl}}">
-			  <ng-map center='current-position' zoom="16" style="height:85vh;"
+            <!-- SINGLE MARKER AS CENTER AND ZOOM DEFINED EXPLICITLY -->
+			  <!-- <ng-map center='current-position' zoom="17" style="height:85vh;"
 			  geo-fallback-center="[40.74, -74.18]"
 			  geo-callback="callbackFunc('you')"
 			  >
-			  	<marker position="current" animation="Animation.BOUNCE" centered="true"></marker>
-			  </ng-map>
+			  	<marker position="current" animation="Animation.BOUNCE" centered="true" 
+                draggable="true">          
+                </marker>
+			  </ng-map> -->
+                <ng-map zoom-to-include-markers="true" style="height:85vh;" zoom="15"
+                    geo-fallback-center="[40.74, -74.18]"
+                    geo-callback="callbackFunc('you')"
+                    >
+                    <marker position="current" animation="Animation.BOUNCE" centered="true" 
+                    draggable="true">          
+                    </marker>
+                    <marker position="{{center}}" animation="Animation.BOUNCE" animation="DROP" centered="true" 
+                    draggable="true">          
+                    </marker>
+                </ng-map>
 			</div>
         </div>
     </ion-content>

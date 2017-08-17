@@ -10,7 +10,7 @@
     <ion-card>
     <div class="list padding pad-t-30 menu-cont" style="position: relative;margin-top: 12px;">
         <div class="login-menu">
-            <div class="form-logo">
+            <div class="form-logo margin-b-15">
                 <h4>CREATE USER ACCOUNT</h4>
             </div>
             <form class="padding" ng-submit="registerUser()">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-cont col-6 margin-b-0">
                         <button type="button" class="button button-block button-default" 
-                        ui-sref="login">
+                        ng-click="cancelRegistration()">
                             CANCEL
                         </button>
                     </div>
