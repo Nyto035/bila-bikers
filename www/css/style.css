@@ -436,3 +436,14 @@ ion-popover-view.pop-modal{
 .pull-right{
     float: right;
 }
+.gisbtn-cont {
+    bottom: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gisbtn-cont > .button{
+    bottom:10px;
+    text-transform: uppercase;
+}
