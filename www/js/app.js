@@ -12,6 +12,7 @@ angular.module('NDMA', [
     'ngCordova',
     'ngMaterial',
     'ngMap',
+    'google.places',
     'app.controllers',
     "app.services",
     "app.database",
@@ -137,7 +138,7 @@ angular.module('NDMA', [
         })
 
 
-        .config(["$urlRouterProvider", "$ionicConfigProvider", 
+        .config(["$urlRouterProvider", "$ionicConfigProvider",
             function ($urlRouterProvider, $ionicConfigProvider) {
                 $ionicConfigProvider.views.maxCache(0);
                 // if none of the above states are matched, use this as the fallback

@@ -11,7 +11,8 @@
     "angular-busy": "^4.1.4",
     "jquery": "^3.2.1",
     "ngmap": "^1.18.4",
-    "ngCordova": "^0.1.27-alpha"
+    "ngCordova": "^0.1.27-alpha",
+    "angular-google-places-autocomplete": "^0.2.7"
   },
   "resolutions": {
     "angular": "1.6.4"
