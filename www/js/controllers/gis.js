@@ -15,9 +15,13 @@
                     NgMap.getMap().then(function(map) {
                         var center = map.getCenter();
                         $scope.map = map;
+                        // $scope.center = [-1.3165578,36.84991969999999];
+                        // $scope.latlng = $scope.center;
                         $scope.center = map.getCenter();
                         google.maps.event.trigger(map, "resize");
                         map.setCenter(center);
+                        /*console.log('markers', map.markers);
+                        console.log('shapes', map.shapes);*/
                     }).catch(function(error){
                         console.log(error);
                     });
@@ -57,7 +61,7 @@
                         {
                             location: $scope.dest,
                             stopover: true,
-                        },
+                        }
                     ];
                     $scope.latlng = [loc.lat(), loc.lng()];
                     // $scope.center = [loc.lat(), loc.lng()];
