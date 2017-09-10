@@ -7,6 +7,7 @@
         "app.services.common",
         "app.services.users",
         "app.services.hha",
+        "app.services.callApi",
         'app.services.userInputs'
     ]);
 

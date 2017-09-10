@@ -1,0 +1,37 @@
+<ion-popover-view class="pop-modal" ng-class="{'pop-modal' : context === 'pay',
+    'sales-popover': context === 'sale'}">
+    <ion-header-bar>
+        <h1 class="title" style="text-align: left;margin-left:20px;">
+            Order Description
+        </h1>
+        <button class="button button-clear button-primary"
+        ng-click="closePopover()">
+            <i class="icon ion-close-circled" style="color:#cccccc;"></i>
+        </button>
+    </ion-header-bar>
+    <ion-content>
+        <form>
+             <div class="form-cont margin-b-10 pad-t-10">
+                <div class="group">
+                    <input type="number" required
+                           placeholder="Enter item name"
+                           name="item"
+                           ng-model="popOverAcc.item">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Item</label>
+                </div>
+            </div>
+            <div class="form-cont margin-b-0 pad-t-5">
+                <button type="button" class="button button-block button-balanced"
+                ng-click="addPayment(popOverAcc)"
+                style="margin-top: -10px;min-height: 40px;padding:0 8px;">
+                    <i class="icon ion-card">  CONFIRM PICKUP </i>
+                </button>
+            </div>
+        </form>
+        <div class="col-12 form-cont inline-flex margin-t-10 overflow-hidden" ng-if="context === 'sale'">
+            <ng-include src="'templates/item_form.html'" replace></ng-include>
+        </div>
+    </ion-content>
+</ion-popover-view>

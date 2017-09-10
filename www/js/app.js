@@ -21,7 +21,8 @@ angular.module('NDMA', [
     "app.directives"
 ])
 
-        .constant("SERVER_URL", "http://96.31.88.33:8001/api/v1/")
+        .constant("SERVER_URL", "http://104.236.52.240/api/v1/")
+        // .constant("SERVER_URL", "http://localhost:8000/v1/")
 
         .constant("DEBUG", false)
 
@@ -120,13 +121,13 @@ angular.module('NDMA', [
         ])
 
         .config(["$httpProvider", function ($httpProvider) {
-                $httpProvider.interceptors.push("AuthInterceptor");
-                $httpProvider.defaults.headers.common = {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                };
-            }
-        ])
+            $httpProvider.defaults.xsrfHeaderName = "X-CSRFToken";
+            $httpProvider.defaults.xsrfCookieName = "csrftoken";
+            $httpProvider.defaults.headers.common = {
+                "Accept": "application/json, */*",
+                'Access-Control-Allow-Origin': '*',
+            };
+        }])
 
         .config(function($mdThemingProvider) {
           $mdThemingProvider.theme('default')

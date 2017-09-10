@@ -2,8 +2,8 @@
 (function (angular) {
     angular.module("app.controllers.gis", [])
         .controller("gisController", ["$scope", "NgMap", "$ionicPlatform",
-            "$window", "$locale",
-            function ($scope, NgMap, $ionicPlatform, $window, $locale) {
+            "$window", "$locale", '$ionicPopover',
+            function ($scope, NgMap, $ionicPlatform, $window, $locale, $ionicPopover) {
                 $scope.refresh = function() {
                     $window.location.reload(true);
                 };
@@ -75,6 +75,20 @@
                     console.log(param);
                     $scope.placeMarker(param);
                 })
+                /* Confirming order popover*/
+                 $scope.createPopover = function popFxn($event) {
+                    $ionicPopover.fromTemplateUrl('templates/add_order.html', {scope: $scope})
+                    .then(function(popover) {
+                        $scope.popover = popover;
+                    });
+                };
+                $scope.createPopover();
+                $scope.openPopover = function($event, context, account) {
+                    $scope.popover.show($event);
+                };
+                $scope.closePopover = function() {
+                    $scope.popover.hide();
+                };
             }]);
 })(window.angular);
 

@@ -1,10 +1,10 @@
 <ion-view title='Create Account' animation="fade-in-up">
   <ion-header-bar class="bar-stable bar-danger" style="height: 60px">
-    <div class="col-12 login-title-cont">  
-      <div class="col-12 login-title"> 
+    <div class="col-12 login-title-cont">
+      <div class="col-12 login-title">
             USER REGISTRATION DETAILS
       </div>
-    </div> 
+    </div>
   </ion-header-bar>
   <ion-content style="background-color: #edecec;">
     <ion-card>
@@ -30,7 +30,7 @@
                         </validation-errors> -->
                     </div>
                     <div class="group" ng-if="field.type === 'select'">
-                        <select class="no-border" ng-model="register[field.name]" ng-options="currency.value as currency.label for currency in currencies">
+                        <select class="no-border" ng-model="register[field.name]" ng-options="customer.id as customer.name for customer in customers">
                             <option value="" disabled selected hidden>
                                 --Select {{field.verbous_name}}--
                             </option>
@@ -42,27 +42,12 @@
                         </validation-errors> -->
                     </div>
                 </div>
-                <div class="form-cont">
-                  <div class="group">
-                    <div class="col-xs-12">
-                      <label class="toggle toggle-balanced">
-                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="register.is_courier">
-                        <div class="track">
-                          <div class="handle"></div>
-                        </div>
-                      </label>
-                      <span class="toggle-label" style="font-size: 1.15rem;">&nbsp;&nbsp;Register as a Courier</span>
-                      <validation-errors field="harvested_in_last_weeks" valerrors="validation_errors">
-                      </validation-errors>
-                    </div>
-                  </div>
-                </div>
                 <div class="flex col-12">
                     <div class="form-cont col-6 margin-b-0">
                         <button type="submit" class="button button-block button-primary"><i class="icon ion-clipboard">&nbsp;SAVE</i></button>
                     </div>
                     <div class="form-cont col-6 margin-b-0">
-                        <button type="button" class="button button-block button-default" 
+                        <button type="button" class="button button-block button-default"
                         ng-click="cancelRegistration()">
                             CANCEL
                         </button>

@@ -28,6 +28,11 @@ angular.module('app.services.userInputs', [])
                     'verbous_name': 'Email Address',
                 },
                 {
+                    'name': 'user_type',
+                    'type': 'select',
+                    'verbous_name': 'Select type of user',
+                },
+                {
                     'name': 'password',
                     'type': 'password',
                     'verbous_name': 'Password',
