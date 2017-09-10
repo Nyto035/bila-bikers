@@ -3103,7 +3103,7 @@
                     this.initialize = function () {
                         // $cordovaSQLite.execute(DB, "DROP TABLE IF EXISTS users");
                         var user_query = "CREATE TABLE IF NOT EXISTS users (id text, first_name text, last_name text, email text, password text,"+
-                            "phone_number text, token text, is_courier integer DEFAULT 0, logged_in integer DEFAULT 0)";
+                            "phone_number text, token text, user_type integer DEFAULT 0, logged_in integer DEFAULT 0)";
                         $cordovaSQLite.execute(DB, user_query);
 
                         $cordovaSQLite.execute(DB, "CREATE TABLE IF NOT EXISTS options (id integer, livelihood_zone_id integer, household_name text, integration_id integer, wording text not null, parent text, group_name text,  parent_group text)");

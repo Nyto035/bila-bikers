@@ -1,9 +1,9 @@
 <ion-header-bar class="bar-stable bar-danger" style="height: 60px">
-    <div class="col-12 login-title-cont">  
-      <div class="col-12 login-title"> 
+    <div class="col-12 login-title-cont">
+      <div class="col-12 login-title">
           BINA-BIKERS
       </div>
-    </div> 
+    </div>
 </ion-header-bar>
 <ion-content style="background-color: #edecec;display: inline-block;" class="login-content">
     <div class="list padding pad-t-30 login-cont">
@@ -16,7 +16,7 @@
               <small><i class="icon ion-help-circled"></i> {{errorMessage}}</small>
             </div>
         </div>
-        <form class="padding" ng-submit="login()">
+        <form class="padding">
             <div class="form-cont margin-t-20">
                 <div class="group">
                     <input type="email" name="email" ng-model="user.email"
@@ -36,7 +36,8 @@
                 </div>
             </div>
             <div class="form-cont margin-b-0">
-                <button  class="button button-block button-primary" ng-disabled="isDisabled">
+                <button  class="button button-block button-primary" ng-disabled="isDisabled"
+                ng-click="login()">
                     <i class="icon ion-android-exit">  SIGN IN</i>
                     <ion-spinner icon="spiral" ng-if="loader"></ion-spinner>
                 </button>

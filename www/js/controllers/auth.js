@@ -16,7 +16,6 @@
                         { 'name': 'Customer', 'id': 'CUSTOMER' },
                         { 'name': 'Courier', 'id': 'COURIER' },
                     ];
-                    console.log($scope.user_types);
                     $ionicPlatform.ready(function () {
                         UserService.getLoggedInUsers().then(function (results) {
                             if (results.rows.length > 0) {
@@ -78,7 +77,41 @@
                             NotificationService.showError('Password is required');
                             return;
                         }
-                        UserService.getByEmail($scope.user.email)
+                        callApi.post($scope.user, 'login')
+                        .then(function(response){
+                            console.log(response);
+                            var tokenObj = response.data;
+                            callApi.get(tokenObj, 'me')
+                            .then(function(response){
+                                _.extendOwn(response, { 'token': tokenObj.token });
+                                $state.go('app.gis');
+                                // Return when fixed
+                                UserService.registerUser(response.data)
+                                .then(function(response){
+                                    UserService.loginUser($scope.register)
+                                    .then(function(response){
+                                        $state.go('app.gis');
+                                    })
+                                    .catch(function(error){
+                                        console.log(error);
+                                        NotificationService.showError(error);
+                                    });
+                                })
+                                .catch(function(error){
+                                    console.log(error);
+                                    NotificationService.showError(error);
+                                });
+                            })
+                            .catch(function(error){
+                                console.log(error);
+                                NotificationService.showError(error);
+                            });
+                        })
+                        .catch(function(error){
+                            console.log(error);
+                            NotificationService.showError(error);
+                        });
+                        /* UserService.getByEmail($scope.user.email)
                         .then(function(results){
                             if(results.rows.length > 0){
                                 var user = results.rows.item(0);
@@ -97,7 +130,7 @@
                         .catch(function(error){
                             console.log(error);
                             NotificationService.showError(error);
-                        });
+                        });*/
                     };
                 }]);
 })(window.angular);

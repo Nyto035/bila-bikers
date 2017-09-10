@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 var DB = null;
-var DB_NAME = "ndma.db";
+var DB_NAME = "binabikers.db";
 
 
 angular.module('NDMA', [
@@ -21,7 +21,8 @@ angular.module('NDMA', [
     "app.directives"
 ])
 
-        .constant("SERVER_URL", "http://104.236.52.240/api/v1/")
+        .constant("SERVER_URL", "http://104.236.52.240/v1/")
+        .constant("AUTH_SERVER_URL", "http://104.236.52.240/")
         // .constant("SERVER_URL", "http://localhost:8000/v1/")
 
         .constant("DEBUG", false)
@@ -125,7 +126,10 @@ angular.module('NDMA', [
             $httpProvider.defaults.xsrfCookieName = "csrftoken";
             $httpProvider.defaults.headers.common = {
                 "Accept": "application/json, */*",
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'true',
+                'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+                'Access-Control-Allow-Headers': 'Origin,X-Requested-With,Content-Type' +
+                    ',Accept,Authorization'
             };
         }])
 
