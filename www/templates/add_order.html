@@ -1,4 +1,4 @@
-<ion-popover-view class="pop-modal" ng-class="{'pop-modal' : context === 'pay',
+2<ion-popover-view class="pop-modal" ng-class="{'pop-modal' : context === 'pay',
     'sales-popover': context === 'sale'}">
     <ion-header-bar>
         <h1 class="title" style="text-align: left;margin-left:20px;">
@@ -11,20 +11,32 @@
     </ion-header-bar>
     <ion-content>
         <form>
-             <div class="form-cont margin-b-10 pad-t-10">
+            <div class="form-cont margin-b-10 pad-t-30">
                 <div class="group">
-                    <input type="number" required
-                           placeholder="Enter item name"
-                           name="item"
-                           ng-model="popOverAcc.item">
+                    <input type="text" required
+                           placeholder="Enter item(s) name max of 3 items"
+                           name="name"
+                           ng-model="order.name">
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label>Item</label>
+                    <label>Item(s) Name</label>
+                </div>
+            </div>
+            <div class="form-cont margin-b-10 pad-t-15">
+                <div class="group">
+                    <textarea
+                       placeholder="Enter brief description of items like total items"
+                       name="description" rows="3"
+                       ng-model="order.description">
+                    </textarea>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Description</label>
                 </div>
             </div>
             <div class="form-cont margin-b-0 pad-t-5">
-                <button type="button" class="button button-block button-balanced"
-                ng-click="addPayment(popOverAcc)"
+                <button type="button" class="button button-block button-primary"
+                ng-click="addOrder(order)"
                 style="margin-top: -10px;min-height: 40px;padding:0 8px;">
                     <i class="icon ion-card">  CONFIRM PICKUP </i>
                 </button>

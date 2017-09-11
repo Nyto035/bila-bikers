@@ -31,7 +31,7 @@ angular.module('app.states.hha', [])
                         }
                     })
                     .state("app.gis", {
-                        url: "gis",
+                        url: "gis?order_id",
                         views: {
                             "survey-content": {
                                 templateUrl: "templates/gis.html",

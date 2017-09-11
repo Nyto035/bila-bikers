@@ -83,12 +83,13 @@
                             var tokenObj = response.data;
                             callApi.get(tokenObj, 'me')
                             .then(function(response){
-                                _.extendOwn(response, { 'token': tokenObj.token });
-                                $state.go('app.gis');
+                                _.extendOwn(response.data, { 'token': tokenObj.token });
                                 // Return when fixed
+                                console.log(response.data);
+                                var user = response.data;
                                 UserService.registerUser(response.data)
                                 .then(function(response){
-                                    UserService.loginUser($scope.register)
+                                    UserService.loginUser(user)
                                     .then(function(response){
                                         $state.go('app.gis');
                                     })
@@ -111,26 +112,6 @@
                             console.log(error);
                             NotificationService.showError(error);
                         });
-                        /* UserService.getByEmail($scope.user.email)
-                        .then(function(results){
-                            if(results.rows.length > 0){
-                                var user = results.rows.item(0);
-                                console.log(user);
-                                UserService.loginUser(user)
-                                .then(function(){
-                                    $state.go('app.gis');
-                                })
-                                .catch(function(error){
-                                    NotificationService.showError(error);
-                                });
-                            } else {
-                                $scope.errorMessage = "Invalid username or password";
-                            }
-                        })
-                        .catch(function(error){
-                            console.log(error);
-                            NotificationService.showError(error);
-                        });*/
                     };
                 }]);
 })(window.angular);

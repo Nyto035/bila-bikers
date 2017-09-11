@@ -10,6 +10,14 @@
                     'url': 'user/users/',
                 },
                 {
+                    'key': 'make_order',
+                    'url': 'delivery_good/delivery_goods/make_delivery_order/',
+                },
+                {
+                    'key': 'location',
+                    'url': 'geoloc/locations/',
+                },
+                {
                     'key': 'login',
                     'url': 'auth/api-token-auth/',
                     'auth': true,
@@ -24,16 +32,14 @@
             return urlObj[ind];
         };
         this.setToken = function setFxn(data) {
-            $http.defaults.headers.common.Authorization = data.token;
+            $http.defaults.headers.common.Authorization = 'JWT ' + data.token;
             /* istanbul ignore if  */
             if (!_.isUndefined(jQuery)) {
                 jQuery.ajaxSetup({
                     headers: {
-                        Authorization: data.token
+                        Authorization: 'JWT ' + data.token
                     }
                 });
-            } else {
-                console.log('No JQuery');
             }
             // JWT
         };

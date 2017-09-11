@@ -2,15 +2,36 @@
 (function (angular) {
     angular.module("app.controllers.gis", [])
         .controller("gisController", ["$scope", "NgMap", "$ionicPlatform",
-            "$window", "$locale", '$ionicPopover',
-            function ($scope, NgMap, $ionicPlatform, $window, $locale, $ionicPopover) {
+            "$window", "$locale", '$ionicPopover', 'apiBackend', 'NotificationService',
+            'UserService', '$cordovaGeolocation', '$ionicModal', '$state',
+            function ($scope, NgMap, $ionicPlatform, $window, $locale, $ionicPopover,
+                callApi, NotificationService, UserService, $cordovaGeolocation, $ionicModal,
+                $state) {
                 $scope.refresh = function() {
                     $window.location.reload(true);
                 };
-                $scope.user = {};
+                // $scope.user = {};
                 $scope.map = {};
                 $scope.latlng = null;
                 $scope.center = [];
+                $scope.getCurrLocation = function currFxn() {
+                    var posOptions = {timeout: 10000, enableHighAccuracy: false};
+                    $cordovaGeolocation.getCurrentPosition(posOptions)
+                    .then(function (position) {
+                        var lat  = position.coords.latitude
+                        var long = position.coords.longitude
+                        var latlong = {lat: parseFloat(lat), lng: parseFloat(long)};
+                        $scope.latLong = latlong;
+                        var geocoder = new google.maps.Geocoder;
+                        geocoder.geocode({'location': latlong}, function(results, status) {
+                            if (status === 'OK' && results[0]) {
+                                $scope.from_name = results[0].formatted_address;
+                            }
+                        });
+                    },function(err) {
+                        console.log(err);
+                    });
+                };
                 $ionicPlatform.ready(function() {
                     NgMap.getMap().then(function(map) {
                         var center = map.getCenter();
@@ -19,7 +40,9 @@
                         // $scope.latlng = $scope.center;
                         $scope.center = map.getCenter();
                         google.maps.event.trigger(map, "resize");
-                        map.setCenter(center);
+                        /* Setting geocoder*/
+                        $scope.src_details = map.setCenter(center);
+                        $scope.getCurrLocation();
                         /*console.log('markers', map.markers);
                         console.log('shapes', map.shapes);*/
                     }).catch(function(error){
@@ -39,13 +62,15 @@
 
 
                 $scope.placeMarker = function(p){
-                    console.log("called", p.geometry.location);
                     // var loc = this.getPlace().geometry.location;
                     var loc = p.geometry.location;
                     $scope.dest = {
                         lat: loc.lat(),
                         lng: loc.lng(),
                     };
+                    if (p.address_components[0]) {
+                        $scope.dest.name = p.address_components[0].long_name;
+                    }
                     $scope.src = {
                         lat: $scope.center.lat(),
                         lng: $scope.center.lng(),
@@ -71,8 +96,6 @@
                 };
 
                 $scope.$on('g-places-autocomplete:select', function(event, param) {
-                    console.log(event);
-                    console.log(param);
                     $scope.placeMarker(param);
                 })
                 /* Confirming order popover*/
@@ -88,6 +111,71 @@
                 };
                 $scope.closePopover = function() {
                     $scope.popover.hide();
+                };
+                $scope.getCouriers = function(user) {
+                    var tokenObj = {
+                        'token': user.token,
+                    };
+                    callApi.get(tokenObj, 'location')
+                    .then(function(response){
+                        $scope.couriers = response.data;
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                        NotificationService.showError(error);
+                    });
+                };
+                $ionicPlatform.ready(function () {
+                    UserService.getLoggedInUsers().then(function (results) {
+                        if (results.rows.length > 0) {
+                            $scope.user = results.rows.item(0);
+                            $scope.getCouriers($scope.user);
+                        }
+                    }, function (error) {
+                        NotificationService.showError(error);
+                    });
+                });
+                /* Modals*/
+                $scope.createModal = function() {
+                    $ionicModal.fromTemplateUrl('templates/order_feedback.html', {
+                        id: 1,
+                        scope: $scope,
+                        animation: 'slide-in-up'
+                    }).then(function(modal) {
+                        $scope.modal = modal;
+                    });
+                };
+                $scope.createModal();
+                $scope.openModal = function($event) {
+                    $scope.modal.show($event);
+                };
+                $scope.closeModal = function() {
+                    $scope.modal.hide();
+                };
+                /* Making an order*/
+                $scope.addOrder = function(order) {
+                    var postObj = {
+                        'owner': $scope.user.id,
+                        'name': order.name,
+                        'description': order.description,
+                        'customer': $scope.user.id,
+                        'source': [$scope.latLong.lat, $scope.latLong.lng],
+                        'source_name': $scope.from_name,
+                        'destination': [$scope.dest.lat, $scope.dest.lng],
+                        'destination_name': $scope.dest.name,
+                    };
+                    console.log(postObj);
+                    callApi.post(postObj, 'make_order')
+                    .then(function(response){
+                        console.log(response);
+                        var id = response.data.id || response.data.owner;
+                        $state.go('app.gis', { 'order_id': id }, { 'notify': false });
+                        $scope.openModal();
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                        NotificationService.showError(error);
+                    });
                 };
             }]);
 })(window.angular);

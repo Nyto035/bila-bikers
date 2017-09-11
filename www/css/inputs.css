@@ -27,7 +27,7 @@
     padding-bottom: 10px;
     padding-top: 3px;
 }
-input,select               {
+input,select,textarea               {
     font-size:14px;
     font-family: "Roboto", sans-serif;
     padding:10px 10px 10px 5px;
@@ -43,7 +43,7 @@ select.no-border{
     background-image: none;
     box-shadow: 0 0 0 #FFF;
 }
-input:focus, select:focus        { outline:none; }
+input:focus, select:focus, textarea:focus        { outline:none; }
 
 /* LABEL ======================================= */
 label                {
@@ -63,6 +63,8 @@ label                {
 input:focus ~ label, input:valid ~ label,
 select:focus ~ label,
 select:valid ~ label,
+textarea:focus ~ label,
+textarea:valid ~ label,
 input:placeholder-shown ~ label{
     top:-20px;
     font-size:1.0rem ;
@@ -105,7 +107,8 @@ span.bar.has-error{
 
 /* active state */
 input:focus ~ span.bar:before, input:focus ~ span.bar:after,
-select:focus ~ span.bar:before, select:focus ~ span.bar:after{
+select:focus ~ span.bar:before, select:focus ~ span.bar:after
+textarea:focus ~ span.bar:before, textarea:focus ~ span.bar:after{
     width:50%;
 }
 
@@ -121,7 +124,8 @@ select:focus ~ span.bar:before, select:focus ~ span.bar:after{
 }
 
 /* active state */
-input:focus ~ .highlight, select:focus ~ .highlight {
+input:focus ~ .highlight, select:focus ~ .highlight,
+textarea:focus ~ .highlight {
     -webkit-animation:inputHighlighter 0.3s ease;
     -moz-animation:inputHighlighter 0.3s ease;
     animation:inputHighlighter 0.3s ease;

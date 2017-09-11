@@ -20,9 +20,9 @@
                     };
 
                     this.registerUser = function (user) {
-                        var query = "INSERT INTO users (first_name, last_name, phone_number, email, password, user_type, token) VALUES(?, ?, ?, ?, ?, ?)";
+                        var query = "INSERT INTO users (id, first_name, last_name, phone_number, email, user_type, token) VALUES(?, ?, ?, ?, ?, ?, ?)";
                         return $cordovaSQLite.execute(DB, query,
-                            [user.first_name, user.last_name, user.phone_number, user.email, user.password, user.user_type, user.token])
+                            [user.id, user.first_name, user.last_name, user.phone_number, user.email, user.user_type, user.token])
                     };
 
                     this.loginUser = function (user) {
