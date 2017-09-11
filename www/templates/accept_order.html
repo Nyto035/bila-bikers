@@ -1,0 +1,42 @@
+<ion-popover-view class="pop-modal">
+    <ion-header-bar>
+        <h1 class="title" style="text-align: left;margin-left:20px;">
+            Accept Order
+        </h1>
+        <button class="button button-clear button-primary"
+        ng-click="closePopover()">
+            <i class="icon ion-close-circled" style="color:#cccccc;"></i>
+        </button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="col-12" ng-if='!loaded'>
+            <div class="col-12" style="position: relative;">
+                <div class="showbox">
+                    <div class="circular-loader">
+                        <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 blink-text">
+                <div class="col-12 margin-b-20">
+                    Retriving pending orders...
+                </div>
+            </div>
+        </div>
+        <div class="col-12" ng-if="loaded">
+             <div detect-gestures gesture-type="swiperight" class="col-6">
+                <p>
+                  Swipe Right Inside Me!
+                </p>
+            </div>
+
+            <div detect-gestures gesture-type="swipeleft" class="col-6">
+                <p>
+                    Swipe Left Inside Me!
+                </p>
+            </div>
+        </div>
+    </ion-content>
+</ion-popover-view>

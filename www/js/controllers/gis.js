@@ -3,10 +3,10 @@
     angular.module("app.controllers.gis", [])
         .controller("gisController", ["$scope", "NgMap", "$ionicPlatform",
             "$window", "$locale", '$ionicPopover', 'apiBackend', 'NotificationService',
-            'UserService', '$cordovaGeolocation', '$ionicModal', '$state',
+            'UserService', '$cordovaGeolocation', '$ionicModal', '$state', '$timeout',
             function ($scope, NgMap, $ionicPlatform, $window, $locale, $ionicPopover,
                 callApi, NotificationService, UserService, $cordovaGeolocation, $ionicModal,
-                $state) {
+                $state, $timeout) {
                 $scope.refresh = function() {
                     $window.location.reload(true);
                 };
@@ -99,10 +99,20 @@
                     $scope.placeMarker(param);
                 })
                 /* Confirming order popover*/
-                 $scope.createPopover = function popFxn($event) {
-                    $ionicPopover.fromTemplateUrl('templates/add_order.html', {scope: $scope})
+                $scope.createPopover = function popFxn($event) {
+                    $ionicPopover.fromTemplateUrl('templates/add_order.html', {
+                        scope: $scope,
+                        id: 1,
+                    })
                     .then(function(popover) {
                         $scope.popover = popover;
+                    });
+                    $ionicPopover.fromTemplateUrl('templates/accept_order.html', {
+                        scope: $scope,
+                        id: 2,
+                    })
+                    .then(function(popover) {
+                        $scope.accept_popover = popover;
                     });
                 };
                 $scope.createPopover();
@@ -111,6 +121,12 @@
                 };
                 $scope.closePopover = function() {
                     $scope.popover.hide();
+                };
+                $scope.openAcceptPopover = function($event) {
+                    $scope.accept_popover.show($event);
+                };
+                $scope.closeAcceptPopover = function() {
+                    $scope.accept_popover.hide();
                 };
                 $scope.getCouriers = function(user) {
                     var tokenObj = {
@@ -125,16 +141,6 @@
                         NotificationService.showError(error);
                     });
                 };
-                $ionicPlatform.ready(function () {
-                    UserService.getLoggedInUsers().then(function (results) {
-                        if (results.rows.length > 0) {
-                            $scope.user = results.rows.item(0);
-                            $scope.getCouriers($scope.user);
-                        }
-                    }, function (error) {
-                        NotificationService.showError(error);
-                    });
-                });
                 /* Modals*/
                 $scope.createModal = function() {
                     $ionicModal.fromTemplateUrl('templates/order_feedback.html', {
@@ -145,7 +151,25 @@
                         $scope.modal = modal;
                     });
                 };
-                $scope.createModal();
+                $ionicPlatform.ready(function () {
+                    UserService.getLoggedInUsers().then(function (results) {
+                        if (results.rows.length > 0) {
+                            $scope.user = results.rows.item(0);
+                            $scope.getCouriers($scope.user);
+                        }
+                    }, function (error) {
+                        NotificationService.showError(error);
+                    });
+                    $scope.createModal();
+                    $scope.createPopover();
+                    /* Dummy timeout function*/
+                    $timeout( function(){
+                        if ($scope.user.user_type === 'COURIER') {
+                            $scope.test1 = "Hello World!";
+                            $scope.$broadcast('accept_popover.visible');
+                        }
+                    }, 5000 );
+                });
                 $scope.openModal = function($event) {
                     $scope.modal.show($event);
                 };
@@ -177,6 +201,12 @@
                         NotificationService.showError(error);
                     });
                 };
+                //Cleanup the popover when we're done with it!
+                $scope.$on('$destroy', function() {
+                    $scope.popover.remove();
+                    $scope.modal.remove();
+                    $scope.accept_popover.remove();
+                });
             }]);
 })(window.angular);
 

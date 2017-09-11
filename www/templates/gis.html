@@ -1,24 +1,24 @@
 <ion-view view-title="GIS">
-        <div class="bar bar-subheader bar-default">
-            <div class="col-9">
-                <input type="text" g-places-autocomplete ng-model="destination"
-                placeholder="Select Drop off Location" />
-            </div>
-            <div class="col-3">
-                <button class="button button-balanced btn-rnd pull-right btn-sm">
-                    <i class="icon ion-refresh"></i>
-                </button>
-            </div>
-          </div>
-    <ion-content class="has-subheader">
+    <div class="bar bar-subheader bar-default" ng-if="user.user_type === 'CUSTOMER'">
+        <div class="col-9">
+            <input type="text" g-places-autocomplete ng-model="destination"
+            placeholder="Select Drop off Location" />
+        </div>
+        <div class="col-3">
+            <button class="button button-balanced btn-rnd pull-right btn-sm">
+                <i class="icon ion-refresh"></i>
+            </button>
+        </div>
+      </div>
+    <ion-content ng-class="{'has-subheader': user.user_type === 'CUSTOMER'}">
         <div class="col-12">
             <div style="width: 100%;margin-top:0;"></div>
             <div map-lazy-load="https://maps.google.com/maps/api/js"
 			  	map-lazy-load-params="{{googleMapsUrl}}">
                 <!-- Retunr if zooming doesn't work -->
                 <!-- zoom="17" -->
-                <ng-map style="height:85vh;" zoom-to-include-markers="auto"
-                    geo-callback="callbackFunc('you')">
+                <ng-map style="height: 85vh;" zoom-to-include-markers="auto"
+                geo-callback="callbackFunc('you')">
                     <marker position="current" animation="Animation.BOUNCE" centered="true"
                     draggable="true">
                     </marker>

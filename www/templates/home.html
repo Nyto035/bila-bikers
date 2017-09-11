@@ -43,14 +43,18 @@
                     <div class="rest">
                         <ion-item ui-sref-active="active" menu-close ui-sref="app.gis" class="list-grow-animation" >
                             <i class="icon ion-speedometer ion-left text-success"></i>
-                            &nbsp;GIS
+                            &emsp;GIS
+                        </ion-item>
+                        <ion-item ui-sref-active="active" menu-close ui-sref="app.orders" class="list-grow-animation">
+                            <i class="icon ion-bag ion-left text-danger"></i>
+                            &emsp;{{user.user_type === 'CUSTOMER' ? 'My Orders' : 'My Deliveries' }}
                         </ion-item>
                         <ion-item menu-close ng-click="logout()">
-                            <i class="icon ion-log-out text-primary"> </i> Logout
+                            <i class="icon ion-log-out text-primary"> </i>&emsp;Logout
                         </ion-item>
-                        <ion-item menu-close ng-click="update()">
-                            <i class="icon ion-android-sync text-warning"> </i> Update
-                        </ion-item>
+                        <!-- <ion-item menu-close ng-click="update()">
+                            <i class="icon ion-android-sync text-warning"> </i>&emsp;Update
+                        </ion-item> -->
                     </div>
                 </div>
             </ion-list>
