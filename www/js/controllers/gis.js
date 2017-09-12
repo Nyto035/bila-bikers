@@ -151,11 +151,33 @@
                         $scope.modal = modal;
                     });
                 };
+                // getting orders
+                $scope.getOrders = function() {
+                    $scope.loaded = false;
+                    var tokenObj = {
+                        'token': $scope.user.token,
+                    };
+                    callApi.get(tokenObj, 'orders')
+                    .then(function(response){
+                        $scope.loaded = true;
+                        $scope.orders = response.data.results[0];
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                        NotificationService.showError(error);
+                    });
+                };
                 $ionicPlatform.ready(function () {
                     UserService.getLoggedInUsers().then(function (results) {
                         if (results.rows.length > 0) {
                             $scope.user = results.rows.item(0);
                             $scope.getCouriers($scope.user);
+                            $timeout( function(){
+                                if ($scope.user.user_type === 'COURIER') {
+                                    $scope.modal.show();
+                                    $scope.getOrders();
+                                }
+                            }, 5000 );
                         }
                     }, function (error) {
                         NotificationService.showError(error);
@@ -163,12 +185,6 @@
                     $scope.createModal();
                     $scope.createPopover();
                     /* Dummy timeout function*/
-                    $timeout( function(){
-                        if ($scope.user.user_type === 'COURIER') {
-                            $scope.test1 = "Hello World!";
-                            $scope.$broadcast('accept_popover.visible');
-                        }
-                    }, 5000 );
                 });
                 $scope.openModal = function($event) {
                     $scope.modal.show($event);
@@ -188,7 +204,6 @@
                         'destination': [$scope.dest.lat, $scope.dest.lng],
                         'destination_name': $scope.dest.name,
                     };
-                    console.log(postObj);
                     callApi.post(postObj, 'make_order')
                     .then(function(response){
                         console.log(response);

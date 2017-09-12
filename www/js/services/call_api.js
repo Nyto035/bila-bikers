@@ -14,6 +14,10 @@
                     'url': 'delivery_good/delivery_goods/make_delivery_order/',
                 },
                 {
+                    'key': 'orders',
+                    'url': 'delivery_order/delivery_orders/',
+                },
+                {
                     'key': 'location',
                     'url': 'geoloc/locations/',
                 },

@@ -1,11 +1,12 @@
-<ion-view view-title="GIS">
+<ion-view view-title="GIS" >
     <div class="bar bar-subheader bar-default" ng-if="user.user_type === 'CUSTOMER'">
         <div class="col-9">
             <input type="text" g-places-autocomplete ng-model="destination"
             placeholder="Select Drop off Location" />
         </div>
         <div class="col-3">
-            <button class="button button-balanced btn-rnd pull-right btn-sm">
+            <button class="button button-balanced btn-rnd pull-right btn-sm"
+            ng-click="refresh()">
                 <i class="icon ion-refresh"></i>
             </button>
         </div>
