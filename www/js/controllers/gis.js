@@ -1,12 +1,13 @@
 
 (function (angular) {
-    angular.module("app.controllers.gis", [])
+    angular.module("app.controllers.gis", ['ngWebSocket'])
         .controller("gisController", ["$scope", "NgMap", "$ionicPlatform",
             "$window", "$locale", '$ionicPopover', 'apiBackend', 'NotificationService',
             'UserService', '$cordovaGeolocation', '$ionicModal', '$state', '$timeout',
+            '$myWebSocket',
             function ($scope, NgMap, $ionicPlatform, $window, $locale, $ionicPopover,
                 callApi, NotificationService, UserService, $cordovaGeolocation, $ionicModal,
-                $state, $timeout) {
+                $state, $timeout, myWebSocket) {
                 $scope.refresh = function() {
                     $window.location.reload(true);
                 };
@@ -14,6 +15,7 @@
                 $scope.map = {};
                 $scope.latlng = null;
                 $scope.center = [];
+                /*End of websockets*/
                 $scope.getCurrLocation = function currFxn() {
                     var posOptions = {timeout: 10000, enableHighAccuracy: false};
                     $cordovaGeolocation.getCurrentPosition(posOptions)
@@ -51,6 +53,7 @@
                     $scope.callbackFunc = function(param) {
                         $scope.center = $scope.map.getCenter();
                     };
+                    $scope.wbSocket = myWebSocket;
                 });
 
                 $scope.getpos = function (event) {

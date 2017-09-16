@@ -8,6 +8,8 @@
         "app.services.users",
         "app.services.hha",
         "app.services.callApi",
+        // 'app.services.webSocket',
+        'app.services.webSockets',
         'app.services.userInputs'
     ]);
 

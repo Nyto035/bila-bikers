@@ -13,6 +13,7 @@ angular.module('NDMA', [
     'ngMaterial',
     'ngMap',
     'google.places',
+    'ngWebSocket',
     'app.controllers',
     "app.services",
     "app.database",
@@ -35,7 +36,8 @@ angular.module('NDMA', [
 
 
 
-        .run(["$ionicPlatform", "$cordovaSQLite", "DBService", "HSNADBService", function ($ionicPlatform, $cordovaSQLite, DBService, HSNADBService) {
+        .run(["$ionicPlatform", "$cordovaSQLite", "DBService", "HSNADBService",
+            function ($ionicPlatform, $cordovaSQLite, DBService, HSNADBService) {
                 $ionicPlatform.ready(function () {
                     if (window.cordova && window.cordova.plugins.Keyboard) {
                         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

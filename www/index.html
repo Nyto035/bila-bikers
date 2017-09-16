@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src ws://example.com wss://example.com"> -->
         <title>BILA_BIKERS</title>
 
         <link rel="manifest" href="manifest.json">
@@ -41,6 +42,7 @@
         <script src="lib/angular-aria/angular-aria.js"></script>
         <script src="lib/angular-animate/angular-animate.js"></script>
         <script src="lib/angular-material/angular-material.js"></script>
+        <script src="lib/angular-websocket/dist/angular-websocket.js"></script>
         <script src="lib/ngmap/build/scripts/ng-map.min.js"></script>
 
 
@@ -57,6 +59,7 @@
         <script src="js/services/hha.js"></script>
         <script src="js/services/hsna.js"></script>
 
+        <script src="js/services/stock_socket.js"></script>
         <script src="js/services/call_api.js"></script>
         <script src="js/services/auth.js"></script>
         <script src="js/services/common.js"></script>
