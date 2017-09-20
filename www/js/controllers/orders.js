@@ -137,7 +137,7 @@
                 };
                 /* Modals*/
                 $scope.createModal = function() {
-                    $ionicModal.fromTemplateUrl('templates/order_feedback.html', {
+                    $ionicModal.fromTemplateUrl('templates/complete_delivery.html', {
                         id: 1,
                         scope: $scope,
                         animation: 'slide-in-up'
@@ -169,9 +169,8 @@
                     /* Dummy timeout function*/
                 });
                 $scope.openModal = function($event) {
+                    $scope.placeMarker($scope.order);
                     $scope.modal.show($event);
-                    $state.go($state.current, { 'order_id': $scope.orders.id },
-                        { 'notify': false});
                 };
                 $scope.closeModal = function() {
                     $scope.modal.hide();

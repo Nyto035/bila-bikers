@@ -14,10 +14,6 @@
                     <marker position="{{latlng}}" animation="DROP" centered="true"
                     draggable="true" ng-if="latlng">
                     </marker>
-                    <!-- <marker ng-repeat="courier in couriers" position="{{courier.point}}"
-                    animation="DROP"
-                    icon="{ url:'img/motor-bike.png', scaledSize:[30,38], origin: [0,0], anchor: [16,40] }">
-                    </marker> -->
                     <directions
                       polyline-options='{strokeColor: "red"}'
                       waypoints="{{way_points}}"
@@ -80,7 +76,7 @@
             </div>
         </div>
         <div class="col-12">
-            <button class="button-primary button button-block" ng-click="openPopover($event)">
+            <button class="button-primary button button-block" ng-click="openModal($event)">
                 PICK UP & RECEIVE KES 1,500.00
             </button>
         </div>

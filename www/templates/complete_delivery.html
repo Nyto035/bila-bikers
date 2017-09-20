@@ -1,0 +1,99 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-balanced bar-danger">
+      <h1 class="title" style="text-align: left;">
+          <!-- Figure out howo to cancel after pickup -->
+          <span style="float: left;">
+              <i class="icon ion-android-arrow-back" ng-click="closeModal()"
+              style="font-size: 1.6rem;"></i>
+          </span>&emsp;
+          MAKE DELIVERY
+      </h1>
+      <!-- <button class="button button-clear button-primary" ng-click="closeModal()">
+          <i class="icon ion-close-circled"></i>
+      </button> -->
+    </ion-header-bar>
+    <ion-content class="pad-0">
+          <div class="sub-form col-12 margin-t-5">
+              <div style="width: 100%;margin-top:0;"></div>
+              <div map-lazy-load="https://maps.google.com/maps/api/js"
+                  map-lazy-load-params="{{googleMapsUrl}}">
+                  <!-- Retunr if zooming doesn't work -->
+                  <!-- zoom="17" -->
+                  <ng-map style="height: 45vh;" zoom-to-include-markers="auto"
+                  geo-callback="callbackFunc('you')">
+                      <marker position="current" animation="DROP" centered="true"
+                      draggable="true">
+                      </marker>
+                      <marker position="{{latlng}}" animation="DROP" centered="true"
+                      draggable="true" ng-if="latlng">
+                      </marker>
+                      <directions
+                        polyline-options='{strokeColor: "red"}'
+                        waypoints="{{way_points}}"
+                        suppress-markers="true"
+                        origin="{{src}}"
+                        destination="{{latlng}}"
+                        >
+                      </directions>
+                  </ng-map>
+              </div>
+          </div>
+          <div class="col-12">
+              <div class="col-12 sub-form">
+                  <div class="col-12 pad-h-15 details-cont">
+                      <span class="text-muted">
+                          <small>
+                              Order Details
+                          </small>
+                      </span>
+                  </div>
+                  <div class="col-12 pad-h-15">
+                      <div class="col-12">
+                          <div class="col-12 text-danger">
+                              <small>Customer</small>
+                          </div>
+                          <div class="col-12">
+                              <small>{{order.customer_name}}</small>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 pad-h-15">
+                      <div class="col-12">
+                          <div class="col-12 text-danger">
+                              <small>Item</small>
+                          </div>
+                          <div class="col-12">
+                              <small>{{order.goods_name}}</small>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 pad-h-15">
+                      <div class="col-12">
+                          <div class="col-12 text-danger">
+                              <small>Item Description</small>
+                          </div>
+                          <div class="col-12" style="color: #666;">
+                              <small>{{order.goods_description}}</small>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 pad-h-15">
+                      <div class="col-12">
+                          <div class="col-12 text-danger">
+                              <small>Destination</small>
+                          </div>
+                          <div class="col-12" style="color: #666;">
+                              <small>{{order.destination_name}}</small>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-12 flex pad-t-20 pad-h-15">
+              <button class="button-primary button button-block"
+              ui-sref="app.gis">
+                COMPLETE DELIVERY
+              </button>
+          </div>
+    </ion-content>
+</ion-modal-view>
