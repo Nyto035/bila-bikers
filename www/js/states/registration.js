@@ -38,5 +38,14 @@ angular.module('app.states.hha', [])
                                 controller: "gisController"
                             }
                         }
+                    })
+                    .state("app.orders", {
+                        url: "orders?order_id",
+                        views: {
+                            "survey-content": {
+                                templateUrl: "templates/order_detail.html",
+                                controller: "ordersController"
+                            }
+                        }
                     });
         });

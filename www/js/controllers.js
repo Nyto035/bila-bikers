@@ -3,6 +3,7 @@ angular.module("app.controllers", [
     "kia.controllers",
     "hsna.controllers",
     "app.controllers.gis",
+    "app.controllers.orders",
     "app.controllers.auth"
 ])
 
@@ -10,7 +11,7 @@ angular.module("app.controllers", [
             on_sync_response: "on-sync-response"
         })
 
-        .controller("AppCtrl", ["$rootScope", "$scope", "ContentSync", "SurveySync", "UserService", "NotificationService", 
+        .controller("AppCtrl", ["$rootScope", "$scope", "ContentSync", "SurveySync", "UserService", "NotificationService",
             "AUTH_EVENTS", "SYNC_EVENTS", "$state", "$ionicPlatform",
             function ($rootScope, $scope, ContentSync, SurveySync, UserService, NotificationService, AUTH_EVENTS,
                 SYNC_EVENTS, $state, $ionicPlatform) {

@@ -291,6 +291,11 @@ button {
     min-width: 25px;
     min-height: 20px;
 }
+.btn-rnd.btn-rnd-lg{
+    border-radius: 50%;
+    min-width: 80px;
+    min-height: 80px;
+}
 .text-success{
     color: rgb(0,150,136);
 }
@@ -445,6 +450,9 @@ ion-popover-view.pop-modal.popover{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.gisbtn-cont.no-flex{
+    display: inline-block;
 }
 .gisbtn-cont > .button{
     bottom:10px;

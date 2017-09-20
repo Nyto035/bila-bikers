@@ -203,6 +203,15 @@ textarea:focus ~ .highlight {
 .pad-l-0{
     padding-left: 0 !important;
 }
+.pad-l-10{
+    padding-left: 10px !important;
+}
+.pad-l-15{
+    padding-left: 15px !important;
+}
+.pad-l-20{
+    padding-left: 20px !important;
+}
 .pad-t-5{
     padding-top: 5px;
 }
@@ -279,6 +288,9 @@ span.block-xs-10 {
 }
 .margin-t-20{
     margin-top: 20px !important;
+}
+.margin-t-30{
+    margin-top: 30px;
 }
 .margin-t-40{
     margin-top: 40px;
@@ -582,4 +594,10 @@ input[type="radio"] {
 }
 .height-93{
     height:93vh !important;
+}
+.fs-30{
+    font-size: 2rem;
+}
+.text-left{
+    text-align: left !important;
 }

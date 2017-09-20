@@ -46,17 +46,6 @@
                     };
                     $scope.register = {};
                     $scope.createFields = userForm.createUser();
-                    /* $scope.registerUser = function() {
-                        UserService.registerUser($scope.register)
-                        .then(function(response){
-                            console.log(response);
-                            $state.go('login');
-                        })
-                        .catch(function(error){
-                            console.log(error);
-                            NotificationService.showError(error);
-                        });
-                    };*/
                     $scope.registerUser = function() {
                         callApi.post($scope.register, 'user')
                         .then(function(response){
@@ -79,13 +68,11 @@
                         }
                         callApi.post($scope.user, 'login')
                         .then(function(response){
-                            console.log(response);
                             var tokenObj = response.data;
                             callApi.get(tokenObj, 'me')
                             .then(function(response){
                                 _.extendOwn(response.data, { 'token': tokenObj.token });
                                 // Return when fixed
-                                console.log(response.data);
                                 var user = response.data;
                                 UserService.registerUser(response.data)
                                 .then(function(response){

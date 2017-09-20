@@ -5,8 +5,9 @@
             placeholder="Select Drop off Location" />
         </div>
         <div class="col-3">
+            <!-- ng-click="refresh()" -->
             <button class="button button-balanced btn-rnd pull-right btn-sm"
-            ng-click="refresh()">
+            ng-click="openModal()">
                 <i class="icon ion-refresh"></i>
             </button>
         </div>
@@ -20,10 +21,9 @@
                 <!-- zoom="17" -->
                 <ng-map style="height: 85vh;" zoom-to-include-markers="auto"
                 geo-callback="callbackFunc('you')">
-                    <marker position="current" animation="Animation.BOUNCE" centered="true"
-                    draggable="true">
+                    <marker position="current" animation="DROP" centered="true">
                     </marker>
-                    <marker position="{{latlng}}" animation="Animation.BOUNCE" animation="DROP" centered="true"
+                    <marker position="{{latlng}}" animation="DROP" centered="true"
                     draggable="true" ng-if="latlng">
                     </marker>
                     <marker ng-repeat="courier in couriers" position="{{courier.point}}"

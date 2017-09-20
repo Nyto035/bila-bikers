@@ -24,6 +24,7 @@ angular.module('NDMA', [
 
         .constant("SERVER_URL", "http://104.236.52.240/v1/")
         .constant("AUTH_SERVER_URL", "http://104.236.52.240/")
+        .constant("LOCATION_HOST", "104.236.52.240")
         // .constant("SERVER_URL", "http://localhost:8000/v1/")
 
         .constant("DEBUG", false)
@@ -88,12 +89,6 @@ angular.module('NDMA', [
                     });
                 };
                 $rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
-                    /*if (!AuthService.isAuthenticated()) {
-                        if (next.name !== "login") {
-                            evt.preventDefault();
-                            $state.go("login");
-                        }
-                    }*/
                     $ionicPlatform.ready(function () {
                         if(window.cordova){
                             authLogin(evt, toState);

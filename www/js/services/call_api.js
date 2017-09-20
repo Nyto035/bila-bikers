@@ -52,19 +52,40 @@
             return $http({
                 url: _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url),
                 method: "POST",
-                data: $httpParamSerializer(data),
+                //data: $httpParamSerializer(data),
+                data: data,
                 headers: {
                     // 'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
                 },
                 responseType : typeof responseType !== "string" ? "json" : responseType
             });
         };
-        this.get = function getFxn(data, key) {
+        this.get = function getFxn(data, key, id) {
             var obj = this.route(key);
             this.setToken(data);
+            var url = _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url),
+            url = _.isUndefined(id) ? url : url + id + '/';
             return $http({
-                url: _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url),
+                url: url,
+                method: "GET",
+                data: $httpParamSerializer(data),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'withCredentials': true,
+                },
+                responseType : typeof responseType !== "string" ? "json" : responseType
+            });
+        };
+        this.customGet = function getFxn(data, uri, id, key) {
+            var obj = this.route(key);
+            this.setToken(data);
+            var url = _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url);
+            url = url + id + '/' + uri + '/';
+            console.log(url);
+            return $http({
+                url: url,
                 method: "GET",
                 data: $httpParamSerializer(data),
                 headers: {

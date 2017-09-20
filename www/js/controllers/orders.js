@@ -1,19 +1,15 @@
 
 (function (angular) {
-    angular.module("app.controllers.gis", [
+    angular.module("app.controllers.orders", [
             'app.services.webSockets',
         ])
-        .controller("gisController", ["$scope", "NgMap", "$ionicPlatform",
+        .controller("ordersController", ["$scope", "NgMap", "$ionicPlatform",
             "$window", "$locale", '$ionicPopover', 'apiBackend', 'NotificationService',
             'UserService', '$cordovaGeolocation', '$ionicModal', '$state', '$timeout',
             '$myWebSocket', '$rootScope',
             function ($scope, NgMap, $ionicPlatform, $window, $locale, $ionicPopover,
                 callApi, NotificationService, UserService, $cordovaGeolocation, $ionicModal,
                 $state, $timeout, myWebSocket, $rootScope) {
-                $scope.refresh = function() {
-                    $window.location.reload(true);
-                };
-                // $scope.user = {};
                 $scope.map = {};
                 $scope.latlng = null;
                 $scope.center = [];
@@ -65,20 +61,19 @@
                 };
 
 
-                $scope.placeMarker = function(p){
+                $scope.placeMarker = function(o){
                     // var loc = this.getPlace().geometry.location;
-                    var loc = p.geometry.location;
+                    var dest = o.destination.coordinates;
+                    // var dest = o.source.coordinates;
                     $scope.dest = {
-                        lat: loc.lat(),
-                        lng: loc.lng(),
+                        lat: dest[0],
+                        lng: dest[1],
                     };
-                    if (p.address_components[0]) {
-                        $scope.dest.name = p.address_components[0].long_name;
-                    }
                     $scope.src = {
                         lat: $scope.center.lat(),
                         lng: $scope.center.lng(),
                     };
+                    $scope.latlng = o.destination.coordinates;
                     var markers = [];
                     markers.push($scope.dest);
                     markers.push($scope.src);
@@ -92,40 +87,10 @@
                             stopover: true,
                         }
                     ];
-                    $scope.latlng = [loc.lat(), loc.lng()];
-                    console.log($scope.way_points);
-                    // $scope.center = [loc.lat(), loc.lng()];
                     $scope.path = markers.map(function(marker){
                         return [marker.lat,marker.lng];
                     });
                 };
-
-                $scope.acceptingOeder = function acceptFxn() {
-                    UserService.getLoggedInUsers().then(function (results) {
-                        if (results.rows.length > 0) {
-                            $scope.user = results.rows.item(0);
-                            $scope.getCouriers($scope.user);
-                            $scope.loaded = true;
-                            if ($scope.user.user_type === 'COURIER') {
-                                $scope.modal.show();
-                                $scope.currOrder = $scope.data.payload;
-                            }
-                        }
-                    }, function (error) {
-                        NotificationService.showError(error);
-                    });
-                };
-
-                $rootScope.$on('delivery_data', function(evt, data) {
-                    $scope.loaded = false;
-                    $scope.data = JSON.parse(data.data);
-                    console.log('Received event', $scope.data);
-                    $scope.acceptingOeder();
-                });
-
-                $scope.$on('g-places-autocomplete:select', function(event, param) {
-                    $scope.placeMarker(param);
-                })
                 /* Confirming order popover*/
                 $scope.createPopover = function popFxn($event) {
                     $ionicPopover.fromTemplateUrl('templates/add_order.html', {
@@ -156,21 +121,14 @@
                 $scope.closeAcceptPopover = function() {
                     $scope.accept_popover.hide();
                 };
-                $scope.getCouriers = function(user) {
+                $scope.getSelectedOrder = function() {
                     var tokenObj = {
-                        'token': user.token,
+                        'token': $scope.user.token,
                     };
-                    callApi.get(tokenObj, 'location')
+                    callApi.get(tokenObj, 'orders', $state.params.order_id)
                     .then(function(response){
-                        $scope.couriers = response.data;
-                    })
-                    .catch(function(error){
-                        console.log(error);
-                        NotificationService.showError(error);
-                    });
-                    callApi.get(tokenObj, 'orders')
-                    .then(function(response){
-                        $scope.orders = response.data.results[0];
+                        $scope.order = response.data;
+                        $scope.placeMarker($scope.order);
                     })
                     .catch(function(error){
                         console.log(error);
@@ -187,11 +145,27 @@
                         $scope.modal = modal;
                     });
                 };
+                // get user
+                $scope.loggedInUser = function() {
+                    UserService.getLoggedInUsers().then(function (results) {
+                        if (results.rows.length > 0) {
+                            $scope.user = results.rows.item(0);
+                            $scope.loaded = true;
+                            $scope.getSelectedOrder();
+                            if ($scope.user.user_type === 'COURIER') {
+                                $scope.modal.show();
+                                $scope.currOrder = $scope.data.payload;
+                            }
+                        }
+                    }, function (error) {
+                        NotificationService.showError(error);
+                    });
+                };
                 // getting orders
                 $ionicPlatform.ready(function () {
                     $scope.createModal();
                     $scope.createPopover();
-                    $scope.acceptingOeder();
+                    $scope.loggedInUser();
                     /* Dummy timeout function*/
                 });
                 $scope.openModal = function($event) {
@@ -202,33 +176,8 @@
                 $scope.closeModal = function() {
                     $scope.modal.hide();
                 };
-                /* Making an order*/
-                $scope.addOrder = function(order) {
-                    var postObj = {
-                        'owner': $scope.user.id,
-                        'name': order.name,
-                        'description': order.description,
-                        'customer': $scope.user.id,
-                        'source': [$scope.latLong.lat, $scope.latLong.lng],
-                        'source_name': $scope.from_name,
-                        'destination': [$scope.dest.lat, $scope.dest.lng],
-                        'destination_name': $scope.dest.name,
-                    };
-                    callApi.post(postObj, 'make_order')
-                    .then(function(response){
-                        console.log(response);
-                        var id = response.data.id || response.data.owner;
-                        $state.go('app.gis', { 'order_id': id }, { 'notify': false });
-                        $scope.openModal();
-                    })
-                    .catch(function(error){
-                        console.log(error);
-                        NotificationService.showError(error);
-                    });
-                };
                 // Accepting an order
-                $scope.acceptOrder = function accpFxn() {
-                    console.log($state.params.order_id);
+                $scope.pickOrder = function accpFxn() {
                     var tokenObj = {
                         'token': $scope.user.token,
                     };
@@ -236,7 +185,7 @@
                         $state.params.order_id, 'orders')
                     .then(function(response){
                         $scope.accepted_order = response.data;
-                        $state.go('app.orders', { 'order_id': $scope.accepted_order.id })
+                        $state.go('app.orders', { 'order_id': $scope.accepted_order.id });
                     })
                     .catch(function(error){
                         console.log(error);
