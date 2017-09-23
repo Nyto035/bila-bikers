@@ -63,29 +63,30 @@
 
                 $scope.placeMarker = function(o){
                     // var loc = this.getPlace().geometry.location;
-                    var dest = o.destination.coordinates;
-                    // var dest = o.source.coordinates;
+                    var dest = _.has(o, 'destination') ? o.destination.coordinates : '';
+                    var source = _.has(o, 'source') ? o.source.coordinates : '';
                     $scope.dest = {
                         lat: dest[0],
                         lng: dest[1],
+                    };
+                    $scope.pickup = {
+                        lat: source[0],
+                        lng: source[1],
                     };
                     $scope.src = {
                         lat: $scope.center.lat(),
                         lng: $scope.center.lng(),
                     };
-                    $scope.latlng = o.destination.coordinates;
+                    $scope.picklng = _.has(o, 'source') ? o.source.coordinates : '';
+                    $scope.latlng = _.has(o, 'destination') ? o.destination.coordinates : '';
                     var markers = [];
                     markers.push($scope.dest);
                     markers.push($scope.src);
                     $scope.way_points = [
                         {
-                            location: $scope.src,
-                            stopover: true,
+                            location: $scope.pickup,
+                            stopover: false,
                         },
-                        {
-                            location: $scope.dest,
-                            stopover: true,
-                        }
                     ];
                     $scope.path = markers.map(function(marker){
                         return [marker.lat,marker.lng];

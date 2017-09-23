@@ -6,21 +6,29 @@
                 map-lazy-load-params="{{googleMapsUrl}}">
                 <!-- Retunr if zooming doesn't work -->
                 <!-- zoom="17" -->
-                <ng-map style="height: 48vh;" zoom-to-include-markers="auto"
+                <ng-map style="height: 43vh;" zoom-to-include-markers="auto"
                 geo-callback="callbackFunc('you')">
-                    <marker position="current" animation="DROP" centered="true"
-                    draggable="true">
+                    <marker position="{{latLong}}" animation="DROP" centered="true"
+                    draggable="false"
+                    icon="{ url:'img/destination.png', scaledSize:[30,38], origin: [0,0], anchor: [16,40] }">
+                    </marker>
+                    <marker position="{{picklng}}" animation="DROP" centered="true"
+                    draggable="false" ng-if="picklng"
+                    icon="{ url: 'img/map_markers/yellow_MarkerP.png'}">
                     </marker>
                     <marker position="{{latlng}}" animation="DROP" centered="true"
-                    draggable="true" ng-if="latlng">
+                    draggable="false" ng-if="latlng"
+                    icon="{ url:'img/map_markers/darkgreen_MarkerD.png'}">
                     </marker>
                     <directions
-                      polyline-options='{strokeColor: "red"}'
-                      waypoints="{{way_points}}"
-                      suppress-markers="true"
-                      origin="{{src}}"
-                      destination="{{latlng}}"
-                      >
+                        polyline-options='{strokeColor: "red"}'
+                        waypoints="{{way_points}}"
+                        suppress-markers="true"
+                        panel="directions-panel"
+                        travel-mode="DRIVING"
+                        draggable="false"
+                        origin="{{latLong}}"
+                        destination="{{latlng}}">
                     </directions>
                 </ng-map>
             </div>
@@ -54,6 +62,18 @@
         <div class="col-12 pad-b-10">
             <div class="col-12">
                 <span class="text-danger">
+                    <small>Drop off Location</small>
+                </span>
+            </div>
+            <div class="col-12">
+                <span class="text-muted">
+                    <small>{{order.destination_name}}</small>
+                </span>
+            </div>
+        </div>
+        <div class="col-12 pad-b-10">
+            <div class="col-12">
+                <span class="text-danger">
                     <small>Item(s)</small>
                 </span>
             </div>
@@ -63,7 +83,7 @@
                 </span>
             </div>
         </div>
-        <div class="col-12 pad-b-10">
+        <div class="col-12 pad-b-0">
             <div class="col-12">
                 <span class="text-danger">
                     <small>Item Description</small>
@@ -76,7 +96,7 @@
             </div>
         </div>
         <div class="col-12">
-            <button class="button-primary button button-block" ng-click="openModal($event)">
+            <button class="button-primary button button-block">
                 PICK UP & RECEIVE KES 1,500.00
             </button>
         </div>

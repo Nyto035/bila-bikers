@@ -25,7 +25,8 @@
                       draggable="true">
                       </marker>
                       <marker position="{{latlng}}" animation="DROP" centered="true"
-                      draggable="true" ng-if="latlng">
+                      draggable="true" ng-if="latlng"
+                      icon="{ url:'img/destination.png', scaledSize:[30,38], origin: [0,0], anchor: [16,40] }">
                       </marker>
                       <directions
                         polyline-options='{strokeColor: "red"}'
@@ -38,6 +39,7 @@
                   </ng-map>
               </div>
           </div>
+    </ion-content>
           <div class="col-12">
               <div class="col-12 sub-form">
                   <div class="col-12 pad-h-15 details-cont">
@@ -95,5 +97,5 @@
                 COMPLETE DELIVERY
               </button>
           </div>
-    </ion-content>
+    <!-- </ion-content> -->
 </ion-modal-view>
