@@ -172,16 +172,18 @@
                 $scope.closeModal = function() {
                     $scope.modal.hide();
                 };
-                // Accepting an order
+                // Pickup and receiving payment for a an order
                 $scope.pickOrder = function accpFxn() {
-                    var tokenObj = {
-                        'token': $scope.user.token,
-                    };
-                    callApi.customGet(tokenObj, 'accept_delivery_order',
-                        $state.params.order_id, 'orders')
+                    var patchObj = $scope.order;
+                    patchObj.status = 'PAID';
+                    callApi.patch(patchObj, 'orders',
+                        $state.params.order_id, 'transition_delivery_order')
                     .then(function(response){
                         $scope.accepted_order = response.data;
-                        $state.go('app.orders', { 'order_id': $scope.accepted_order.id });
+                        $state.go('app.orders', {
+                            'order_id': $scope.accepted_order.id,
+                            'status': $scope.accepted_order.status,
+                        });
                     })
                     .catch(function(error){
                         console.log(error);

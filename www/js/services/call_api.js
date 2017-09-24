@@ -62,6 +62,40 @@
                 responseType : typeof responseType !== "string" ? "json" : responseType
             });
         };
+        this.patch = function postFxn(data, key, id, uri) {
+            var obj = this.route(key);
+            obj.url = obj.url + id + '/';
+            obj.url = !_.isUndefined(uri) ? (obj.url + uri + '/') : obj.url;
+            return $http({
+                url: _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url),
+                method: "PATCH",
+                //data: $httpParamSerializer(data),
+                data: data,
+                headers: {
+                    // 'Access-Control-Allow-Origin': '*',
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
+                },
+                responseType : typeof responseType !== "string" ? "json" : responseType
+            });
+        };
+        this.put = function postFxn(data, key, id, uri) {
+            var obj = this.route(key);
+            obj.url = obj.url + id + '/';
+            obj.url = !_.isUndefined(uri) ? (obj.url + uri + '/') : obj.url;
+            return $http({
+                url: _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url),
+                method: "PUT",
+                //data: $httpParamSerializer(data),
+                data: data,
+                headers: {
+                    // 'Access-Control-Allow-Origin': '*',
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json',
+                },
+                responseType : typeof responseType !== "string" ? "json" : responseType
+            });
+        };
         this.get = function getFxn(data, key, id) {
             var obj = this.route(key);
             this.setToken(data);

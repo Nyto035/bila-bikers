@@ -40,7 +40,7 @@ angular.module('app.states.hha', [])
                         }
                     })
                     .state("app.orders", {
-                        url: "orders?order_id",
+                        url: "orders?order_id&status",
                         views: {
                             "survey-content": {
                                 templateUrl: "templates/order_detail.html",
