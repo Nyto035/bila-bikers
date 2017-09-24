@@ -153,10 +153,6 @@
                             $scope.user = results.rows.item(0);
                             $scope.loaded = true;
                             $scope.getSelectedOrder();
-                            if ($scope.user.user_type === 'COURIER') {
-                                $scope.modal.show();
-                                $scope.currOrder = $scope.data.payload;
-                            }
                         }
                     }, function (error) {
                         NotificationService.showError(error);

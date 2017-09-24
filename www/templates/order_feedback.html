@@ -6,7 +6,7 @@
               style="font-size: 1.6rem;"></i>
           </span>&emsp;
           <!-- {{user.user_type === 'CUSTOMER' ? 'Courier Confirmation' : 'Accept Order'}} -->
-          {{user.user_type !== 'CUSTOMER' ? 'Courier Confirmation' : 'Accept Order'}}
+          {{user.user_type !== 'COURIER' ? 'Courier Confirmation' : 'Accept Order'}}
       </h1>
       <!-- <button class="button button-clear button-primary" ng-click="closeModal()">
           <i class="icon ion-close-circled"></i>
@@ -14,7 +14,7 @@
     </ion-header-bar>
     <ion-content class="pad-0">
       <div class="list pad-h-0">
-          <div class="sub-form col-12 margin-t-5">
+          <div class="sub-form col-12 margin-t-5" ng-if="user.user_type === 'COURIER'">
               <div class="col-12 blink-text pad-l-15 text-left" style="margin-top:0;">
                   <small>Pending Order</small>
               </div>
@@ -49,7 +49,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-12">
+          <div class="col-12" ng-if="user.user_type === 'COURIER'">
               <div class="col-12 sub-form">
                   <div class="col-12 pad-h-15 details-cont">
                       <span class="text-muted">
@@ -100,7 +100,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-12 flex margin-t-40 pad-t-20">
+          <div class="col-12 flex margin-t-40 pad-t-20" ng-if="user.user_type === 'COURIER'">
               <div class="col-6 flex" style="justify-content: center;">
                   <button type="button" class="button btn-rnd button-balanced btn-rnd-lg"
                   ng-click="acceptOrder()">
@@ -115,7 +115,7 @@
               </div>
           </div>
           <div class="col-12 margin-t-30" style="position: relative;display: inline-block;margin-top: 75px;"
-          ng-if='!loaded'>
+          ng-if='user.user_type === "CUSTOMER"'>
               <div class="showbox">
                   <div class="circular-loader">
                       <svg class="circular" viewBox="25 25 50 50">
@@ -124,7 +124,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-12" ng-if="user.user_type !== 'CUSTOMER'">
+          <div class="col-12" ng-if="user.user_type === 'CUSTOMER'">
               <div class="col-12 blink-text">
                 <div class="col-12 margin-b-20">
                     Finding nearest available courier...
@@ -134,13 +134,6 @@
                   <button class="button button-block button-primary">
                       CANCEL ORDER REQUEST
                   </button>
-              </div>
-          </div>
-          <div class="col-12 margin-t-15" ng-if="user.user_type !== 'COURIER' && !loaded">
-              <div class="col-12 blink-text">
-                <div class="col-12 margin-b-20">
-                    Retriving pending orders...
-                </div>
               </div>
           </div>
       </div>

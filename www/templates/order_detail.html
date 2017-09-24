@@ -6,11 +6,11 @@
                 map-lazy-load-params="{{googleMapsUrl}}">
                 <!-- Retunr if zooming doesn't work -->
                 <!-- zoom="17" -->
-                <ng-map style="height: 43vh;" zoom-to-include-markers="auto"
+                <ng-map style="height: 47.5vh;" zoom-to-include-markers="auto"
                 geo-callback="callbackFunc('you')">
                     <marker position="{{latLong}}" animation="DROP" centered="true"
                     draggable="false"
-                    icon="{ url:'img/destination.png', scaledSize:[30,38], origin: [0,0], anchor: [16,40] }">
+                    icon="{ url:'img/destination.png', scaledSize:[30,32], origin: [0,0], anchor: [16,40] }">
                     </marker>
                     <marker position="{{picklng}}" animation="DROP" centered="true"
                     draggable="false" ng-if="picklng"
@@ -35,15 +35,23 @@
         </div>
     </ion-content>
     <div class="col-12 pad-h-20 gisbtn-cont no-flex" ng-if="way_points">
+        <div class="col-12 pad-v-5 pad-h-15 no-flex" ng-if="user.user_type === 'CUSTOMER'"
+        style="background-color: #edecec;margin-left: -20px;width:110%;">
+            <small>Meet Courier at Pickup Location</small>
+            <span class="status-label status-label-balanced pull-right">
+                <small>{{ order.status}}</small>
+            </span>
+        </div>
         <div class="col-12 pad-b-10 pad-t-10">
             <div class="col-12">
                 <span class="text-danger">
-                    <small>Cutomer</small>
+                    <small>{{ user.user_type === 'COURIER' ? 'Cutomer' : 'Courier' }}</small>
                 </span>
             </div>
             <div class="col-12">
                 <span class="text-muted">
-                    <small>{{order.customer_name}}</small>
+                    <small>{{ user.user_type === 'COURIER' ? order.customer_name :
+                        order.courier_name}}</small>
                 </span>
             </div>
         </div>
@@ -82,23 +90,21 @@
                     <small>{{order.goods_name}}</small>
                 </span>
             </div>
-        </div>
-        <div class="col-12 pad-b-0">
             <div class="col-12">
-                <span class="text-danger">
-                    <small>Item Description</small>
-                </span>
-            </div>
-            <div class="col-12">
-                <span class="text-muted">
-                    <small>{{order.goods_description}}</small>
+                <span class="text-grey">
+                      <small>{{order.goods_description}}</small>
                 </span>
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-12" ng-if="user.user_type === 'COURIER'">
             <button class="button-primary button button-block">
                 PICK UP & RECEIVE KES 1,500.00
             </button>
+        </div>
+        <div class="col-12" ng-if="user.user_type === 'CUSTOMER'">
+            <span class="label label-warning" style="color: #FFF;">
+                MEET COURIER AT PICKUP LOCATION
+            </span>
         </div>
     </div>
 </ion-view>

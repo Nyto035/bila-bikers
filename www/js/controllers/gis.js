@@ -40,15 +40,11 @@
                     NgMap.getMap().then(function(map) {
                         var center = map.getCenter();
                         $scope.map = map;
-                        // $scope.center = [-1.3165578,36.84991969999999];
-                        // $scope.latlng = $scope.center;
                         $scope.center = map.getCenter();
                         google.maps.event.trigger(map, "resize");
                         /* Setting geocoder*/
                         $scope.src_details = map.setCenter(center);
                         $scope.getCurrLocation();
-                        /*console.log('markers', map.markers);
-                        console.log('shapes', map.shapes);*/
                     }).catch(function(error){
                         console.log(error);
                     });
@@ -61,7 +57,6 @@
                     $scope.lat = event.latLng.lat();
                     $scope.lng = event.latLng.lng();
                     $scope.latlng = [event.latLng.lat(), event.latLng.lng()];
-                    console.log([event.latLng.lat(), event.latLng.lng()]);
                 };
 
 
@@ -93,7 +88,6 @@
                         }
                     ];
                     $scope.latlng = [loc.lat(), loc.lng()];
-                    console.log($scope.way_points);
                     // $scope.center = [loc.lat(), loc.lng()];
                     $scope.path = markers.map(function(marker){
                         return [marker.lat,marker.lng];
@@ -104,11 +98,17 @@
                     UserService.getLoggedInUsers().then(function (results) {
                         if (results.rows.length > 0) {
                             $scope.user = results.rows.item(0);
-                            $scope.getCouriers($scope.user);
                             $scope.loaded = true;
-                            if ($scope.user.user_type === 'COURIER') {
+                            if ($scope.user.user_type === 'COURIER' &&
+                                $scope.data.payload.push_action === 'create') {
                                 $scope.modal.show();
                                 $scope.currOrder = $scope.data.payload;
+                                var id = $scope.currOrder.id;
+                                console.log(id);
+                                $state.go('app.gis', { 'order_id': id }, { 'notify': false });
+                            } else if ($scope.user.user_type === 'CUSTOMER' &&
+                                $scope.data.payload.push_action === 'update') {
+                                $state.go('app.orders', { 'order_id': $scope.data.payload.id })
                             }
                         }
                     }, function (error) {
@@ -187,11 +187,27 @@
                         $scope.modal = modal;
                     });
                 };
+                // get user and determine what to show
+                $scope.getUser = function usrFxn() {
+                    UserService.getLoggedInUsers().then(function (results) {
+                        if (results.rows.length > 0) {
+                            $scope.user = results.rows.item(0);
+                            $scope.loaded = true;
+                            if ($scope.user.user_type === 'CUSTOMER' ||
+                                $scope.user.user_type === 'COURIER') {
+                                $scope.getCouriers($scope.user);
+                            }
+                        }
+                    }, function (error) {
+                        NotificationService.showError(error);
+                    });
+                };
                 // getting orders
                 $ionicPlatform.ready(function () {
                     $scope.createModal();
                     $scope.createPopover();
-                    $scope.acceptingOeder();
+                    $scope.getUser();
+                    // $scope.acceptingOeder();
                     /* Dummy timeout function*/
                 });
                 $scope.openModal = function($event) {
@@ -216,7 +232,6 @@
                     };
                     callApi.post(postObj, 'make_order')
                     .then(function(response){
-                        console.log(response);
                         var id = response.data.id || response.data.owner;
                         $state.go('app.gis', { 'order_id': id }, { 'notify': false });
                         $scope.openModal();
@@ -228,7 +243,6 @@
                 };
                 // Accepting an order
                 $scope.acceptOrder = function accpFxn() {
-                    console.log($state.params.order_id);
                     var tokenObj = {
                         'token': $scope.user.token,
                     };
