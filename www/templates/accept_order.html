@@ -1,41 +1,26 @@
-<ion-popover-view class="pop-modal">
-    <ion-header-bar>
-        <h1 class="title" style="text-align: left;margin-left:20px;">
-            Accept Order
+<ion-popover-view class="pop-modal" style="z-index: 21000;">
+    <ion-header-bar class="bar bar-default">
+        <h1 class="title">
+            <i class="icon ion-android-arrow-back"></i> Finding Courier
         </h1>
-        <button class="button button-clear button-primary"
-        ng-click="closePopover()">
+        <!-- <button class="button button-clear button-primary"
+        ng-click="closeLocPopover()">
             <i class="icon ion-close-circled" style="color:#cccccc;"></i>
-        </button>
+        </button> -->
     </ion-header-bar>
     <ion-content>
-        <div class="col-12" ng-if='!loaded'>
-            <div class="col-12" style="position: relative;">
-                <div class="showbox">
-                    <div class="circular-loader">
-                        <svg class="circular" viewBox="25 25 50 50">
-                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-                        </svg>
+        <div class="col-12">
+            <div class="col-12" ng-hide="true">
+                <div class="col-12 blink-text">
+                    <div class="col-12 margin-b-20">
+                        Finding nearest available courier...
                     </div>
                 </div>
-            </div>
-            <div class="col-12 blink-text">
-                <div class="col-12 margin-b-20">
-                    Retriving pending orders...
+                <div class="pad-h-15 margin-t-20">
+                    <button class="button button-block button-primary">
+                      <i class="icon ion-close-round"></i>&nbsp;CANCEL ORDER REQUEST
+                    </button>
                 </div>
-            </div>
-        </div>
-        <div class="col-12" ng-if="loaded">
-             <div detect-gestures gesture-type="swiperight" class="col-6">
-                <p>
-                  Swipe Right Inside Me!
-                </p>
-            </div>
-
-            <div detect-gestures gesture-type="swipeleft" class="col-6">
-                <p>
-                    Swipe Left Inside Me!
-                </p>
             </div>
         </div>
     </ion-content>

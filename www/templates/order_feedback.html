@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view style="z-index: 20000;">
     <ion-header-bar class="bar bar-header bar-balanced bar-danger">
       <h1 class="title" style="text-align: left;">
           <span style="float: left;">
@@ -6,7 +6,7 @@
               style="font-size: 1.6rem;"></i>
           </span>&emsp;
           <!-- {{user.user_type === 'CUSTOMER' ? 'Courier Confirmation' : 'Accept Order'}} -->
-          {{user.user_type !== 'COURIER' ? 'Courier Confirmation' : 'Accept Order'}}
+          {{user.user_type !== 'COURIER' ? 'Order Details' : 'Accept Order'}}
       </h1>
       <!-- <button class="button button-clear button-primary" ng-click="closeModal()">
           <i class="icon ion-close-circled"></i>
@@ -114,17 +114,87 @@
                   </button>
               </div>
           </div>
-          <div class="col-12 margin-t-30" style="position: relative;display: inline-block;margin-top: 75px;"
+          <div class="col-12 margin-t-0 pad-r-0" style="position: relative;display: inline-block;margin-top: 75px;"
           ng-if='user.user_type === "CUSTOMER"'>
-              <div class="showbox">
-                  <div class="circular-loader">
-                      <svg class="circular" viewBox="25 25 50 50">
-                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle>
-                      </svg>
+              <div class="sub-form col-12 margin-t-5">
+                  <div style="width: 100%;margin-top:0;"></div>
+                  <div map-lazy-load="https://maps.google.com/maps/api/js"
+                      map-lazy-load-params="{{googleMapsUrl}}">
+                      <!-- Retunr if zooming doesn't work -->
+                      <!-- zoom="17" -->
+                      <ng-map style="height: 45vh;" zoom-to-include-markers="auto"
+                      geo-callback="callbackFunc('you')">
+                          <marker position="{{src}}" animation="DROP" centered="true"
+                          draggable="false">
+                          </marker>
+                          <marker position="{{latlng}}" animation="DROP" centered="true"
+                          draggable="false" ng-if="latlng"
+                          icon="{ url:'img/map_markers/darkgreen_MarkerD.png' }">
+                          </marker>
+                          <directions
+                            polyline-options='{strokeColor: "red"}'
+                            waypoints="{{way_points}}"
+                            suppress-markers="true"
+                            origin="{{src}}"
+                            destination="{{latlng}}"
+                            >
+                          </directions>
+                      </ng-map>
                   </div>
               </div>
+              <div class="col-12 subform" ng-if="!findCourier">
+                  <div class="col-12 pad-h-15 details-cont">
+                      <span class="text-muted">
+                          <small>
+                              Enter following mandatory details
+                          </small>
+                      </span>
+                  </div>
+                  <form>
+                      <div class="form-cont margin-b-10 pad-t-30">
+                          <div class="group">
+                              <input type="text" required
+                                     placeholder="Enter item(s) name max of 3 items"
+                                     name="name"
+                                     ng-model="order.name">
+                              <span class="highlight"></span>
+                              <span class="bar"></span>
+                              <label>Item(s) Name</label>
+                          </div>
+                      </div>
+                      <div class="form-cont margin-b-10 pad-t-15">
+                          <div class="group">
+                              <textarea
+                                 placeholder="Enter brief description of items like total items"
+                                 name="description" rows="3"
+                                 ng-model="order.description">
+                              </textarea>
+                              <span class="highlight"></span>
+                              <span class="bar"></span>
+                              <label>Description</label>
+                          </div>
+                      </div>
+                      <div class="form-cont margin-b-0 pad-t-5">
+                          <button type="button" class="button button-block button-primary"
+                          ng-click="addOrder(order)"
+                          style="margin-top: -10px;min-height: 40px;padding:0 8px;">
+                              <i class="icon ion-card">  CONFIRM PICKUP </i>
+                          </button>
+                      </div>
+                  </form>
+              </div>
           </div>
-          <div class="col-12" ng-if="user.user_type === 'CUSTOMER'">
+          <div class="col-12" ng-if="findCourier">
+              <div class="col-12">
+                  <div class="showbox" style="top:18.5rem;">
+                      <div class="circular-loader">
+                          <svg class="circular" viewBox="25 25 50 50">
+                            <circle class="path" cx="50" cy="50" r="20" fill="none"
+                            stroke-width="2" stroke-miterlimit="10"></circle>
+                          </svg>
+                      </div>
+                  </div>
+              </div>
               <div class="col-12 blink-text">
                 <div class="col-12 margin-b-20">
                     Finding nearest available courier...

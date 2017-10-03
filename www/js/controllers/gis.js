@@ -61,6 +61,9 @@
 
 
                 $scope.placeMarker = function(p){
+                    // open modal
+                    $scope.destination = undefined;
+                    $scope.openModal();
                     // var loc = this.getPlace().geometry.location;
                     var loc = p.geometry.location;
                     $scope.dest = {
@@ -124,6 +127,7 @@
                 });
 
                 $scope.$on('g-places-autocomplete:select', function(event, param) {
+                    console.log('Called');
                     $scope.placeMarker(param);
                 })
                 /* Confirming order popover*/
@@ -140,15 +144,21 @@
                         id: 2,
                     })
                     .then(function(popover) {
-                        $scope.accept_popover = popover;
+                        $scope.loc_popover = popover;
                     });
                 };
                 $scope.createPopover();
                 $scope.openPopover = function($event, context, account) {
                     $scope.popover.show($event);
                 };
+                $scope.openLocPopover = function($event) {
+                    $scope.loc_popover.show($event);
+                };
                 $scope.closePopover = function() {
                     $scope.popover.hide();
+                };
+                $scope.closeLocPopover = function() {
+                    $scope.loc_popover.hide();
                 };
                 $scope.openAcceptPopover = function($event) {
                     $scope.accept_popover.show($event);
@@ -234,7 +244,7 @@
                     .then(function(response){
                         var id = response.data.id || response.data.owner;
                         $state.go('app.gis', { 'order_id': id }, { 'notify': false });
-                        $scope.openModal();
+                        $scope.findCourier = true;
                     })
                     .catch(function(error){
                         console.log(error);
@@ -243,7 +253,7 @@
                 };
                 // Accepting an order
                 $scope.acceptOrder = function accpFxn() {
-                    var tokenObj = {
+                    /* var tokenObj = {
                         'token': $scope.user.token,
                     };
                     callApi.customGet(tokenObj, 'accept_delivery_order',
@@ -251,6 +261,17 @@
                     .then(function(response){
                         $scope.accepted_order = response.data;
                         $state.go('app.orders', { 'order_id': $scope.accepted_order.id })
+                    })*/
+                    var patchObj = $scope.currOrder;
+                    patchObj.status = 'ACCEPTED';
+                    callApi.patch(patchObj, 'orders',
+                        $state.params.order_id, 'transition_delivery_order')
+                    .then(function(response){
+                        $scope.accepted_order = response.data;
+                        $state.go('app.orders', {
+                            'order_id': $scope.accepted_order.id,
+                            'status': $scope.accepted_order.status,
+                        });
                     })
                     .catch(function(error){
                         console.log(error);
@@ -261,7 +282,7 @@
                 $scope.$on('$destroy', function() {
                     $scope.popover.remove();
                     $scope.modal.remove();
-                    $scope.accept_popover.remove();
+                    $scope.loc_popover.remove();
                 });
             }]);
 })(window.angular);
