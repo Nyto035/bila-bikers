@@ -111,7 +111,11 @@
                                 $state.go('app.gis', { 'order_id': id }, { 'notify': false });
                             } else if ($scope.user.user_type === 'CUSTOMER' &&
                                 $scope.data.payload.push_action === 'update') {
-                                $state.go('app.orders', { 'order_id': $scope.data.payload.id })
+                                $state.go('app.orders',
+                                    {
+                                        'order_id': $scope.data.payload.id,
+                                        'status': $scope.data.payload.status,
+                                    })
                             }
                         }
                     }, function (error) {

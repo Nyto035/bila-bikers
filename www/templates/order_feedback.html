@@ -21,11 +21,11 @@
               <div class="col-12 sub-form-title flex pad-r-0">
                   <div class="col-12 pad-h-0">
                     <div class="col-xs-12 fs-30">
-                        <small>{{orders.customer_name || 'Antony Owaga'}}</small>
+                        <small>{{currOrder.customer_name || 'Antony Owaga'}}</small>
                     </div>
                     <div class="col-xs-12 pad-t-5 margin-t-5">
                         <small><span class="text-muted">Total Cost:</span>
-                        {{(orders.cost || 1500)  | currency: 'KES '}}</small>
+                        {{(currOrder.cost || 1500)  | currency: 'KES '}}</small>
                     </div>
                   </div>
               </div>
@@ -33,17 +33,17 @@
                   <div class="col-12 grid-lines" ng-repeat="orders">
                       <div class="line-details col-12 pad-l-15">
                           <div class="col-12">
-                              <small>{{orders.customer_name}}</small>
+                              <small>{{currOrder.customer_name}}</small>
                           </div>
                           <div class="col-12">
                               <div class="col-12">
-                                  <small><small>{{orders.order_time | date: 'mediumDate'}}</small></small>
+                                  <small><small>{{currOrder.order_time | date: 'mediumDate'}}</small></small>
                               </div>
                           </div>
                       </div>
                       <div class="line-action col-1">
                           <span class="label label-warning">
-                              {{orders.status}}
+                              {{currOrder.status}}
                           </span>
                       </div>
                   </div>
@@ -64,7 +64,7 @@
                               <small>Item</small>
                           </div>
                           <div class="col-12">
-                              <small>{{orders.goods_name}}</small>
+                              <small>{{currOrder.goods_name}}</small>
                           </div>
                       </div>
                   </div>
@@ -74,7 +74,7 @@
                               <small>Item Description</small>
                           </div>
                           <div class="col-12" style="color: #666;">
-                              <small>{{orders.goods_description}}</small>
+                              <small>{{currOrder.goods_description}}</small>
                           </div>
                       </div>
                   </div>
@@ -84,7 +84,7 @@
                               <small>Pick Up</small>
                           </div>
                           <div class="col-12" style="color: #666;">
-                              <small>{{orders.source_name}}</small>
+                              <small>{{currOrder.source_name}}</small>
                           </div>
                       </div>
                   </div>
@@ -94,7 +94,7 @@
                               <small>Destination</small>
                           </div>
                           <div class="col-12" style="color: #666;">
-                              <small>{{orders.destination_name}}</small>
+                              <small>{{currOrder.destination_name}}</small>
                           </div>
                       </div>
                   </div>

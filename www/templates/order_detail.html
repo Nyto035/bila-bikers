@@ -37,7 +37,15 @@
     <div class="col-12 pad-h-20 gisbtn-cont no-flex" ng-if="way_points">
         <div class="col-12 pad-v-5 pad-h-15 no-flex" ng-if="user.user_type === 'CUSTOMER'"
         style="background-color: #edecec;margin-left: -20px;width:110%;">
-            <small>Meet Courier at Pickup Location</small>
+            <small ng-if="currOrderStatus === 'ACCEPTED' || order.status === 'ACCEPTED'">
+                Meet Courier at Pickup Location.
+            </small>
+            <small ng-if="currOrderStatus === 'PAID' || order.status === 'PAID'">
+                Delivery is on its way to destination.
+            </small>
+            <small ng-if="currOrderStatus === 'DELIVERED' || order.status === 'DELIVERED'">
+                <i class="icon ion-checkmark-round text-success"></i> Order delivered successfully
+            </small>
             <span class="status-label status-label-balanced pull-right">
                 <small>{{ order.status}}</small>
             </span>
@@ -51,7 +59,10 @@
             <div class="col-12">
                 <span class="text-muted">
                     <small>{{ user.user_type === 'COURIER' ? order.customer_name :
-                        order.courier_name}}</small>
+                        order.courier_name}}
+                        <span>| <small>{{user.user_type === 'COURIER' ? 'Receive' : 'Pay'}}
+                        {{order.amount || 1500 | currency: 'Kshs '}}</small></span>
+                    </small>
                 </span>
             </div>
         </div>
@@ -98,14 +109,35 @@
         </div>
         <div class="col-12" ng-if="user.user_type === 'COURIER'">
             <button class="button-primary button button-block"
-            ng-click="pickOrder()">
+            ng-click="pickOrder()" ng-if="currOrderStatus === 'ACCEPTED'">
                 PICK UP & RECEIVE KES 1,500.00
             </button>
+            <button class="button-primary button button-block"
+            ng-click="completeOrder()" ng-if="currOrderStatus === 'PAID'">
+                <i class="icon ion-checkmark-round"></i> COMPLETE DELIVERY
+            </button>
+            <button class="button-primary button button-block"
+            ui-sref="app.gis" ng-if="currOrderStatus === 'DELIVERED'">
+                <span class="pull-left">BACK TO ACCEPTING ORDER</span>
+                <span class="pull-right">
+                    <i class="icon ion-arrow-right-a"></i>
+                </span>
+            </button>
         </div>
-        <div class="col-12" ng-if="user.user_type === 'CUSTOMER'">
+        <div class="col-12" ng-if="user.user_type === 'CUSTOMER' &&
+        (currOrderStatus !== 'DELIVERED' || order.status !== 'DELIVERED')">
             <span class="label label-warning" style="color: #FFF;">
                 MEET COURIER AT PICKUP LOCATION
             </span>
+        </div>
+        <div class="col-12" ng-if="user.user_type === 'CUSTOMER'">
+            <button class="button-primary button button-block"
+            ui-sref="app.gis" ng-if="currOrderStatus === 'DELIVERED'">
+                <span class="pull-left">BACK TO MAKING MORE ORDERS</span>
+                <span class="pull-right">
+                    <i class="icon ion-arrow-right-a"></i>
+                </span>
+            </button>
         </div>
     </div>
 </ion-view>

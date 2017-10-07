@@ -172,10 +172,36 @@
                 $scope.closeModal = function() {
                     $scope.modal.hide();
                 };
+                $scope.currOrderStatus = $state.params.status;
+                console.log($scope.currOrderStatus);
+                $rootScope.$on('delivery_data', function(evt, data) {
+                    $scope.loaded = false;
+                    $scope.data = JSON.parse(data.data);
+                    console.log('Received event', $scope.data);
+                    $scope.getSelectedOrder();
+                });
                 // Pickup and receiving payment for a an order
                 $scope.pickOrder = function accpFxn() {
                     var patchObj = $scope.order;
                     patchObj.status = 'PAID';
+                    callApi.patch(patchObj, 'orders',
+                        $state.params.order_id, 'transition_delivery_order')
+                    .then(function(response){
+                        $scope.accepted_order = response.data;
+                        $state.go('app.orders', {
+                            'order_id': $scope.accepted_order.id,
+                            'status': $scope.accepted_order.status,
+                        });
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                        NotificationService.showError(error);
+                    });
+                };
+                // complete order
+                $scope.completeOrder = function accpFxn() {
+                    var patchObj = $scope.order;
+                    patchObj.status = 'DELIVERED';
                     callApi.patch(patchObj, 'orders',
                         $state.params.order_id, 'transition_delivery_order')
                     .then(function(response){

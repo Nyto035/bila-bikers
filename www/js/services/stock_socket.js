@@ -8,7 +8,7 @@
     socketFactory.$inject = ['LOCATION_HOST', '$websocket'];
 
     function socketFactory(locationHost, $websocket) {
-        const url = 'ws://'+locationHost+':8080/delivery/';
+        const url = 'ws://'+locationHost+':8000/delivery/';
         const mySocket = $websocket(url);
         return mySocket;
     }
