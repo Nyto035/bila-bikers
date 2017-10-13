@@ -22,7 +22,7 @@ angular.module('NDMA', [
     "app.directives"
 ])
 
-        .constant("SERVER_URL", "http://104.236.52.240/v1/")
+        .constant("SERVER_URL", "http://104.236.52.240:8080/v1/")
         .constant("AUTH_SERVER_URL", "http://104.236.52.240/")
         .constant("LOCATION_HOST", "104.236.52.240")
         // .constant("SERVER_URL", "http://localhost:8000/v1/")
