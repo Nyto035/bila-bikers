@@ -182,6 +182,15 @@
                     callApi.get(tokenObj, 'location')
                     .then(function(response){
                         $scope.couriers = response.data;
+                        console.log($scope.couriers);
+                        _.each($scope.couriers, function(c) {
+                            var p1 = new google.maps.LatLng(c.point[0], c.point[1]);
+                            var distance = 
+                                google.maps.geometry.spherical.computeDistanceBetween($scope.center, p1);
+                            if (distance > 6000) {
+                                $scope.couriers = _.without($scope.couriers, c);
+                            }
+                        });
                     })
                     .catch(function(error){
                         console.log(error);
