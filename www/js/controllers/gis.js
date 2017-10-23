@@ -30,6 +30,7 @@
                         geocoder.geocode({'location': latlong}, function(results, status) {
                             if (status === 'OK' && results[0]) {
                                 $scope.from_name = results[0].formatted_address;
+                                console.log($scope.from_name);
                             }
                         });
                     },function(err) {
@@ -91,6 +92,10 @@
                         }
                     ];
                     $scope.latlng = [loc.lat(), loc.lng()];
+
+                    var distance = 
+                        google.maps.geometry.spherical.computeDistanceBetween($scope.center, loc);
+                    $scope.distance = distance;
                     // $scope.center = [loc.lat(), loc.lng()];
                     $scope.path = markers.map(function(marker){
                         return [marker.lat,marker.lng];
@@ -239,6 +244,7 @@
                         'name': order.name,
                         'description': order.description,
                         'customer': $scope.user.id,
+                        'distance': $scope.distance,
                         'source': [$scope.latLong.lat, $scope.latLong.lng],
                         'source_name': $scope.from_name,
                         'destination': [$scope.dest.lat, $scope.dest.lng],
