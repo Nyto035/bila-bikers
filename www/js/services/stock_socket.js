@@ -3,6 +3,8 @@
 
     .factory('socket', socketFactory)
 
+    .factory('locSocket', locationSocket)
+
     .service('$myWebSocket', Socket);
 
     socketFactory.$inject = ['LOCATION_HOST', '$websocket'];
@@ -13,8 +15,16 @@
         return mySocket;
     }
 
-    Socket.$inject = ['socket', '$rootScope'];
-    function Socket(socket, $rootScope) {
+    locationSocket.$inject = ['LOCATION_HOST', '$websocket'];
+
+    function locationSocket(locationHost, $websocket) {
+        const url = 'ws://'+locationHost+':8000/geoloc/';
+        const locSocket = $websocket(url);
+        return locSocket;
+    }
+
+    Socket.$inject = ['socket', 'locSocket', '$rootScope'];
+    function Socket(socket, locSocket, $rootScope) {
         const self = this;
         // Open a Websocket connection
         let listeners = [];
@@ -27,8 +37,20 @@
                     // wrap this in $apply ???
                     listener(self.collection);
                 });
-                console.log(message);
                 $rootScope.$emit('delivery_data', message);
+                return message;
+            });
+        };
+
+        self.onLocMessage = function onLocFxn() {
+            self.collection = '';
+            locSocket.onMessage((message) => {
+                self.locCollection = JSON.parse(message.data);
+                angular.forEach(listeners, (listener) => {
+                    // wrap this in $apply ???
+                    listener(self.locCollection);
+                });
+                $rootScope.$emit('location_data', message);
                 return message;
             });
         };

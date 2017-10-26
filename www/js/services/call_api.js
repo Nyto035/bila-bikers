@@ -19,7 +19,7 @@
                 },
                 {
                     'key': 'location',
-                    'url': 'geoloc/locations/',
+                    'url': 'geoloc/geloc/',
                 },
                 {
                     'key': 'login',
@@ -47,8 +47,9 @@
             }
             // JWT
         };
-        this.post = function postFxn(data, key) {
+        this.post = function postFxn(data, key, uri) {
             var obj = this.route(key);
+            obj.url = !_.isUndefined(uri) ? (obj.url + uri + '/') : obj.url;
             return $http({
                 url: _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url),
                 method: "POST",
@@ -112,6 +113,22 @@
                 responseType : typeof responseType !== "string" ? "json" : responseType
             });
         };
+        this.list = function listFxn(data, key, params) {
+            var obj = this.route(key);
+            this.setToken(data);
+            var url = _.has(obj, 'auth') ? (AUTH_SERVER_URL + obj.url) : (SERVER_URL + obj.url);
+            return $http({
+                url: url,
+                method: "GET",
+                data: $httpParamSerializer(data),
+                params: params,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'withCredentials': true,
+                },
+                responseType : typeof responseType !== "string" ? "json" : responseType
+            })
+        }
         this.customGet = function getFxn(data, uri, id, key) {
             var obj = this.route(key);
             this.setToken(data);

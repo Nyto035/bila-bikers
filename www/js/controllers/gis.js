@@ -6,10 +6,11 @@
         .controller("gisController", ["$scope", "NgMap", "$ionicPlatform",
             "$window", "$locale", '$ionicPopover', 'apiBackend', 'NotificationService',
             'UserService', '$cordovaGeolocation', '$ionicModal', '$state', '$timeout',
-            '$myWebSocket', '$rootScope',
+            '$myWebSocket', '$rootScope', '$ionicLoading', 'LocationService', '$timeout',
             function ($scope, NgMap, $ionicPlatform, $window, $locale, $ionicPopover,
                 callApi, NotificationService, UserService, $cordovaGeolocation, $ionicModal,
-                $state, $timeout, myWebSocket, $rootScope) {
+                $state, $timeout, myWebSocket, $rootScope, $ionicLoading, LocationService,
+                $timeeout) {
                 $scope.refresh = function() {
                     $window.location.reload(true);
                 };
@@ -37,23 +38,14 @@
                         console.log(err);
                     });
                 };
-                $ionicPlatform.ready(function() {
-                    NgMap.getMap().then(function(map) {
-                        var center = map.getCenter();
-                        $scope.map = map;
-                        $scope.center = map.getCenter();
-                        google.maps.event.trigger(map, "resize");
-                        /* Setting geocoder*/
-                        $scope.src_details = map.setCenter(center);
-                        $scope.getCurrLocation();
-                    }).catch(function(error){
-                        console.log(error);
-                    });
-                    $scope.callbackFunc = function(param) {
-                        $scope.center = $scope.map.getCenter();
-                    };
-                });
-
+                $scope.locationAccuracy = function getLoc() {
+                    $ionicLoading.show();
+                    LocationService.getLocation()
+                    .then(function(position) {
+                        $ionicLoading.hide();
+                    })
+                };
+                
                 $scope.getpos = function (event) {
                     $scope.lat = event.latLng.lat();
                     $scope.lng = event.latLng.lng();
@@ -112,7 +104,6 @@
                                 $scope.modal.show();
                                 $scope.currOrder = $scope.data.payload;
                                 var id = $scope.currOrder.id;
-                                console.log(id);
                                 $state.go('app.gis', { 'order_id': id }, { 'notify': false });
                             } else if ($scope.user.user_type === 'CUSTOMER' &&
                                 $scope.data.payload.push_action === 'update') {
@@ -133,6 +124,12 @@
                     $scope.data = JSON.parse(data.data);
                     console.log('Received event', $scope.data);
                     $scope.acceptingOeder();
+                });
+
+                $rootScope.$on('location_data', function(evt, data) {
+                    $scope.loc_data = JSON.parse(data.data);
+                    console.log('Received loc event', $scope.loc_data);
+                    $scope.getCouriers();
                 });
 
                 $scope.$on('g-places-autocomplete:select', function(event, param) {
@@ -175,22 +172,56 @@
                 $scope.closeAcceptPopover = function() {
                     $scope.accept_popover.hide();
                 };
+                // shortest distance
+                $scope.calcDistance = function distanceFxn(origin, dest) {
+                    var routeResults = [];
+                    var directionsService = new google.maps.DirectionsService;
+                    console.log(directionsService);
+                    var request = {
+                        origin: origin,
+                        destination: dest,
+                        travelMode: 'DRIVING',
+                        optimizeWaypoints: true,
+                        unitSystem: google.maps.UnitSystem.IMPERIAL
+                    };
+                    directionsService.route(request,
+                    function(response) {
+                        console.log(response);
+                    });
+                    directionsService.route(request,
+                        function(response, status) {
+                            if (status === 'OK') {
+                                console.log(response.routes[0].legs[0].distance.value);
+                                return response;
+                            } else {
+                                return 0;
+                            }
+                        });
+                };
                 $scope.getCouriers = function(user) {
                     var tokenObj = {
                         'token': user.token,
                     };
                     callApi.get(tokenObj, 'location')
                     .then(function(response){
-                        $scope.couriers = response.data;
+                        $scope.couriers = response.data.results;
+                        $scope.loaded_couriers = true;
                         console.log($scope.couriers);
-                        _.each($scope.couriers, function(c) {
-                            var p1 = new google.maps.LatLng(c.point[0], c.point[1]);
-                            var distance = 
-                                google.maps.geometry.spherical.computeDistanceBetween($scope.center, p1);
-                            if (distance > 6000) {
-                                $scope.couriers = _.without($scope.couriers, c);
-                            }
-                        });
+                        if ($scope.couriers.length > 0) {
+                            _.each($scope.couriers, function(c) {
+                                c.point = c.current_location.coordinates;
+                                var p1 = new google.maps.LatLng(c.point[0], c.point[1]);
+                                var p2 = new google.maps.LatLng($scope.center.lat(), $scope.center.lng());
+                                console.log(p1, p2);
+                                var distance = 
+                                    google.maps.geometry.spherical.computeDistanceBetween(p2, p1);
+                                distance = $scope.calcDistance(p2, p1);
+                                console.log(distance);
+                                /*if (distance > 6000) {
+                                    $scope.couriers = _.without($scope.couriers, c);
+                                }*/
+                            });
+                        }
                     })
                     .catch(function(error){
                         console.log(error);
@@ -215,14 +246,81 @@
                         $scope.modal = modal;
                     });
                 };
+                /*$scope.$watch(function($scope) { return $scope.center },
+                    function(newVal, oldVal) {
+                        if (_.has($scope.user, 'user_type') &&
+                            $scope.user.user_type === 'COURIER') {
+                            $scope.createLocation();
+                        }
+                    });*/
+                var mytimeout = '';
+                // create or update courier location
+                $scope.myLocation = function myLocFxn() {
+                    if ($scope.currLocation.length === 0) {
+                        if (!_.isUndefined($scope.center) &&
+                            _.has($scope.center, 'lat')) {
+                            var now = new Date();
+                            var locArray = [$scope.center.lat(), $scope.center.lng()]
+                            var obj = {
+                                courier: $scope.user.id,
+                                current_location: locArray,
+                                location_time: now,
+                            };
+                            callApi.post(obj, 'location', 'location_update')
+                            .then(function(){})
+                            .catch(function(error){
+                                console.log(error);
+                                NotificationService.showError(error)
+                            })
+                        }
+                    } else {
+                        if (_.has($scope.center, 'lat')) {
+                            var now = new Date();
+                            var locArray = {
+                                type: 'Point',
+                                coordinates: [$scope.center.lat(), $scope.center.lng()]
+                            };
+                            var obj = {
+                                courier: $scope.user.id,
+                                current_location: locArray,
+                                location_time: now,
+                            };
+                            callApi.patch(obj, 'location', $scope.currLocation[0].id)
+                            .then(function(){})
+                            .catch(function(error){
+                                console.log(error);
+                                NotificationService.showError(error)
+                            })
+                            
+                        }
+                    }
+                };
+                // create or update location details for courier
+                $scope.createLocation = function locFxn() {
+                    var tokenObj = {
+                        'token': $scope.user.token,
+                    };
+                    var params = { 'courier': $scope.user.id };
+                    callApi.list(tokenObj, 'location', params)
+                    .then(function(response){
+                        $scope.currLocation = response.data.results;
+                        $scope.myLocation();
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                        NotificationService.showError(error);
+                    });
+                    // mytimeout = $timeeout($scope.createLocation, 20000);
+                };
                 // get user and determine what to show
                 $scope.getUser = function usrFxn() {
                     UserService.getLoggedInUsers().then(function (results) {
                         if (results.rows.length > 0) {
                             $scope.user = results.rows.item(0);
                             $scope.loaded = true;
-                            if ($scope.user.user_type === 'CUSTOMER' ||
-                                $scope.user.user_type === 'COURIER') {
+                            if ($scope.user.user_type === 'COURIER') {
+                                $scope.createLocation();
+                            } else if ($scope.user.user_type === 'CUSTOMER') {
                                 $scope.getCouriers($scope.user);
                             }
                         }
@@ -230,11 +328,32 @@
                         NotificationService.showError(error);
                     });
                 };
+                // map details
+                $scope.mapDetails = function mapFxn() {
+                    $scope.locationAccuracy();
+                    NgMap.getMap().then(function(map) {
+                        var center = map.getCenter();
+                        $scope.map = map;
+                        $scope.center = map.getCenter();
+                        google.maps.event.trigger(map, "resize");
+                        /* Setting geocoder*/
+                        $scope.src_details = map.setCenter(center);
+                        $scope.getUser();
+                        // $scope.getCurrLocation();
+                    }).catch(function(error){
+                        console.log(error);
+                    });
+                    $scope.callbackFunc = function(param) {
+                        $scope.center = $scope.map.getCenter();
+                    };
+                };
+
                 // getting orders
                 $ionicPlatform.ready(function () {
+                    $scope.mapDetails();
                     $scope.createModal();
                     $scope.createPopover();
-                    $scope.getUser();
+                    // $scope.getUser();
                     // $scope.acceptingOeder();
                     /* Dummy timeout function*/
                 });

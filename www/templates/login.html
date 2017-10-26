@@ -17,7 +17,7 @@
             </div>
         </div>
         <form class="padding">
-            <div class="form-cont margin-t-20">
+            <div class="form-cont margin-t-0">
                 <div class="group">
                     <input type="email" name="email" ng-model="user.email"
                            placeholder="john.doe@domain.com">
@@ -41,6 +41,11 @@
                     <i class="icon ion-android-exit">  SIGN IN</i>
                     <ion-spinner icon="spiral" ng-if="loader"></ion-spinner>
                 </button>
+            </div>
+            <div class="form-cont margin-b-5 col-12">
+                <span class="small">
+                    <small>Don't have an account yet?</small>
+                </span>
             </div>
             <div class="form-cont">
                 <a class="button button-outline col-12" ui-sref="registration">

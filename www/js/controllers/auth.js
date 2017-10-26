@@ -45,17 +45,23 @@
                         $state.go('login');
                     };
                     $scope.register = {};
+                    $scope.response = undefined;
                     $scope.createFields = userForm.createUser();
                     $scope.registerUser = function() {
-                        callApi.post($scope.register, 'user')
-                        .then(function(response){
-                            console.log(response);
-                            $state.go('login');
-                        })
-                        .catch(function(error){
-                            console.log(error);
-                            NotificationService.showError(error);
-                        });
+                        if (_.isUndefined($scope.response)) {
+                            callApi.post($scope.register, 'user')
+                            .then(function(response){
+                                $scope.response = response.data.full_name;
+                                NotificationService.showSuccess($scope.response);
+                                $state.go('login');
+                            })
+                            .catch(function(error){
+                                console.log(error);
+                                NotificationService.showError(error);
+                            });
+                        } else {
+                            console.log('Called');
+                        }
                     };
                     $scope.login = function () {
                         if (!$scope.user.email) {
@@ -96,7 +102,10 @@
                             });
                         })
                         .catch(function(error){
-                            console.log(error);
+                            console.log(error.data);
+                            if (_.has(error.data, 'non_field_errors')) {
+                                error = error.data.non_field_errors[0];
+                            }
                             NotificationService.showError(error);
                         });
                     };
