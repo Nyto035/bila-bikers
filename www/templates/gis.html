@@ -22,13 +22,12 @@
                 <!-- zoom="17" -->
                 <ng-map style="height: 85vh;" zoom-to-include-markers="auto"
                 geo-callback="callbackFunc('you')" zoom="17">
-                    <marker position="current" animation="DROP" centered="true">
+                    <marker position="current" centered="true">
                     </marker>
-                    <marker position="{{latlng}}" animation="DROP" centered="true"
+                    <marker position="{{latlng}}" centered="true"
                     draggable="false" ng-if="latlng">
                     </marker>
                     <marker ng-repeat="courier in couriers" position="{{courier.point}}"
-                    animation="DROP"
                     icon="{ url:'img/destination.png', scaledSize:[30,32], origin: [0,0] }">
                     </marker>
                     <directions
@@ -49,18 +48,17 @@
                 <!-- zoom="17" -->
                 <ng-map style="height: 85vh;" 
                 geo-callback="callbackFunc('you')" zoom="17">
-                    <marker position="current" animation="DROP" centered="true"
+                    <marker position="current" centered="true"
                     ng-if="user.user_type === 'CUSTOMER'">
                     </marker>
-                    <marker position="current" animation="DROP" centered="true"
+                    <marker position="current" centered="true"
                     ng-if="user.user_type === 'COURIER'"
                     icon="{ url:'img/destination.png', scaledSize:[30,32], origin: [0,0] }">
                     </marker>
-                    <marker position="{{latlng}}" animation="DROP" centered="true"
+                    <marker position="{{latlng}}" centered="true"
                     draggable="false" ng-if="latlng">
                     </marker>
                     <marker ng-repeat="courier in couriers" position="{{courier.point}}"
-                    animation="DROP"
                     icon="{ url:'img/destination.png', scaledSize:[30,32], origin: [0,0] }">
                     </marker>
                     <directions

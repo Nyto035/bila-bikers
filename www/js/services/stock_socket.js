@@ -97,6 +97,7 @@
             return true;
         };
         self.onMessage();
+        self.onLocMessage();
     }
 
     /*.factory('$myWebSocket', ['$log', '$websocket', 'LOCATION_HOST',

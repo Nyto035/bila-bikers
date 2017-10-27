@@ -17,7 +17,7 @@
                 // $scope.user = {};
                 $scope.map = {};
                 $scope.latlng = null;
-                $scope.center = [];
+                $scope.center = {};
                 /*End of websockets*/
                 $scope.getCurrLocation = function currFxn() {
                     var posOptions = {timeout: 10000, enableHighAccuracy: false};
@@ -26,6 +26,10 @@
                         var lat  = position.coords.latitude
                         var long = position.coords.longitude
                         var latlong = {lat: parseFloat(lat), lng: parseFloat(long)};
+                        $scope.src = {lat: parseFloat(lat), lng: parseFloat(long)};
+                        /*if ($scope.center.lat() === 0) {
+                            $scope.center = new google.maps.LatLng($scope.src.lat, $scope.src.lng);
+                        }*/
                         $scope.latLong = latlong;
                         var geocoder = new google.maps.Geocoder;
                         geocoder.geocode({'location': latlong}, function(results, status) {
@@ -66,10 +70,10 @@
                     if (p.address_components[0]) {
                         $scope.dest.name = p.address_components[0].long_name;
                     }
-                    $scope.src = {
+                    /* $scope.src = {
                         lat: $scope.center.lat(),
                         lng: $scope.center.lng(),
-                    };
+                    };*/
                     var markers = [];
                     markers.push($scope.dest);
                     markers.push($scope.src);
@@ -83,12 +87,12 @@
                             stopover: true,
                         }
                     ];
-                    $scope.latlng = [loc.lat(), loc.lng()];
 
+                    $scope.latlng = [loc.lat(), loc.lng()];
+                    $scope.center = new google.maps.LatLng($scope.src.lat, $scope.src.lng);
                     var distance = 
                         google.maps.geometry.spherical.computeDistanceBetween($scope.center, loc);
                     $scope.distance = distance;
-                    // $scope.center = [loc.lat(), loc.lng()];
                     $scope.path = markers.map(function(marker){
                         return [marker.lat,marker.lng];
                     });
@@ -106,7 +110,8 @@
                                 var id = $scope.currOrder.id;
                                 $state.go('app.gis', { 'order_id': id }, { 'notify': false });
                             } else if ($scope.user.user_type === 'CUSTOMER' &&
-                                $scope.data.payload.push_action === 'update') {
+                                $scope.data.payload.push_action === 'update'&&
+                                $scope.data.payload.customer === $scope.user.id) {
                                 $state.go('app.orders',
                                     {
                                         'order_id': $scope.data.payload.id,
@@ -128,13 +133,12 @@
 
                 $rootScope.$on('location_data', function(evt, data) {
                     $scope.loc_data = JSON.parse(data.data);
-                    console.log('Received loc event', $scope.loc_data);
                     $scope.getCouriers();
                 });
 
                 $scope.$on('g-places-autocomplete:select', function(event, param) {
-                    console.log('Called');
                     $scope.placeMarker(param);
+                    $scope.getCurrLocation();
                 })
                 /* Confirming order popover*/
                 $scope.createPopover = function popFxn($event) {
@@ -200,26 +204,22 @@
                 };
                 $scope.getCouriers = function(user) {
                     var tokenObj = {
-                        'token': user.token,
+                        'token': $scope.user.token,
                     };
                     callApi.get(tokenObj, 'location')
                     .then(function(response){
                         $scope.couriers = response.data.results;
                         $scope.loaded_couriers = true;
-                        console.log($scope.couriers);
                         if ($scope.couriers.length > 0) {
                             _.each($scope.couriers, function(c) {
                                 c.point = c.current_location.coordinates;
                                 var p1 = new google.maps.LatLng(c.point[0], c.point[1]);
-                                var p2 = new google.maps.LatLng($scope.center.lat(), $scope.center.lng());
-                                console.log(p1, p2);
+                                var p2 = new google.maps.LatLng($scope.src.lat, $scope.src.lng);;
                                 var distance = 
                                     google.maps.geometry.spherical.computeDistanceBetween(p2, p1);
-                                distance = $scope.calcDistance(p2, p1);
-                                console.log(distance);
-                                /*if (distance > 6000) {
+                                if (distance > 6000) {
                                     $scope.couriers = _.without($scope.couriers, c);
-                                }*/
+                                }
                             });
                         }
                     })
@@ -246,13 +246,15 @@
                         $scope.modal = modal;
                     });
                 };
-                /*$scope.$watch(function($scope) { return $scope.center },
+                $scope.$watch(function($scope) { return $scope.center },
                     function(newVal, oldVal) {
                         if (_.has($scope.user, 'user_type') &&
                             $scope.user.user_type === 'COURIER') {
                             $scope.createLocation();
+                        } else if ($scope.user.user_type === 'CUSTOMER') {
+                            $scope.mapDetails();
                         }
-                    });*/
+                    });
                 var mytimeout = '';
                 // create or update courier location
                 $scope.myLocation = function myLocFxn() {
@@ -260,7 +262,10 @@
                         if (!_.isUndefined($scope.center) &&
                             _.has($scope.center, 'lat')) {
                             var now = new Date();
-                            var locArray = [$scope.center.lat(), $scope.center.lng()]
+                            var locArray = {
+                                type: 'Point',
+                                coordinates: [$scope.center.lat(), $scope.center.lng()]
+                            };
                             var obj = {
                                 courier: $scope.user.id,
                                 current_location: locArray,
@@ -310,7 +315,7 @@
                         console.log(error);
                         NotificationService.showError(error);
                     });
-                    // mytimeout = $timeeout($scope.createLocation, 20000);
+                    mytimeout = $timeeout($scope.createLocation, 20000);
                 };
                 // get user and determine what to show
                 $scope.getUser = function usrFxn() {
@@ -330,7 +335,6 @@
                 };
                 // map details
                 $scope.mapDetails = function mapFxn() {
-                    $scope.locationAccuracy();
                     NgMap.getMap().then(function(map) {
                         var center = map.getCenter();
                         $scope.map = map;
@@ -339,7 +343,7 @@
                         /* Setting geocoder*/
                         $scope.src_details = map.setCenter(center);
                         $scope.getUser();
-                        // $scope.getCurrLocation();
+                        $scope.getCurrLocation();
                     }).catch(function(error){
                         console.log(error);
                     });
@@ -359,8 +363,8 @@
                 });
                 $scope.openModal = function($event) {
                     $scope.modal.show($event);
-                    $state.go($state.current, { 'order_id': $scope.orders.id },
-                        { 'notify': false});
+                    /* $state.go($state.current, { 'order_id': $scope.orders.id },
+                        { 'notify': false});*/
                 };
                 $scope.closeModal = function() {
                     $scope.modal.hide();
