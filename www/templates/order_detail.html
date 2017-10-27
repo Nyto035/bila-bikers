@@ -61,7 +61,7 @@
                     <small>{{ user.user_type === 'COURIER' ? order.customer_name :
                         order.courier_name}}
                         <span>| <small>{{user.user_type === 'COURIER' ? 'Receive' : 'Pay'}}
-                        {{order.amount || 1500 | currency: 'Kshs '}}</small></span>
+                        {{order.total_cost || 1500 | currency: 'Kshs '}}</small></span>
                     </small>
                 </span>
             </div>
@@ -110,7 +110,7 @@
         <div class="col-12" ng-if="user.user_type === 'COURIER'">
             <button class="button-primary button button-block"
             ng-click="pickOrder()" ng-if="currOrderStatus === 'ACCEPTED'">
-                PICK UP & RECEIVE KES 1,500.00
+                PICK UP & RECEIVE {{order.total_cost || 1500 | currency: 'KES '}}
             </button>
             <button class="button-primary button button-block"
             ng-click="completeOrder()" ng-if="currOrderStatus === 'PAID'">
